@@ -17,11 +17,15 @@ Or open the folder with Claude Code and say "install and run the site".
 
 ## 2. Content
 
-- **33 projects** in `src/content/projets/`: 15 new ones first (order 1-99), then the 18 old
+- **36 projects** in `src/content/projets/`: 18 new ones first (order 1-99, including `the-parrot`,
+  `the-plant` and `the-writer`, the 3 individual films of The Unearthly Notes), then the 18 old
   projects kept from anorakstudio.ca/v2 (order 100+, same slugs as the old URLs).
 - Home hero (image or video, text on/off and position) and carousel slides (media, text,
   link, text on/off): `hero` and `carousel` in `src/data/site.ts`.
-- Réalisation featured 16:9 media (image, video file, YouTube or Vimeo): `realisation.featured`.
+- Home "Projets récents": a curated set of 6 projects, separate from the full project list
+  further down the homepage: `recents` in `src/data/site.ts`.
+- Réalisation and Gamification featured 16:9 media (image, video file, YouTube or Vimeo):
+  `realisation.featured` and `gamification.featured`.
 - Réalisation and Gamification sections: lists of projects in `src/data/site.ts`.
 - Old site images still used: `public/images/old-site/`. Brand images: `public/images/site/`.
 - **What's missing, project by project: `docs/A-COMPLETER.md`.**

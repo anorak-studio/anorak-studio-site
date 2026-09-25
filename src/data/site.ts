@@ -108,6 +108,20 @@ export const services = [
     ],
   },
   {
+    id: 'conseil-strategique',
+    title: 'Conseil stratégique',
+    image: '',
+    lead: "Design thinking, positionnement et stratégie de marque, dès les premières étapes d'un projet.",
+    text: [
+      "On accompagne les entreprises et les organismes dès l'émergence d'un projet : concept, positionnement, nom, identité et stratégie de marque, avant même d'entamer la production.",
+      "Design thinking, stratégie marketing, positionnement, recherche de nom (entreprise ou projet), critique de concept et développement de projet en démarrage : on aide à clarifier une idée avant de la mettre en image.",
+    ],
+    // The 5 classic design-thinking stages. A visual explaining them will replace/accompany
+    // this list later — the structure is ready for it (see the Design Thinking block below).
+    designThinking: ['Empathie', 'Définition', 'Idéation', 'Prototypage', 'Test'],
+    designThinkingNote: 'Visuel des 5 étapes du design thinking à venir',
+  },
+  {
     id: 'realisation',
     title: 'Réalisation',
     image: '/images/site/carrousel-3.jpg',
@@ -172,13 +186,17 @@ export const realisation = {
   featuredCaption: 'Bande-démo à venir',
   intro: [
     "Mathieu Fortin est réalisateur. Il signe désormais des courts métrages de fiction et des documentaires, souvent à la frontière de l'art et de la science.",
-    "Du docu-cirque Urgences Rurales 360 au documentaire ABKT en production, on explore l'art comme vecteur de transfert de connaissances.",
+    "Du documentaire ABKT en production à la série The Unearthly Notes sur Bell TV1, on explore l'art comme vecteur de transfert de connaissances.",
   ],
-  projects: ['urgences-rurales-360', 'abkt', 'the-unearthly-notes', 'art-robots', 'la-mue'],
+  // The Unearthly Notes appears here as its 3 individual films rather than as one entry.
+  projects: ['abkt', 'the-parrot', 'the-plant', 'the-writer', 'art-robots', 'la-mue'],
 };
 
 export const gamification = {
   title: 'Gamification et Indie Game',
+  // Big 16:9 media before the projects grid, same principle as Réalisation.
+  featured: { type: 'image', src: '/images/site/carrousel-1.jpg', alt: 'Doomed Raiders' } as Media,
+  featuredCaption: 'Doomed Raiders — Anorak Studio Games',
   intro: [
     "Le jeu est un formidable outil pour apprendre, comprendre et participer. On conçoit des expériences ludiques et on offre des services-conseils en gamification, surtout pour des projets scientifiques et citoyens.",
     "Datagotchi et Prof. Datagotchi en sont de parfaits exemples. Fungus Forest est un jeu déjà livré et jouable en ligne, et Doomed Raiders est notre projet coup de cœur, développé à l'interne.",
@@ -190,4 +208,18 @@ export const boutique = {
   title: 'Boutique Wooders',
   text: "Des vêtements illustrés, tout droit sortis des bois. Les gilets Wooders arrivent bientôt sur le site.",
   href: 'https://www.wooders.ca/',
+};
+
+// Homepage "Projets récents": a curated set of 6, not the full list.
+// ABKT and La Mue stay off this list on purpose (they're in Réalisation instead).
+export const recents = {
+  title: 'Projets récents',
+  projects: [
+    'urgences-rurales-360',
+    'the-unearthly-notes',
+    'art-robots',
+    'doomed-raiders',
+    'datagotchi',
+    'hub-innovation-medecine-rurale',
+  ],
 };

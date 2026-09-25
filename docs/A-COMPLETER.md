@@ -14,6 +14,12 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 - [ ] Image pour le carrousel
 - [ ] Sélections en festivals
 
+## The Parrot, The Plant, The Writer (épisodes individuels)  
+`src/content/projets/the-parrot.md`, `the-plant.md`, `the-writer.md`
+- [ ] Image principale et image pour la grille de chaque épisode (sur tv1.bell.ca : envoie-les-moi)
+- [ ] Bande-annonce de chaque épisode (lien YouTube ou Vimeo)
+- Ces 3 fichiers remplacent « The Unearthly Notes » dans la section Réalisation seulement ; la fiche groupée reste dans « Projets récents » et dans la liste complète des projets.
+
 ## ABKT  
 `src/content/projets/abkt.md`
 - [ ] Titre complet et synopsis
@@ -83,7 +89,11 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 ## Général
 - [ ] Lien de la bande-démo drone : `droneReel` dans `src/data/site.ts`
 - [ ] Média vedette de la Réalisation (vidéo) : `realisation.featured` dans `src/data/site.ts`
+- [ ] Média vedette de Gamification et Indie Game : `gamification.featured` (reprend pour l'instant l'image Doomed Raiders du carrousel — à remplacer si tu préfères autre chose)
 - [ ] Photo ou vidéo d'accueil en plus haute résolution (l'actuelle fait 1024 px de large) : `hero` dans `src/data/site.ts`
+- [ ] Image du service « Conseil stratégique » : `image` dans le service `conseil-strategique` de `src/data/site.ts`
+- [ ] Visuel des 5 étapes du design thinking (l'espace est prêt sur la page Services, sous forme de pastilles en attendant)
+- [ ] 6e projet de « Projets récents » : j'ai choisi le Hub d'innovation en médecine rurale pour compléter la sélection (Urgences Rurales 360, The Unearthly Notes, Art Robots, Doomed Raiders, Datagotchi) — dis-moi si tu préfères un autre projet
 - [ ] Projets à identifier avec le tag IA : ajouter `ai: true` dans leur fichier
 - [ ] Relire tous les textes (accueil, services, réalisation, gamification, contact)
 - [ ] Version anglaise

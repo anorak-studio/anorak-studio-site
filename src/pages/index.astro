@@ -7,12 +7,14 @@ import ProjectTiles from '../components/ProjectTiles.astro';
 import Featured from '../components/Featured.astro';
 import Social from '../components/Social.astro';
 import logoStudio from '../assets/logos/anorak-studio.svg?raw';
-import { site, services, realisation, gamification, boutique, carousel } from '../data/site';
+import { site, services, realisation, gamification, boutique, carousel, recents } from '../data/site';
 import { getProjets, pickProjets } from '../lib/projets';
 
 const projets = await getProjets();
+const recentProjets = await pickProjets(recents.projects);
 const films = await pickProjets(realisation.projects);
 const jeux = await pickProjets(gamification.projects);
+const taglineWords = site.tagline.split(' ');
 ---
 <Base>
   <Hero />
@@ -20,7 +22,9 @@ const jeux = await pickProjets(gamification.projects);
   <section class="intro">
     <div class="intro__logo" set:html={logoStudio} role="img" aria-label="Anorak Studio" />
     <div class="wrap wrap--text intro__cols">
-      <p class="intro__tag">{site.tagline}</p>
+      <p class="intro__tag">
+        {taglineWords.map((w, i) => <>{w}{i < taglineWords.length - 1 && <br />}</>)}
+      </p>
       <div class="intro__txt">
         {site.intro.map((p) => <p>{p}</p>)}
         <p class="intro__contact">
@@ -36,10 +40,10 @@ const jeux = await pickProjets(gamification.projects);
   <section class="section">
     <div class="wrap">
       <div class="head">
-        <h2>Projets</h2>
+        <h2>{recents.title}</h2>
         <a class="link" href="/projets/">Tous les projets →</a>
       </div>
-      <ProjectGrid projets={projets} initial={9} />
+      <ProjectGrid projets={recentProjets} />
     </div>
   </section>
 
@@ -90,6 +94,7 @@ const jeux = await pickProjets(gamification.projects);
         <h2>{gamification.title}</h2>
         <p>{gamification.intro[0]}</p>
       </div>
+      <Featured media={gamification.featured} caption={gamification.featuredCaption} />
       <ProjectTiles projets={jeux} cols={4} />
       <p class="duo__more"><a class="link" href="/gamification/">En savoir plus sur la gamification →</a></p>
     </div>
@@ -106,6 +111,16 @@ const jeux = await pickProjets(gamification.projects);
         <a class="btn" href="/boutique/">La boutique</a>
         <a class="link" href={boutique.href} target="_blank" rel="noopener">wooders.ca →</a>
       </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head">
+        <h2>Projets</h2>
+        <a class="link" href="/projets/">Tous les projets →</a>
+      </div>
+      <ProjectGrid projets={projets} initial={9} />
     </div>
   </section>
 </Base>
