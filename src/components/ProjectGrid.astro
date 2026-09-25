@@ -1,0 +1,64 @@
+---
+// The old "Projets Anorak" list: masonry, 4 columns, image zooms on hover,
+// title with the categories in italics below. Shows `initial` items, then "Voir plus".
+import Img from './Img.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { projets: CollectionEntry<'projets'>[]; initial?: number; columns?: number; }
+const { projets, initial = 0, columns = 4 } = Astro.props;
+const limited = initial > 0 && projets.length > initial;
+---
+<div class="pgrid" style={`--cols:${columns}`} data-limited={limited ? '' : undefined}>
+  {projets.map((p, i) => (
+    <a class="pitem" href={`/projets/${p.id}/`} data-extra={limited && i >= initial ? '' : undefined}>
+      <div>
+        <div class="pitem__img"><Img src={p.data.cover} alt={p.data.title} ratio="auto" eager={i < 4} /></div>
+        <h2 class="pitem__t">{p.data.title}</h2>
+        {p.data.categories.length > 0 && <p class="pitem__c">{p.data.categories.join(', ')}</p>}
+      </div>
+    </a>
+  ))}
+</div>
+{limited && (
+  <p class="more"><button class="btn" type="button">Voir plus de projets</button></p>
+)}
+
+<script>
+  // Masonry, left to right like the old site: each card spans as many 4px rows as it is tall.
+  const layout = () =>
+    document.querySelectorAll<HTMLElement>('.pgrid').forEach((g) => {
+      g.classList.add('is-masonry');
+      g.querySelectorAll<HTMLElement>('.pitem').forEach((it) => {
+        const inner = it.firstElementChild as HTMLElement;
+        it.style.gridRowEnd = `span ${Math.ceil((inner.getBoundingClientRect().height + 22) / 4)}`;
+      });
+    });
+  document.querySelectorAll<HTMLImageElement>('.pgrid img').forEach((img) => img.addEventListener('load', layout));
+  addEventListener('resize', layout);
+  layout();
+
+  document.querySelectorAll<HTMLButtonElement>('.more .btn').forEach((b) =>
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.pgrid[data-limited]').forEach((g) => g.removeAttribute('data-limited'));
+      b.parentElement?.remove();
+      layout();
+    }),
+  );
+</script>
+
+<style>
+  .pgrid { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: 22px 15px; align-items: start; }
+  .pgrid.is-masonry { grid-auto-rows: 4px; row-gap: 0; }
+  .pgrid[data-limited] .pitem[data-extra] { display: none; }
+  .pitem { display: block; text-decoration: none; min-width: 0; }
+  @media (max-width: 1000px) { .pgrid { grid-template-columns: repeat(min(var(--cols), 3), 1fr); } }
+  @media (max-width: 760px) { .pgrid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .pgrid { grid-template-columns: 1fr; } }
+  .pitem__img { overflow: hidden; margin-bottom: 10px; background: var(--c-grey); }
+  .pitem__img :global(img) { transition: transform .4s ease; aspect-ratio: auto !important; }
+  .pitem:hover .pitem__img :global(img) { transform: scale(1.05); }
+  .pitem__t { font: 700 1.1rem/1.25 var(--f-display); margin: 0 0 4px; letter-spacing: 0; }
+  .pitem:hover .pitem__t { color: var(--c-brand); }
+  .pitem__c { font-size: .8rem; font-style: italic; color: var(--c-muted); margin: 0; line-height: 1.5; }
+  .more { text-align: center; margin: 24px 0 0; }
+</style>

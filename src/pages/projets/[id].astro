@@ -1,62 +1,84 @@
 ---
-import { getCollection, render } from 'astro:content';
+// Like the old project template: full-width image, dark band with title, date and
+// description, then the images/videos, then "Autres réalisations".
+import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Img from '../../components/Img.astro';
+import ProjectGrid from '../../components/ProjectGrid.astro';
+import { getProjets } from '../../lib/projets';
 
 export async function getStaticPaths() {
-  const projets = (await getCollection('projets')).sort((a, b) => a.data.order - b.data.order);
-  return projets.map((entry, i) => ({
-    params: { id: entry.id },
-    props: { entry, next: projets[(i + 1) % projets.length] },
-  }));
+  const projets = await getProjets();
+  return projets.map((entry, i) => {
+    // 4 other projects, continuing after this one in the list
+    const others = [1, 2, 3, 4].map((k) => projets[(i + k) % projets.length]);
+    return { params: { id: entry.id }, props: { entry, others } };
+  });
 }
 
-const { entry, next } = Astro.props;
+const { entry, others } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
+const date = d.date?.toLocaleDateString('fr-CA', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 ---
 <Base title={d.title} description={d.summary} image={d.cover}>
-  <article class="section">
-    <div class="wrap">
-      <a class="back" href="/projets/">← Tous les projets</a>
-      <span class="eyebrow">{d.categories.join(' · ')}</span>
-      <h1>{d.title}</h1>
-      <div class="intro">
-        <p class="lead">{d.summary}</p>
-        <dl>
-          {d.client && (<><dt>Client</dt><dd>{d.client}</dd></>)}
-          <dt>Réalisation</dt><dd>Anorak Studio</dd>
-        </dl>
-      </div>
-      <div class="cover"><Img src={d.cover} alt={d.title} ratio="16 / 9" eager /></div>
-      <div class="body"><Content /></div>
-      {d.gallery.length > 0 && (
-        <div class="gallery">
-          {d.gallery.map((src, i) => <Img src={src} alt={`${d.title}, image ${i + 1}`} ratio="3 / 2" />)}
+  <article>
+    <header class="phead">
+      {d.cover && <div class="phead__img"><Img src={d.cover} alt="" eager sizes="100vw" /></div>}
+      <div class="phead__band">
+        <div class="wrap">
+          <h1>{d.title}</h1>
+          <p class="phead__meta">
+            {date && <time datetime={d.date?.toISOString().slice(0, 10)}>{date}</time>}
+            {d.categories.length > 0 && <span>{d.categories.join(', ')}</span>}
+          </p>
+          <div class="phead__txt prose"><Content /></div>
         </div>
-      )}
-      <a class="next" href={`/projets/${next.id}/`}>
-        <span class="eyebrow">Projet suivant</span>
-        <span class="next__t">{next.data.title} →</span>
-      </a>
+      </div>
+    </header>
+
+    <div class="media wrap">
+      {d.videos.map((id) => (
+        <div class="video">
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${id}`}
+            title={`${d.title} (vidéo)`}
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      ))}
+      {d.gallery.map((src, i) => <Img src={src} alt={`${d.title}, image ${i + 1}`} />)}
     </div>
   </article>
+
+  <section class="section others">
+    <div class="wrap">
+      <h2 class="center">Autres réalisations</h2>
+      <ProjectGrid projets={others} />
+      <p class="center all"><a class="btn" href="/projets/">Tous les projets</a></p>
+    </div>
+  </section>
 </Base>
 
 <style>
-  .back { display: inline-block; margin-bottom: 2rem; color: var(--c-muted); text-decoration: none; }
-  .back:hover { color: var(--c-ink); }
-  h1 { max-width: 18ch; color: var(--c-brand); }
-  .intro { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin: 1rem 0 3rem; }
-  dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: .4rem 1rem; font-size: .95rem; }
-  dt { color: var(--c-muted); }
-  dd { margin: 0; }
-  .cover { border-radius: var(--radius); overflow: hidden; }
-  .body { max-width: 68ch; margin: 3rem 0; font-size: 1.15rem; }
-  .gallery { display: grid; gap: clamp(12px, 2vw, 24px); grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); }
-  .gallery :global(img), .gallery :global(.img-missing) { border-radius: var(--radius); }
-  .next { display: block; margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--c-line); text-decoration: none; }
-  .next__t { font: 800 clamp(1.8rem, 5vw, 3.5rem)/1.05 var(--f-display); }
-  .next:hover .next__t { color: var(--c-brand); }
-  @media (max-width: 720px) { .intro { grid-template-columns: 1fr; } }
+  .phead__img { background: var(--c-dark); position: relative; }
+  .phead__img :global(img) { max-height: 78vh; object-fit: cover; }
+  .phead__img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 55%, var(--c-dark)); pointer-events: none; }
+  .phead__band { background: var(--c-dark); color: var(--c-on-dark); padding: 18px 0 44px; }
+  .phead h1 { font-size: clamp(1.9rem, 4.5vw, 3.2rem); max-width: 26ch; margin-bottom: .3em; }
+  .phead__meta { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .88rem; color: color-mix(in srgb, var(--c-on-dark) 65%, transparent); margin-bottom: 1.4rem; }
+  .phead__meta span { font-style: italic; }
+  .phead__txt { max-width: 72ch; font-size: 1.05rem; }
+  .phead__txt :global(a) { color: var(--c-brand-light); }
+
+  .media { display: grid; gap: clamp(16px, 3vw, 32px); padding-block: clamp(32px, 5vw, 64px); max-width: 1000px; justify-items: center; }
+  .media > :global(img) { width: auto !important; max-width: 100%; }
+  .video { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; }
+  .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+  .others { background: var(--c-grey); }
+  .others h2 { margin-bottom: 1.2em; }
+  .all { margin: 12px 0 0; }
 </style>

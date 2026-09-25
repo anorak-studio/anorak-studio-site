@@ -1,30 +1,54 @@
 ---
-// Shows an image from /public. If the file isn't there yet (old-site images not
-// extracted), renders a striped placeholder with the expected path instead of a broken image.
+// Image from /public with its real width/height (read at build time, so pages don't jump
+// while loading). If the file is missing, shows a striped placeholder instead of a broken image.
 import fs from 'node:fs';
 import path from 'node:path';
 
 interface Props {
   src?: string;
   alt: string;
-  ratio?: string; // e.g. '4 / 3'
+  ratio?: string; // e.g. '4 / 3', or 'auto' for the image's own shape
   class?: string;
   eager?: boolean;
+  sizes?: string;
 }
-const { src, alt, ratio = '4 / 3', class: cls = '', eager = false } = Astro.props;
-const exists = !!src && fs.existsSync(path.join(process.cwd(), 'public', decodeURI(src)));
+const { src, alt, ratio = 'auto', class: cls = '', eager = false, sizes } = Astro.props;
+const file = src ? path.join(process.cwd(), 'public', decodeURI(src)) : '';
+const exists = !!src && fs.existsSync(file);
+
+function dims(f: string): [number, number] | null {
+  try {
+    const b = fs.readFileSync(f);
+    if (b.readUInt32BE(0) === 0x89504e47) return [b.readUInt32BE(16), b.readUInt32BE(20)]; // PNG
+    if (b[0] === 0xff && b[1] === 0xd8) { // JPEG: walk segments to the SOF marker
+      let i = 2;
+      while (i < b.length) {
+        if (b[i] !== 0xff) { i++; continue; }
+        const m = b[i + 1];
+        if (m >= 0xc0 && m <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(m)) return [b.readUInt16BE(i + 7), b.readUInt16BE(i + 5)];
+        i += 2 + b.readUInt16BE(i + 2);
+      }
+    }
+  } catch {}
+  return null;
+}
+const wh = exists ? dims(file) : null;
+const style = ratio === 'auto' ? 'width:100%;height:auto' : `aspect-ratio:${ratio};object-fit:cover;width:100%`;
 ---
 {exists ? (
   <img
     src={src}
     alt={alt}
     class={cls}
-    style={`aspect-ratio:${ratio};object-fit:cover;width:100%`}
+    width={wh?.[0]}
+    height={wh?.[1]}
+    sizes={sizes}
+    style={style}
     loading={eager ? 'eager' : 'lazy'}
     decoding="async"
   />
 ) : (
-  <div class={`img-missing ${cls}`} style={`aspect-ratio:${ratio}`} role="img" aria-label={alt}>
+  <div class={`img-missing ${cls}`} style={`aspect-ratio:${ratio === 'auto' ? '4 / 3' : ratio}`} role="img" aria-label={alt}>
     <span>{src ? `Image à venir : ${src.split('/').pop()}` : 'Image à venir'}</span>
   </div>
 )}

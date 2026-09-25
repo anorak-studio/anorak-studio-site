@@ -1,7 +1,7 @@
 # Anorak Studio: nouveau site (Astro + Cloudflare Pages)
 
-The base of the new anorakstudio.ca, rebuilt from the old WordPress site (v2).
-French content, fresh design, the same projects, services and contact info.
+The new anorakstudio.ca, rebuilt from the old WordPress site (v2): same layout, images,
+projects and texts, with a new green palette and new typography (Archivo + Inter).
 
 ## 1. First run (on your computer)
 
@@ -15,43 +15,45 @@ npm run dev          # opens http://localhost:4321
 
 Or open the folder with Claude Code and say "install and run the site".
 
-## 2. Pull the images and old text out of the backup
+## 2. What came from the old site
 
-```bash
-python3 tools/extract-wpress.py ~/Downloads/anorakstudio-ca-v2-20260302-185901-qwnnz1h59w4x.wpress
-```
+Imported from the UpdraftPlus backup of anorakstudio.ca/v2 (September 2026):
 
-- Every media-library image goes to `public/images/old-site/<year>/<month>/`,
-  the same folders as WordPress. WordPress's auto-resized copies are skipped;
-  add `--all-sizes` to keep them.
-- All the old pages and projects (text, featured image, image list) are exported to
-  `tools/out/old-site-content.md` (to read) and `tools/out/old-site-content.json`
-  (for Claude to fill in the project pages).
-- `--full` also unpacks themes and plugins to `tools/out/wpress/`.
+- **All 175 original images** of the media library, in `public/images/old-site/<year>/<month>/`
+  (WordPress's resized copies left out, very large files scaled to 2400 px max).
+- **29 projects** (27 published + 2 drafts: Zecs Québec, Septante construction) with their text,
+  categories, cover image, image gallery, YouTube videos and original order:
+  `src/content/projets/`. Each file name is the old URL slug.
+- **Logos** (ANORAK, ANORAK STUDIO, menu icon) as recolorable SVGs in `src/assets/logos/`.
+- Page texts (home, services, contact, footer) in `src/data/site.ts`.
+- A readable dump of every old page and project: `docs/old-site-content.md`.
 
-Images that are already referenced (services, Tutto Gelato) show up right away.
-Until an image is there, the site shows a striped "Image à venir" placeholder
-instead of a broken image.
+`tools/extract-wpress.py` can still unpack an All-in-One WP Migration `.wpress` file
+(useful for another WordPress site).
 
 ## 3. Where things live
 
 | What | File |
 |---|---|
-| Contact info, socials, tagline, services | `src/data/site.ts` |
+| Contact info, socials, tagline, services, carousel | `src/data/site.ts` |
 | Projects (one file each) | `src/content/projets/*.md` |
 | Colors and fonts (design tokens) | `src/styles/global.css` (`:root`) |
+| Header / full-screen menu, footer | `src/components/Header.astro`, `Footer.astro` |
 | Pages | `src/pages/` |
 | Old URL redirects (`/v2/...`) | `public/_redirects` |
 
 To add a project, copy a `.md` file in `src/content/projets/`, change the text,
-and point `cover` and `gallery` to images in `public/images/`.
+and point `cover` and `gallery` to images in `public/images/`. Set `draft: true` to hide it.
+`order` sets its position in the grid.
 
 ## 4. Still to do
 
-- [ ] Run the extractor, then fill in the text and images for 5 projects
-      (Sine Qua Non, Métiers d'Art Charlevoix, Relais Coop, Caouane, Aide aux sinistrés).
-      Their categories are placeholders too.
-- [ ] Real logo (`public/`) to replace the temporary triangle mark in `Header.astro`
+- [ ] Categories: on the old site almost every project was tagged with all six
+      categories (and three with "Tout"). Clean them up if we want a working filter.
+- [ ] Hero photo (`public/images/site/hero-riviere.jpg`) is only 1024 px wide: a larger
+      original would look sharper full-width.
+- [ ] Carousel: the 5 images prepared in March 2025 (hidden on the old site). Add links
+      (trailers) in `src/data/site.ts` if wanted.
 - [ ] Contact form: set `formEndpoint` in `src/data/site.ts` (e.g. Formspree), or
       add a Cloudflare Pages Function
 - [ ] Boutique: Printify → Shopify, then show products on `/boutique/`

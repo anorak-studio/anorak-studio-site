@@ -2,17 +2,19 @@
 // Shop placeholder. Plan: Printify -> Shopify store, products shown here with the
 // Shopify Storefront API or "Buy Button". Nothing here depends on that yet.
 import Base from '../layouts/Base.astro';
+import PageTitle from '../components/PageTitle.astro';
 import { site } from '../data/site';
 ---
 <Base title="Boutique" description="La boutique Anorak Studio arrive bientôt.">
-  <section class="section">
-    <div class="wrap">
-      <span class="eyebrow">Boutique</span>
-      <h1>Bientôt.</h1>
-      <p class="lead">Affiches, illustrations et produits dérivés Anorak Studio. La boutique ouvre sous peu.</p>
-      <a class="btn btn--ghost" href={`mailto:${site.email}?subject=Boutique`}>Être avisé à l'ouverture</a>
-    </div>
+  <PageTitle title="Boutique" />
+  <section class="section wrap center">
+    <p class="big">Bientôt.</p>
+    <p class="muted">Affiches, illustrations et produits dérivés Anorak Studio. La boutique ouvre sous peu.</p>
+    <a class="btn" href={`mailto:${site.email}?subject=Boutique`}>Être avisé à l'ouverture</a>
   </section>
 </Base>
 
-<style>h1 { color: var(--c-brand); } .lead { margin-bottom: 2rem; }</style>
+<style>
+  .big { font: 800 clamp(2rem, 5vw, 3rem)/1 var(--f-display); color: var(--c-brand); }
+  .muted { color: var(--c-muted); margin-bottom: 2rem; }
+</style>

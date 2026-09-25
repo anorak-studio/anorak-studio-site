@@ -1,67 +1,81 @@
-/* Design tokens. A variant site (Anorak Studio Games) can swap this block only. */
+/* Design tokens. The Anorak Studio Games variant can swap this block only.
+   Layout follows the old site (v2); green palette + Archivo/Inter are new. */
 :root {
-  --c-bg: #f4f1ea;
+  --c-bg: #f4f1ea;          /* page background (off-white) */
   --c-surface: #ffffff;
+  --c-grey: #e6e2d7;        /* the old site's light grey bands (#EAEAEA), warmed */
   --c-ink: #16201b;
   --c-muted: #5b6660;
-  --c-line: #d9d4c7;
-  --c-brand: #1f4d3a;       /* forest green */
+  --c-line: #d6d1c4;
+  --c-dark: #111814;        /* header, menu, dark bands */
+  --c-dark-2: #1c2721;
+  --c-on-dark: #f4f1ea;
+  --c-brand: #1f4d3a;       /* forest green (replaces the old neon green) */
+  --c-brand-light: #8cc5a2; /* green used on dark backgrounds */
   --c-brand-ink: #f4f1ea;
-  --c-accent: #c8743b;      /* rust, used sparingly */
+  --c-accent: #c8743b;      /* focus rings only */
 
   --f-display: 'Archivo', system-ui, sans-serif;
   --f-body: 'Inter', system-ui, sans-serif;
 
-  --w-max: 1200px;
+  --w-max: 1140px;          /* same content width as the old site */
   --gutter: clamp(16px, 4vw, 40px);
-  --radius: 6px;
+  --radius: 4px;
+  --hdr-h: 64px;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--hdr-h) + 16px); }
 body {
   margin: 0;
   background: var(--c-bg);
   color: var(--c-ink);
-  font: 400 1.0625rem/1.6 var(--f-body);
+  font: 400 1.0625rem/1.65 var(--f-body);
+  min-height: 100vh; display: flex; flex-direction: column;
 }
+main { flex: 1; }
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
-h1, h2, h3 { font-family: var(--f-display); line-height: 1.05; margin: 0 0 .5em; letter-spacing: -0.01em; }
-h1 { font-size: clamp(2.5rem, 7vw, 5.5rem); font-weight: 800; }
-h2 { font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 700; }
-h3 { font-size: 1.25rem; font-weight: 700; }
+h1, h2, h3 { font-family: var(--f-display); line-height: 1.08; margin: 0 0 .5em; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.2rem, 5.5vw, 4rem); font-weight: 800; }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700; }
+h3 { font-size: 1.2rem; font-weight: 700; }
 p { margin: 0 0 1em; }
 
 .wrap { max-width: var(--w-max); margin-inline: auto; padding-inline: var(--gutter); }
-.section { padding-block: clamp(56px, 9vw, 120px); }
+.section { padding-block: clamp(48px, 7vw, 96px); }
 .eyebrow {
-  font: 600 .8rem/1 var(--f-body);
-  text-transform: uppercase; letter-spacing: .14em;
+  font: 600 .78rem/1 var(--f-body);
+  text-transform: uppercase; letter-spacing: .16em;
   color: var(--c-muted); margin-bottom: 1rem; display: block;
 }
-.lead { font-size: clamp(1.15rem, 2vw, 1.4rem); color: var(--c-muted); max-width: 42ch; }
+.center { text-align: center; }
+
+/* Dark fern texture, like the old footer and page titles, tinted green */
+.ferns {
+  background-color: var(--c-dark);
+  background-image: linear-gradient(color-mix(in srgb, var(--c-brand) 45%, transparent), color-mix(in srgb, var(--c-dark) 55%, transparent)), url('/images/site/fougeres.jpg');
+  background-size: auto, 420px;
+  background-blend-mode: multiply, normal;
+  color: var(--c-on-dark);
+}
 
 .btn {
   display: inline-flex; align-items: center; gap: .5em;
-  padding: .85em 1.4em; border-radius: 999px;
+  padding: .8em 1.4em; border-radius: 999px;
   background: var(--c-brand); color: var(--c-brand-ink);
-  font-weight: 600; text-decoration: none; border: 0; cursor: pointer; font-size: 1rem;
+  font-weight: 600; text-decoration: none; border: 0; cursor: pointer; font-size: 1rem; font-family: inherit;
 }
 .btn:hover { background: var(--c-ink); }
-.btn--ghost { background: transparent; color: inherit; box-shadow: inset 0 0 0 1.5px currentColor; }
-.btn--ghost:hover { background: var(--c-ink); color: var(--c-bg); box-shadow: none; }
 
-/* Placeholder shown until the old images are extracted into /public/images/old-site */
 .img-missing {
   display: grid; place-items: center; text-align: center;
   background: repeating-linear-gradient(135deg, #e7e2d6 0 12px, #efebe1 12px 24px);
-  color: var(--c-muted); font-size: .8rem; padding: 1rem; word-break: break-all;
+  color: var(--c-muted); font-size: .8rem; padding: 1rem;
 }
 
-.grid { display: grid; gap: clamp(16px, 3vw, 32px); }
-.grid--2 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); }
-.grid--3 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+.prose a { color: var(--c-brand); font-weight: 500; }
+.prose p:last-child { margin-bottom: 0; }
 
 :focus-visible { outline: 3px solid var(--c-accent); outline-offset: 3px; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

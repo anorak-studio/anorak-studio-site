@@ -1,0 +1,11 @@
+---
+// The old site's inner-page banner: fern texture, white centered title.
+interface Props { title: string; }
+const { title } = Astro.props;
+---
+<section class="ferns banner"><h1 class="wrap">{title}</h1></section>
+
+<style>
+  .banner { min-height: 200px; display: grid; place-items: center; text-align: center; padding: 40px 0; }
+  .banner h1 { margin: 0; font-size: clamp(2.2rem, 5vw, 3.4rem); }
+</style>

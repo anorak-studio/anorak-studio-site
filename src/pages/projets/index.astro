@@ -1,46 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
-import { categories } from '../../data/site';
+import PageTitle from '../../components/PageTitle.astro';
+import ProjectGrid from '../../components/ProjectGrid.astro';
+import { getProjets } from '../../lib/projets';
 
-const projets = (await getCollection('projets')).sort((a, b) => a.data.order - b.data.order);
+const projets = await getProjets();
 ---
-<Base title="Projets" description="Projets en identité visuelle, web, imprimé, illustration et publicité.">
+<Base title="Projets" description="Identité, imprimé, web, vidéo, illustration, publicité et design responsable : les réalisations d'Anorak Studio.">
+  <PageTitle title="Projets" />
   <section class="section">
-    <div class="wrap">
-      <span class="eyebrow">Portfolio</span>
-      <h1>Projets</h1>
-      <div class="filters" role="group" aria-label="Filtrer par catégorie">
-        <button class="is-on" data-f="">Tous</button>
-        {categories.map((c) => <button data-f={c}>{c}</button>)}
-      </div>
-      <div class="grid grid--3" id="list">
-        {projets.map((p) => (
-          <ProjectCard id={p.id} title={p.data.title} summary={p.data.summary} categories={p.data.categories} cover={p.data.cover} />
-        ))}
-      </div>
-    </div>
+    <div class="wrap"><ProjectGrid projets={projets} /></div>
   </section>
 </Base>
-
-<script>
-  const btns = document.querySelectorAll<HTMLButtonElement>('.filters button');
-  const cards = document.querySelectorAll<HTMLElement>('#list .card');
-  btns.forEach((b) =>
-    b.addEventListener('click', () => {
-      btns.forEach((x) => x.classList.toggle('is-on', x === b));
-      const f = b.dataset.f;
-      cards.forEach((c) => {
-        c.hidden = !!f && !(c.dataset.cats || '').split('|').includes(f);
-      });
-    }),
-  );
-</script>
-
-<style>
-  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 1.5rem 0 3rem; }
-  .filters button { font: inherit; font-size: .9rem; padding: .45em 1em; border-radius: 999px; border: 1px solid var(--c-line); background: transparent; color: var(--c-ink); cursor: pointer; }
-  .filters button.is-on { background: var(--c-brand); border-color: var(--c-brand); color: var(--c-brand-ink); }
-  #list :global(.card[hidden]) { display: none; }
-</style>

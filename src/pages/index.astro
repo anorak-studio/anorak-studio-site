@@ -1,95 +1,69 @@
 ---
-import { getCollection } from 'astro:content';
+// Same order as the old home page: landscape photo with the tagline, intro row
+// (big logo + text + contact), carousel on the grey band, then the project grid.
 import Base from '../layouts/Base.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import Img from '../components/Img.astro';
-import { site, services, categories } from '../data/site';
+import Carousel from '../components/Carousel.astro';
+import ProjectGrid from '../components/ProjectGrid.astro';
+import Social from '../components/Social.astro';
+import logoStudio from '../assets/logos/anorak-studio.svg?raw';
+import { site, carousel } from '../data/site';
+import { getProjets } from '../lib/projets';
 
-const projets = (await getCollection('projets'))
-  .filter((p) => p.data.featured)
-  .sort((a, b) => a.data.order - b.data.order);
+const projets = await getProjets();
 ---
 <Base>
-  <section class="hero">
-    <div class="wrap">
-      <span class="eyebrow">{site.tagline}</span>
-      <h1>{site.heroTitle}</h1>
-      <p class="lead">{site.description}</p>
-      <div class="hero__cta">
-        <a class="btn" href="/projets/">Voir les projets</a>
-        <a class="btn btn--ghost" href="/contact/">Parlons de votre projet</a>
-      </div>
-      <ul class="hero__cats">{categories.map((c) => <li>{c}</li>)}</ul>
+  <section class="hero" style={`background-image:url('${site.heroImage}')`}>
+    <p>{site.heroTitle}</p>
+  </section>
+
+  <section class="intro wrap">
+    <div class="intro__logo" set:html={logoStudio} role="img" aria-label="Anorak Studio" />
+    <div class="intro__txt">
+      <p class="intro__tag">{site.tagline}</p>
+      <p>{site.intro}</p>
+      <p class="intro__contact">
+        <a href={`mailto:${site.email}`}>{site.email}</a> / <a href={site.phoneHref}>{site.phone}</a>
+      </p>
+      <Social />
     </div>
-    <svg class="hero__ridge" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 160V96l120-40 110 52 150-86 140 70 120-46 170 74 130-58 150 64 120-48 230 42V160Z" fill="var(--c-brand)" />
-    </svg>
+  </section>
+
+  <section class="band">
+    <div class="wrap"><Carousel slides={carousel} /></div>
   </section>
 
   <section class="section">
     <div class="wrap">
-      <div class="head">
-        <div><span class="eyebrow">Projets choisis</span><h2>Nos réalisations</h2></div>
-        <a class="btn btn--ghost" href="/projets/">Tous les projets</a>
-      </div>
-      <div class="grid grid--3">
-        {projets.map((p) => (
-          <ProjectCard id={p.id} title={p.data.title} summary={p.data.summary} categories={p.data.categories} cover={p.data.cover} />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section mission">
-    <div class="wrap mission__in">
-      <span class="eyebrow">Notre approche</span>
-      <p class="mission__quote">{site.mission}</p>
-      <p class="lead">{site.about}</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="head">
-        <div><span class="eyebrow">Services</span><h2>Ce qu'on fait</h2></div>
-        <a class="btn btn--ghost" href="/services/">Détails</a>
-      </div>
-      <ol class="svc">
-        {services.map((s, i) => (
-          <li>
-            <a href={`/services/#${s.id}`}>
-              <span class="svc__n">{String(i + 1).padStart(2, '0')}</span>
-              <span class="svc__t">{s.title}</span>
-              <span class="svc__img"><Img src={s.image} alt="" ratio="16 / 9" /></span>
-            </a>
-          </li>
-        ))}
-      </ol>
+      <h2 class="center projets-t">Projets</h2>
+      <ProjectGrid projets={projets} initial={8} />
     </div>
   </section>
 </Base>
 
 <style>
-  .hero { position: relative; padding-top: clamp(64px, 12vw, 160px); padding-bottom: clamp(120px, 14vw, 200px); overflow: hidden; }
-  .hero h1 { max-width: 12ch; color: var(--c-brand); }
-  .hero__cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 2rem 0 2.5rem; }
-  .hero__cats { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .hero__cats li { padding: .35em .9em; border: 1px solid var(--c-line); border-radius: 999px; font-size: .85rem; color: var(--c-muted); }
-  .hero__ridge { position: absolute; left: 0; bottom: -1px; width: 100%; height: clamp(60px, 10vw, 160px); }
+  .hero {
+    min-height: clamp(360px, 55vw, 616px); display: grid; place-items: center; text-align: center;
+    background-size: cover; background-position: center; position: relative; padding: 24px var(--gutter);
+  }
+  .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 40%, color-mix(in srgb, var(--c-dark) 45%, transparent)); }
+  .hero p { position: relative; margin: 0; color: #fff; font: 700 clamp(1.8rem, 4.2vw, 3.2rem)/1.1 var(--f-display); text-shadow: 0 2px 24px rgba(0, 0, 0, .45); }
 
-  .head { display: flex; justify-content: space-between; align-items: end; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
-  .head h2 { margin: 0; }
+  .intro { display: grid; grid-template-columns: 42% 1fr; gap: clamp(28px, 7vw, 100px); align-items: center; padding-block: 50px; }
+  .intro__logo { color: var(--c-brand); max-width: 420px; justify-self: center; width: 100%; }
+  .intro__logo :global(svg) { width: 100%; height: auto; display: block; }
+  .intro__tag { font: 700 clamp(1.4rem, 2.6vw, 1.75rem)/1.2 var(--f-display); margin-bottom: .6em; }
+  .intro__txt p { font-size: .98rem; color: var(--c-muted); }
+  .intro__txt .intro__tag { color: var(--c-ink); }
+  .intro__contact a { text-decoration: none; color: var(--c-ink); font-weight: 500; }
+  .intro__contact a:hover { color: var(--c-brand); }
+  .intro :global(.social) { margin-left: -8px; }
 
-  .mission { background: var(--c-brand); color: var(--c-brand-ink); }
-  .mission .eyebrow, .mission .lead { color: color-mix(in srgb, var(--c-brand-ink) 70%, transparent); }
-  .mission__in { max-width: 900px; }
-  .mission__quote { font: 700 clamp(1.8rem, 4.5vw, 3.2rem)/1.15 var(--f-display); margin-bottom: 1.5rem; }
+  .band { background: var(--c-grey); padding-block: clamp(28px, 5vw, 50px); }
+  .projets-t { margin-bottom: 1.2em; }
 
-  .svc { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--c-line); }
-  .svc a { display: grid; grid-template-columns: 4rem 1fr 180px; align-items: center; gap: 1rem; padding: 1.25rem 0; border-bottom: 1px solid var(--c-line); text-decoration: none; }
-  .svc__n { color: var(--c-muted); font-variant-numeric: tabular-nums; }
-  .svc__t { font: 700 clamp(1.3rem, 3vw, 2rem)/1.1 var(--f-display); }
-  .svc__img { border-radius: var(--radius); overflow: hidden; opacity: .9; }
-  .svc a:hover .svc__t { color: var(--c-brand); }
-  @media (max-width: 640px) { .svc a { grid-template-columns: 2.5rem 1fr; } .svc__img { display: none; } }
+  @media (max-width: 760px) {
+    .intro { grid-template-columns: 1fr; text-align: center; padding-block: 36px; }
+    .intro__logo { max-width: 260px; }
+    .intro :global(.social) { justify-content: center; margin-left: 0; }
+  }
 </style>
