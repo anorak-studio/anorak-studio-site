@@ -1,0 +1,21 @@
+---
+// Home hero: image or video (see `site.hero` in src/data/site.ts), with optional text
+// whose content and position are set there too. The media stays dominant.
+import Media from './Media.astro';
+import { site } from '../data/site';
+const h = site.hero;
+---
+<section class="hero">
+  <Media media={h.media} alt={h.text} fill eager background />
+  {h.showText && h.text && <p class={`hero__t hero__t--${h.position}`}>{h.text}</p>}
+</section>
+
+<style>
+  .hero { position: relative; height: min(100svh, 62vw); min-height: 420px; max-height: 980px; overflow: hidden; background: #000; }
+  .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,.25), transparent 22%, transparent 60%, rgba(0,0,0,.35)); pointer-events: none; }
+  .hero__t { position: absolute; z-index: 1; margin: 0; color: #fff; font: 700 clamp(1.9rem, 4.6vw, 4rem)/1.05 var(--f-display); text-shadow: 0 2px 24px rgba(0, 0, 0, .45); max-width: 16ch; padding: 0 var(--gutter); }
+  .hero__t--center { inset: 0; display: grid; place-items: center; text-align: center; max-width: none; }
+  .hero__t--bottom-left { left: 0; bottom: clamp(28px, 6vw, 80px); }
+  .hero__t--bottom-center { left: 0; right: 0; bottom: clamp(28px, 6vw, 80px); text-align: center; max-width: none; }
+  .hero__t--top-left { left: 0; top: calc(var(--hdr-h) + 32px); }
+</style>

@@ -1,11 +1,26 @@
 // Everything about the studio in one place. Edit here, it updates every page.
 
+export type Media =
+  | { type: 'image'; src: string; alt?: string }
+  | { type: 'video'; src: string; poster?: string } // mp4/webm file, plays muted in a loop
+  | { type: 'youtube'; id: string; poster?: string }
+  | { type: 'vimeo'; id: string; poster?: string };
+export type TextPosition = 'center' | 'bottom-left' | 'bottom-center' | 'top-left';
+
 export const site = {
   name: 'Anorak Studio',
   since: 2007,
   tagline: 'Simple. Créatif. Efficace.',
-  heroTitle: 'Inspiré par les grands espaces',
-  heroImage: '/images/site/hero-riviere.jpg',
+  // Home hero: an image OR a video (mp4 in public/videos/, or a Vimeo/YouTube background later).
+  hero: {
+    media: { type: 'image', src: '/images/site/hero-riviere.jpg' } as Media,
+    // media: { type: 'video', src: '/videos/hero.mp4', poster: '/images/site/hero-riviere.jpg' },
+    text: 'Inspiré par les grands espaces',
+    showText: true,
+    position: 'center' as TextPosition, // 'center' | 'bottom-left' | 'bottom-center' | 'top-left'
+  },
+  heroImage: '/images/site/hero-riviere.jpg', // used for social sharing previews
+  droneReel: '', // link to the drone demo reel (YouTube/Vimeo) when ready
   texture: '/images/site/fougeres.jpg',
   intro: [
     "Anorak Studio est un studio de création de Québec, actif depuis 2007. Image de marque, réalisation de films, gamification, web et pixel art : on met le design au service de projets qui ont quelque chose à dire.",
@@ -55,6 +70,19 @@ export const nav = [
 ];
 
 // Filters on the Projets page, in this order. Each project lists its own in its file.
+// Home carousel: full width. Each slide: media, optional text over it, link.
+// showText: false hides the text for that slide.
+export type Slide = {
+  media: Media; title: string; text?: string; showText: boolean; position?: TextPosition; href?: string; cta?: string;
+};
+export const carousel: Slide[] = [
+  { media: { type: 'image', src: '/images/site/carrousel-4.jpg' }, title: 'Urgences Rurales 360', text: 'Docu-cirque et transfert de connaissances', showText: true, position: 'top-left', href: '/projets/urgences-rurales-360/', cta: 'Voir le projet' },
+  { media: { type: 'image', src: '/images/site/carrousel-2.jpg' }, title: 'Art Robots', text: 'Prix du meilleur court métrage canadien, FIFA 42', showText: true, href: '/projets/art-robots/', cta: 'Voir le projet' },
+  { media: { type: 'image', src: '/images/site/carrousel-3.jpg' }, title: 'La Mue', text: 'Compétition nationale, FIFA 43', showText: true, href: '/projets/la-mue/', cta: 'Voir le projet' },
+  { media: { type: 'image', src: '/images/site/carrousel-1.jpg' }, title: 'Doomed Raiders', text: 'Anorak Studio Games, annoncé pour 2027', showText: true, href: '/projets/doomed-raiders/', cta: 'Voir le projet' },
+  { media: { type: 'image', src: '/images/site/carrousel-5.jpg' }, title: 'Prises de vues par drone', text: 'Un de nos services', showText: true, href: '/services/#drone', cta: 'Voir le service' },
+];
+
 export const categories = [
   'Réalisation',
   'Gamification',
@@ -65,6 +93,7 @@ export const categories = [
   'Imprimé',
   'Illustration',
   'Vidéo',
+  'IA',
 ];
 
 export const services = [
@@ -90,12 +119,21 @@ export const services = [
   },
   {
     id: 'gamification',
-    title: 'Gamification et jeux',
+    title: 'Gamification et Indie Game',
     image: '/images/site/carrousel-1.jpg',
     lead: "Conception de jeux, expériences ludiques et services-conseils.",
     text: [
       "Transformer une démarche complexe en expérience qu'on a envie de vivre. On participe régulièrement à la conception et au développement de projets gamifiés, comme Datagotchi, et on offre des services-conseils en gamification.",
       "Anorak Studio Games développe aussi ses propres jeux en pixel art.",
+    ],
+  },
+  {
+    id: 'drone',
+    title: 'Prises de vues par drone',
+    image: '/images/site/carrousel-5.jpg',
+    lead: "Images aériennes pour vos films, vidéos et projets de recherche.",
+    text: [
+      "Des prises de vues par drone pour révéler un territoire, un site ou un événement vu du ciel, intégrées à nos réalisations ou livrées pour vos propres projets.",
     ],
   },
   {
@@ -129,6 +167,9 @@ export const services = [
 
 export const realisation = {
   title: 'La réalisation',
+  // Big 16:9 media before the films grid. Swap for { type: 'youtube', id: '...' } or a video file.
+  featured: { type: 'image', src: '/images/site/carrousel-3.jpg', alt: 'La Mue' } as Media,
+  featuredCaption: 'Bande-démo à venir',
   intro: [
     "Mathieu Fortin est réalisateur. Il signe désormais des courts métrages de fiction et des documentaires, souvent à la frontière de l'art et de la science.",
     "Du docu-cirque Urgences Rurales 360 au documentaire ABKT en production, on explore l'art comme vecteur de transfert de connaissances.",
@@ -137,7 +178,7 @@ export const realisation = {
 };
 
 export const gamification = {
-  title: 'La gamification',
+  title: 'Gamification et Indie Game',
   intro: [
     "Le jeu est un formidable outil pour apprendre, comprendre et participer. On conçoit des expériences ludiques et on offre des services-conseils en gamification, surtout pour des projets scientifiques et citoyens.",
     "Datagotchi et Prof. Datagotchi en sont de parfaits exemples. Fungus Forest est un jeu déjà livré et jouable en ligne, et Doomed Raiders est notre projet coup de cœur, développé à l'interne.",

@@ -4,7 +4,6 @@ summary: "Court métrage sur la création à l'ère de l'intelligence artificiel
 status: "Court métrage, 2023"
 categories: ["Réalisation"]
 cover: /images/site/carrousel-2.jpg
-carousel: /images/site/carrousel-2.jpg
 gallery: []
 videos: []
 order: 4

@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageTitle from '../components/PageTitle.astro';
 import ProjectTiles from '../components/ProjectTiles.astro';
+import Featured from '../components/Featured.astro';
 import { realisation, site } from '../data/site';
 import { pickProjets } from '../lib/projets';
 const films = await pickProjets(realisation.projects);
@@ -10,7 +11,8 @@ const films = await pickProjets(realisation.projects);
   <PageTitle title="Réalisation" />
   <section class="section wrap">
     <div class="lead">{realisation.intro.map((p) => <p>{p}</p>)}</div>
-    <ProjectTiles projets={films} />
+    <Featured media={realisation.featured} caption={realisation.featuredCaption} />
+    <ProjectTiles projets={films} cols={2} />
   </section>
   <section class="cta">
     <div class="wrap">
@@ -25,4 +27,5 @@ const films = await pickProjets(realisation.projects);
   .cta { background: var(--c-brand); color: var(--c-brand-ink); padding-block: clamp(48px, 7vw, 88px); }
   .cta__t { font: 800 clamp(1.6rem, 3.6vw, 2.6rem)/1.1 var(--f-display); max-width: 24ch; }
   .cta .btn { background: var(--c-brand-ink); color: var(--c-brand); }
+  .cta .btn:hover { background: var(--c-neon); color: #000; }
 </style>

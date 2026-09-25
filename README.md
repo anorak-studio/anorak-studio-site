@@ -17,9 +17,11 @@ Or open the folder with Claude Code and say "install and run the site".
 
 ## 2. Content
 
-- **31 projects** in `src/content/projets/`: 13 new ones first (order 1-99), then the 18 old
+- **33 projects** in `src/content/projets/`: 15 new ones first (order 1-99), then the 18 old
   projects kept from anorakstudio.ca/v2 (order 100+, same slugs as the old URLs).
-- Home carousel = projects that have a `carousel:` image.
+- Home hero (image or video, text on/off and position) and carousel slides (media, text,
+  link, text on/off): `hero` and `carousel` in `src/data/site.ts`.
+- Réalisation featured 16:9 media (image, video file, YouTube or Vimeo): `realisation.featured`.
 - Réalisation and Gamification sections: lists of projects in `src/data/site.ts`.
 - Old site images still used: `public/images/old-site/`. Brand images: `public/images/site/`.
 - **What's missing, project by project: `docs/A-COMPLETER.md`.**
@@ -38,7 +40,7 @@ Or open the folder with Claude Code and say "install and run the site".
 | Old URL redirects (`/v2/...`) | `public/_redirects` |
 
 A project file supports: `title`, `summary`, `status`, `categories`, `cover`, `carousel`,
-`gallery`, `videos` (YouTube IDs), `links`, `shop`, `todo`, `order`, `draft`.
+`gallery`, `videos` (YouTube IDs), `links`, `ai` (IA tag), `shop`, `todo`, `order`, `draft`.
 
 ## 4. Before launch
 

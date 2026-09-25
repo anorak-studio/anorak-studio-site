@@ -12,10 +12,10 @@ const projets = defineCollection({
     status: z.string().optional(), // e.g. "Documentaire en production"
     categories: z.array(z.string()).default([]), // shown on the project page and used by the filters
     cover: z.string().optional(),
-    carousel: z.string().optional(), // set this to show the project in the home carousel
     gallery: z.array(z.string()).default([]),
     videos: z.array(z.string()).default([]), // YouTube video IDs
     links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
+    ai: z.boolean().default(false), // shows an "IA" tag (project made with AI tools)
     shop: z.string().optional(), // note shown with a "Boutique" button
     todo: z.array(z.string()).default([]), // what's missing: shown as a reminder until empty
     order: z.number().default(100), // position in the grid (new projects 1-99, old ones 100+)

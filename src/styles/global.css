@@ -13,13 +13,16 @@
   --c-brand: #1f4d3a;       /* forest green (replaces the old neon green) */
   --c-brand-light: #8cc5a2; /* green used on dark backgrounds */
   --c-brand-ink: #f4f1ea;
-  --c-accent: #c8743b;      /* focus rings only */
+  --c-neon: #58f70a;        /* old fluorescent green: secondary accent, hover states */
+  --c-accent: var(--c-neon); /* focus rings */
 
   --f-display: 'Archivo', system-ui, sans-serif;
   --f-body: 'Inter', system-ui, sans-serif;
 
-  --w-max: 1140px;          /* same content width as the old site */
-  --gutter: clamp(16px, 4vw, 40px);
+  --w-max: 1680px;          /* wide, image-first layout */
+  --w-text: 1140px;         /* max width for text-heavy blocks */
+  --gutter: clamp(16px, 2.6vw, 44px);  /* exterior margin: a bit larger than the grid gutters */
+  --gap: clamp(12px, 1.5vw, 24px);     /* gutter between images */
   --radius: 4px;
   --hdr-h: 64px;
 }
@@ -50,6 +53,7 @@ p { margin: 0 0 1em; }
   color: var(--c-muted); margin-bottom: 1rem; display: block;
 }
 .center { text-align: center; }
+.wrap--text { max-width: var(--w-text); }
 
 /* Dark fern texture, like the old footer and page titles, tinted green */
 .ferns {
@@ -66,7 +70,7 @@ p { margin: 0 0 1em; }
   background: var(--c-brand); color: var(--c-brand-ink);
   font-weight: 600; text-decoration: none; border: 0; cursor: pointer; font-size: 1rem; font-family: inherit;
 }
-.btn:hover { background: var(--c-ink); }
+.btn:hover { background: var(--c-neon); color: #000; }
 
 .img-missing {
   display: grid; place-items: center; text-align: center;
@@ -77,5 +81,6 @@ p { margin: 0 0 1em; }
 .prose a { color: var(--c-brand); font-weight: 500; }
 .prose p:last-child { margin-bottom: 0; }
 
-:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--c-neon); outline-offset: 3px; }
+::selection { background: var(--c-neon); color: #000; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

@@ -1,7 +1,8 @@
 ---
-// Masonry grid like the old "Projets Anorak" list (left to right, image zooms on hover),
-// with more room around it. Cards show the title (and status for new projects) only:
-// categories are on the project page. Shows `initial` items, then "Voir plus".
+// Masonry grid like the old "Projets Anorak" list (left to right, image zooms on hover).
+// Wide: 3 columns fill almost the whole screen (exterior margin a bit larger than the gutters).
+// Cards show the title (and status) only: categories are on the project page.
+// Shows `initial` items, then "Voir plus".
 import Img from './Img.astro';
 import { site } from '../data/site';
 import type { CollectionEntry } from 'astro:content';
@@ -16,7 +17,7 @@ const limited = initial > 0 && projets.length > initial;
       class="pitem"
       href={`/projets/${p.id}/`}
       data-extra={limited && i >= initial ? '' : undefined}
-      data-cats={p.data.categories.join('|')}
+      data-cats={[...p.data.categories, ...(p.data.ai ? ['IA'] : [])].join('|')}
     >
       <div>
         <div class="pitem__img">
@@ -39,12 +40,13 @@ const limited = initial > 0 && projets.length > initial;
 
 <script>
   // Masonry, left to right: each card spans as many 4px rows as it is tall.
+  const gap = (g: HTMLElement) => parseFloat(getComputedStyle(g).columnGap) * 1.6 || 30;
   const layout = () =>
     document.querySelectorAll<HTMLElement>('.pgrid').forEach((g) => {
       g.classList.add('is-masonry');
       g.querySelectorAll<HTMLElement>('.pitem').forEach((it) => {
         const inner = it.firstElementChild as HTMLElement;
-        it.style.gridRowEnd = `span ${Math.ceil((inner.getBoundingClientRect().height + 36) / 4)}`;
+        it.style.gridRowEnd = `span ${Math.ceil((inner.getBoundingClientRect().height + gap(g)) / 4)}`;
       });
     });
   document.querySelectorAll<HTMLImageElement>('.pgrid img').forEach((img) => img.addEventListener('load', layout));
@@ -62,25 +64,26 @@ const limited = initial > 0 && projets.length > initial;
 </script>
 
 <style>
-  .pgrid { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: 36px clamp(20px, 3vw, 36px); align-items: start; }
+  .pgrid { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: calc(var(--gap) * 1.6) var(--gap); align-items: start; }
   .pgrid.is-masonry { grid-auto-rows: 4px; row-gap: 0; }
   .pgrid[data-limited] .pitem[data-extra], .pitem[hidden] { display: none; }
   .pitem { display: block; text-decoration: none; min-width: 0; }
   @media (max-width: 900px) { .pgrid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 520px) { .pgrid { grid-template-columns: 1fr; } }
-  .pitem__img { position: relative; overflow: hidden; margin-bottom: 12px; background: var(--c-grey); border-radius: var(--radius); }
-  .pitem__img :global(img) { transition: transform .4s ease; }
-  .pitem:hover .pitem__img :global(img) { transform: scale(1.04); }
+  .pitem__img { position: relative; overflow: hidden; margin-bottom: 12px; background: var(--c-grey); }
+  .pitem__img::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--c-neon); transform: scaleX(0); transform-origin: left; transition: transform .35s ease; }
+  .pitem:hover .pitem__img::after, .pitem:focus-visible .pitem__img::after { transform: scaleX(1); }
+  .pitem__img :global(img) { transition: transform .5s ease; }
+  .pitem:hover .pitem__img :global(img) { transform: scale(1.03); }
   .pitem__ph {
-    aspect-ratio: 4 / 3; display: flex; flex-direction: column; justify-content: flex-end; gap: 4px; padding: 20px;
+    aspect-ratio: 4 / 3; display: flex; flex-direction: column; justify-content: flex-end; gap: 4px; padding: clamp(16px, 2vw, 28px);
     background: linear-gradient(150deg, color-mix(in srgb, var(--c-brand) 85%, #000), var(--c-dark));
     color: var(--c-on-dark);
   }
-  .pitem__ph span { font: 800 clamp(1.3rem, 2.2vw, 1.7rem)/1.1 var(--f-display); }
+  .pitem__ph span { font: 800 clamp(1.4rem, 2.4vw, 2.2rem)/1.05 var(--f-display); }
   .pitem__ph small { font-size: .78rem; opacity: .6; text-transform: uppercase; letter-spacing: .12em; }
   .pitem__todo { position: absolute; top: 10px; left: 10px; background: #f3d36b; color: #3a2f00; font: 600 .7rem/1 var(--f-body); text-transform: uppercase; letter-spacing: .08em; padding: 6px 8px; border-radius: 3px; }
-  .pitem__t { font: 700 1.15rem/1.25 var(--f-display); margin: 0; letter-spacing: 0; }
-  .pitem:hover .pitem__t { color: var(--c-brand); }
-  .pitem__s { font-size: .85rem; color: var(--c-muted); margin: 4px 0 0; }
-  .more { text-align: center; margin: 32px 0 0; }
+  .pitem__t { font: 700 clamp(1.1rem, 1.4vw, 1.35rem)/1.2 var(--f-display); margin: 0; letter-spacing: 0; }
+  .pitem__s { font-size: .9rem; color: var(--c-muted); margin: 4px 0 0; }
+  .more { text-align: center; margin: 40px 0 0; }
 </style>

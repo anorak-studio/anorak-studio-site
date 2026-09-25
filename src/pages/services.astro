@@ -31,6 +31,7 @@ import { services, site } from '../data/site';
           <h2>{s.title}</h2>
           <p class="svc__lead">{s.lead}</p>
           {s.text.map((p) => <p>{p}</p>)}
+          {s.id === 'drone' && site.droneReel && <p><a class="btn" href={site.droneReel} target="_blank" rel="noopener">Voir la bande-démo drone ↗</a></p>}
         </div>
       </article>
     ))}
@@ -45,7 +46,7 @@ import { services, site } from '../data/site';
   .cta { margin-top: 1.6rem; }
 
   .science { padding-block: clamp(56px, 8vw, 100px); }
-  .science .eyebrow { color: var(--c-brand-light); }
+  .science .eyebrow { color: var(--c-neon); }
   .science__t { font: 800 clamp(1.9rem, 4.5vw, 3.2rem)/1.05 var(--f-display); max-width: 18ch; }
   .science p:last-child { max-width: 60ch; font-size: 1.12rem; color: color-mix(in srgb, var(--c-on-dark) 82%, transparent); margin: 0; }
 

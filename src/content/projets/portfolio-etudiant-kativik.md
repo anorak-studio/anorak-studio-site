@@ -4,7 +4,7 @@ summary: "Portfolio étudiant pour Kativik Ilisarnilirinia."
 categories: ["Imprimé"]
 gallery: []
 videos: []
-order: 12
+order: 14
 todo: ["Texte du projet et nature du mandat (imprimé, web?)", "Images"]
 ---
 

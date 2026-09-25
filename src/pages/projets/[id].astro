@@ -30,8 +30,11 @@ const d = entry.data;
         <div class="wrap">
           {d.status && <p class="phead__status">{d.status}</p>}
           <h1>{d.title}</h1>
-          {d.categories.length > 0 && (
-            <ul class="phead__cats">{d.categories.map((c) => <li><a href={`/projets/#${encodeURIComponent(c)}`}>{c}</a></li>)}</ul>
+          {(d.categories.length > 0 || d.ai) && (
+            <ul class="phead__cats">
+              {d.categories.map((c) => <li><a href={`/projets/#${encodeURIComponent(c)}`}>{c}</a></li>)}
+              {d.ai && <li><a class="is-ai" href="/projets/#IA" title="Projet réalisé avec des outils d'IA">IA</a></li>}
+            </ul>
           )}
           <div class="phead__txt prose"><Content /></div>
           {(d.links.length > 0 || d.shop) && (
@@ -73,7 +76,7 @@ const d = entry.data;
   <section class="section others">
     <div class="wrap">
       <h2 class="center">Autres réalisations</h2>
-      <ProjectTiles projets={others} />
+      <ProjectTiles projets={others} cols={4} />
       <p class="center all"><a class="btn" href="/projets/">Tous les projets</a></p>
     </div>
   </section>
@@ -81,22 +84,23 @@ const d = entry.data;
 
 <style>
   .phead__img { background: var(--c-dark); position: relative; }
-  .phead__img :global(img) { max-height: 78vh; object-fit: cover; }
+  .phead__img :global(img) { max-height: 86vh; object-fit: cover; }
   .phead__img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 55%, var(--c-dark)); pointer-events: none; }
-  .phead__ph { height: clamp(120px, 18vw, 220px); background: linear-gradient(150deg, var(--c-brand), var(--c-dark)); }
+  .phead__ph { height: clamp(160px, 22vw, 280px); background: linear-gradient(150deg, var(--c-brand), var(--c-dark)); }
   .phead__band { background: var(--c-dark); color: var(--c-on-dark); padding: 18px 0 48px; }
-  .phead__status { font-size: .8rem; text-transform: uppercase; letter-spacing: .14em; color: var(--c-brand-light); margin-bottom: .6rem; }
+  .phead__status { font-size: .8rem; text-transform: uppercase; letter-spacing: .14em; color: var(--c-neon); margin-bottom: .6rem; }
   .phead h1 { font-size: clamp(1.9rem, 4.5vw, 3.2rem); max-width: 26ch; margin-bottom: .5em; }
   .phead__cats { list-style: none; padding: 0; margin: 0 0 1.6rem; display: flex; flex-wrap: wrap; gap: 8px; }
   .phead__cats a { display: block; font-size: .82rem; padding: .3em .85em; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--c-on-dark) 35%, transparent); text-decoration: none; }
-  .phead__cats a:hover { border-color: var(--c-brand-light); color: var(--c-brand-light); }
+  .phead__cats a:hover { border-color: var(--c-neon); color: var(--c-neon); }
+  .phead__cats a.is-ai { border-color: var(--c-neon); color: var(--c-neon); }
   .phead__txt { max-width: 72ch; font-size: 1.05rem; }
-  .phead__txt :global(a) { color: var(--c-brand-light); }
+  .phead__txt :global(a) { color: var(--c-neon); }
   .phead__txt :global(blockquote) { margin: 1.4rem 0; padding-left: 1.2rem; border-left: 3px solid var(--c-brand-light); font-style: italic; }
   .phead__txt :global(ul) { padding-left: 1.2rem; }
   .phead__links { display: flex; flex-wrap: wrap; gap: 10px; margin: 1.8rem 0 0; }
   .btn--light { background: var(--c-on-dark); color: var(--c-dark); }
-  .btn--light:hover { background: var(--c-brand-light); }
+  .btn--light:hover { background: var(--c-neon); }
   .phead__shop { font-size: .92rem; color: color-mix(in srgb, var(--c-on-dark) 70%, transparent); margin: .8rem 0 0; }
 
   .todo { margin-top: 28px; max-width: 1000px; background: #fdf3cf; border: 2px dashed #d9b43c; color: #4a3b00; padding: 16px 20px; border-radius: var(--radius); }

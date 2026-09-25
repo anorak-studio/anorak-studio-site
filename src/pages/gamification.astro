@@ -13,10 +13,10 @@ const steps = [
 ];
 ---
 <Base title="Gamification" description={gamification.intro[0]}>
-  <PageTitle title="Gamification" />
+  <PageTitle title="Gamification et Indie Game" />
   <section class="section wrap">
     <div class="lead">{gamification.intro.map((p) => <p>{p}</p>)}</div>
-    <ProjectTiles projets={jeux} />
+    <ProjectTiles projets={jeux} cols={2} />
   </section>
   <section class="section steps-band">
     <div class="wrap">
@@ -44,4 +44,5 @@ const steps = [
   .cta { background: var(--c-brand); color: var(--c-brand-ink); padding-block: clamp(48px, 7vw, 88px); }
   .cta__t { font: 800 clamp(1.6rem, 3.6vw, 2.6rem)/1.1 var(--f-display); max-width: 26ch; }
   .cta .btn { background: var(--c-brand-ink); color: var(--c-brand); }
+  .cta .btn:hover { background: var(--c-neon); color: #000; }
 </style>

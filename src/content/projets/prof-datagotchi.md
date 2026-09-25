@@ -5,7 +5,7 @@ status: "Projet pilote, 2026"
 categories: ["Gamification", "Science", "Web"]
 gallery: []
 videos: []
-order: 8
+order: 10
 links:
   - { label: "datagotchi.com", href: "https://www.datagotchi.com" }
 todo: ["Captures et visuels du personnage", "Rôle précis d'Anorak Studio"]

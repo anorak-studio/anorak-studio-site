@@ -1,0 +1,18 @@
+---
+// Big 16:9 featured media (image, video file, YouTube or Vimeo), e.g. a demo reel.
+import Media from './Media.astro';
+import type { Media as MediaT } from '../data/site';
+interface Props { media: MediaT; caption?: string; }
+const { media, caption } = Astro.props;
+---
+<figure class="feat">
+  <div class="feat__box"><Media media={media} alt={caption} ratio="16 / 9" /></div>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .feat { margin: 0 auto calc(var(--gap) * 3); max-width: 1440px; }
+  .feat__box { background: #000; overflow: hidden; }
+  .feat__box :global(img), .feat__box :global(video), .feat__box :global(iframe) { aspect-ratio: 16 / 9; width: 100%; display: block; }
+  figcaption { font-size: .85rem; opacity: .7; margin-top: 10px; }
+</style>

@@ -1,0 +1,39 @@
+---
+// One media slot that can be an image, a video file, or a YouTube/Vimeo video.
+// `fill` makes it cover its container (hero, carousel); otherwise it keeps a ratio.
+import Img from './Img.astro';
+import type { Media } from '../data/site';
+
+interface Props { media: Media; alt?: string; fill?: boolean; ratio?: string; eager?: boolean; background?: boolean; }
+const { media, alt = '', fill = false, ratio = '16 / 9', eager = false, background = false } = Astro.props;
+const box = fill ? 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover' : `aspect-ratio:${ratio};width:100%;object-fit:cover;display:block`;
+const bgParams = background ? 'autoplay=1&mute=1&loop=1&controls=0&playsinline=1' : 'rel=0';
+---
+{media.type === 'image' && (
+  fill
+    ? <img src={media.src} alt={media.alt ?? alt} style={box} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+    : <Img src={media.src} alt={media.alt ?? alt} ratio={ratio} eager={eager} />
+)}
+{media.type === 'video' && (
+  <video src={media.src} poster={media.poster} style={box} autoplay muted loop playsinline preload="metadata" aria-label={alt}></video>
+)}
+{media.type === 'youtube' && (
+  <iframe
+    style={`${box};border:0`}
+    src={`https://www.youtube-nocookie.com/embed/${media.id}?${bgParams}${background ? `&playlist=${media.id}` : ''}`}
+    title={alt || 'Vidéo'}
+    allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+    allowfullscreen
+    loading={eager ? 'eager' : 'lazy'}
+  ></iframe>
+)}
+{media.type === 'vimeo' && (
+  <iframe
+    style={`${box};border:0`}
+    src={`https://player.vimeo.com/video/${media.id}?${background ? 'background=1' : 'dnt=1'}`}
+    title={alt || 'Vidéo'}
+    allow="autoplay; fullscreen; picture-in-picture"
+    allowfullscreen
+    loading={eager ? 'eager' : 'lazy'}
+  ></iframe>
+)}

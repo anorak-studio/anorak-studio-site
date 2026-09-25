@@ -1,26 +1,34 @@
 ---
-// Home carousel of the newest, most important projects (those with a `carousel` image).
-// One slide at a time, arrows + dots, autoplay every 6 s. Each slide opens its project page.
-import Img from './Img.astro';
-interface Slide { src: string; title: string; status?: string; href: string; }
+// Full-width carousel, like the original site. Slides come from `carousel` in src/data/site.ts:
+// media (image or video), optional text over it (showText), link. Arrows on both sides use the
+// chevrons of the old site's Elementor carousel; they turn fluorescent green on hover.
+import Media from './Media.astro';
+import type { Slide } from '../data/site';
 interface Props { slides: Slide[]; }
 const { slides } = Astro.props;
+const chevronL = 'M646 125C629 125 613 133 604 142L308 442C296 454 292 471 292 487 292 504 296 521 308 533L604 854C617 867 629 875 646 875 663 875 679 871 692 858 704 846 713 829 713 812 713 796 708 779 692 767L438 487 692 225C700 217 708 204 708 187 708 171 704 154 692 142 675 129 663 125 646 125Z';
+const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 146C388 133 375 125 354 125 338 125 325 129 313 142 300 154 292 171 292 187 292 204 296 221 308 233L563 492 304 771C292 783 288 800 288 817 288 833 296 850 308 863 321 871 338 875 354 875 371 875 388 867 400 854L696 533Z';
 ---
-<div class="car" aria-roledescription="carrousel" aria-label="Projets à la une">
+<div class="car" aria-roledescription="carrousel" aria-label="À la une">
   <div class="car__track" tabindex="0">
-    {slides.map((s, i) => (
-      <a class="car__slide" href={s.href} aria-roledescription="diapositive" aria-label={`${s.title} (${i + 1} / ${slides.length})`}>
-        <Img src={s.src} alt="" ratio="16 / 9" eager={i === 0} />
-        <span class="car__cap">
-          {s.status && <small>{s.status}</small>}
-          <strong>{s.title}</strong>
-          <em>Voir le projet →</em>
-        </span>
-      </a>
-    ))}
+    {slides.map((s, i) => {
+      const Tag = s.href ? 'a' : 'div';
+      return (
+        <Tag class="car__slide" href={s.href} aria-roledescription="diapositive" aria-label={`${s.title} (${i + 1} / ${slides.length})`}>
+          <Media media={s.media} alt={s.title} fill eager={i === 0} />
+          {s.showText && (
+            <span class={`car__cap car__cap--${s.position ?? 'bottom-left'}`}>
+              <strong>{s.title}</strong>
+              {s.text && <span class="car__txt">{s.text}</span>}
+              {s.href && s.cta && <em>{s.cta} →</em>}
+            </span>
+          )}
+        </Tag>
+      );
+    })}
   </div>
-  <button class="car__arrow car__prev" aria-label="Précédent">‹</button>
-  <button class="car__arrow car__next" aria-label="Suivant">›</button>
+  <button class="car__arrow car__prev" aria-label="Précédent"><svg viewBox="0 0 1000 1000" aria-hidden="true"><path d={chevronL} /></svg></button>
+  <button class="car__arrow car__next" aria-label="Suivant"><svg viewBox="0 0 1000 1000" aria-hidden="true"><path d={chevronR} /></svg></button>
   <div class="car__dots">{slides.map((s, i) => <button aria-label={s.title} data-i={i} />)}</div>
 </div>
 
@@ -35,6 +43,10 @@ const { slides } = Astro.props;
     car.querySelector('.car__prev')!.addEventListener('click', () => go(cur() - 1));
     car.querySelector('.car__next')!.addEventListener('click', () => go(cur() + 1));
     dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(cur() + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur() - 1); }
+    });
     track.addEventListener('scroll', () => requestAnimationFrame(mark), { passive: true });
     mark();
     let paused = false;
@@ -46,30 +58,41 @@ const { slides } = Astro.props;
 </script>
 
 <style>
-  .car { position: relative; }
-  .car__track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: var(--radius); }
+  .car { position: relative; background: #000; }
+  .car__track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .car__track::-webkit-scrollbar { display: none; }
-  .car__slide { flex: 0 0 100%; scroll-snap-align: start; position: relative; display: block; color: #fff; text-decoration: none; }
-  .car__slide :global(img) { display: block; }
-  .car__cap {
-    position: absolute; inset: auto 0 0 0; padding: clamp(40px, 8vw, 90px) clamp(18px, 4vw, 40px) clamp(18px, 3vw, 32px);
-    background: linear-gradient(transparent, rgba(0, 0, 0, .75)); display: grid; gap: 2px; justify-items: start;
+  .car__slide {
+    flex: 0 0 100%; scroll-snap-align: start; position: relative; display: block; overflow: hidden;
+    aspect-ratio: 16 / 9; max-height: 88vh; min-height: 320px; width: 100%; color: #fff; text-decoration: none;
   }
-  .car__cap small { font-size: .78rem; text-transform: uppercase; letter-spacing: .14em; opacity: .8; }
-  .car__cap strong { font: 800 clamp(1.4rem, 3.5vw, 2.4rem)/1.1 var(--f-display); }
-  .car__cap em { font-style: normal; font-size: .92rem; color: var(--c-brand-light); margin-top: 6px; }
-  .car__slide:hover em { text-decoration: underline; }
+  .car__cap { position: absolute; display: grid; gap: 4px; max-width: min(760px, 86%); padding: clamp(18px, 3vw, 48px) clamp(20px, 5vw, 96px); }
+  .car__cap--bottom-left { left: 0; bottom: 0; right: 0; max-width: none; justify-items: start; padding-top: clamp(60px, 10vw, 140px); background: linear-gradient(transparent, rgba(0, 0, 0, .7)); }
+  .car__cap--bottom-center { left: 0; right: 0; bottom: 0; max-width: none; justify-items: center; text-align: center; padding-top: clamp(60px, 10vw, 140px); background: linear-gradient(transparent, rgba(0, 0, 0, .7)); }
+  .car__cap--center { inset: 0; max-width: none; place-content: center; justify-items: center; text-align: center; background: rgba(0, 0, 0, .3); }
+  .car__cap--top-left { left: 0; top: 0; padding-top: calc(var(--hdr-h) + 24px); }
+  .car__cap strong { font: 800 clamp(1.8rem, 4.6vw, 4rem)/1.02 var(--f-display); text-shadow: 0 2px 20px rgba(0, 0, 0, .4); }
+  .car__txt { font-size: clamp(1rem, 1.6vw, 1.3rem); opacity: .9; }
+  .car__cap em { font-style: normal; font-weight: 600; margin-top: 10px; color: #fff; border-bottom: 2px solid var(--c-neon); padding-bottom: 2px; transition: color .2s; }
+  .car__slide:hover .car__cap em { color: var(--c-neon); }
+
   .car__arrow {
-    position: absolute; top: calc(50% - 20px); transform: translateY(-50%);
-    width: 48px; height: 48px; border-radius: 50%; border: 0; cursor: pointer;
-    background: color-mix(in srgb, var(--c-dark) 55%, transparent); color: var(--c-on-dark);
-    font-size: 2rem; line-height: 1; display: grid; place-items: center; padding-bottom: 4px;
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+    width: clamp(44px, 4.5vw, 64px); height: clamp(44px, 4.5vw, 64px); padding: 0; border: 0; cursor: pointer;
+    background: transparent; color: #fff; display: grid; place-items: center; transition: color .2s, transform .2s;
+    filter: drop-shadow(0 1px 8px rgba(0, 0, 0, .5));
   }
-  .car__arrow:hover { background: var(--c-brand); }
-  .car__prev { left: 14px; }
-  .car__next { right: 14px; }
-  .car__dots { display: flex; justify-content: center; gap: 10px; padding-top: 16px; }
-  .car__dots button { width: 10px; height: 10px; padding: 0; border-radius: 50%; border: 0; background: var(--c-line); cursor: pointer; }
-  .car__dots button[aria-current='true'] { background: var(--c-brand); }
-  @media (max-width: 600px) { .car__arrow { width: 38px; height: 38px; font-size: 1.6rem; top: 30%; } .car__cap em { display: none; } }
+  .car__arrow svg { width: 70%; height: 70%; fill: currentColor; }
+  .car__arrow:hover, .car__arrow:focus-visible { color: var(--c-neon); }
+  .car__prev { left: clamp(4px, 1.5vw, 24px); }
+  .car__next { right: clamp(4px, 1.5vw, 24px); }
+  .car__prev:hover { transform: translateY(-50%) translateX(-3px); }
+  .car__next:hover { transform: translateY(-50%) translateX(3px); }
+  .car__dots { position: absolute; left: 0; right: 0; bottom: 14px; display: flex; justify-content: center; gap: 10px; z-index: 2; pointer-events: none; }
+  .car__dots button { pointer-events: auto; width: 9px; height: 9px; padding: 0; border-radius: 50%; border: 0; background: rgba(255, 255, 255, .45); cursor: pointer; }
+  .car__dots button[aria-current='true'] { background: var(--c-neon); }
+  @media (max-width: 700px) {
+    .car__slide { aspect-ratio: 4 / 3; }
+    .car__cap em { display: none; }
+    .car__dots { bottom: 8px; }
+  }
 </style>

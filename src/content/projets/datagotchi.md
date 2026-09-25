@@ -5,7 +5,7 @@ status: "Plateforme web, depuis 2021"
 categories: ["Gamification", "Science", "Web", "Identité"]
 gallery: []
 videos: []
-order: 7
+order: 9
 links:
   - { label: "datagotchi.com", href: "https://www.datagotchi.com" }
 todo: ["Captures de l'application, du logo et de l'image de marque", "Préciser l'étendue du mandat Anorak Studio"]

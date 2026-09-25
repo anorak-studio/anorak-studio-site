@@ -1,6 +1,7 @@
 ---
-// Like the old site: slim dark bar, ANORAK logo on the left, three-bar icon on the right
-// opening a full-screen menu (big uppercase links, logo, social icons).
+// No bar: the ANORAK logo sits directly over the top of the page (every page starts with
+// a dark image or banner). The burger (the old site's icon) stays fixed top-right and turns
+// fluorescent green on hover; it opens a full-screen menu on black at 70%.
 import logo from '../assets/logos/anorak.svg?raw';
 import logoStudio from '../assets/logos/anorak-studio.svg?raw';
 import menuIcon from '../assets/logos/menu.svg?raw';
@@ -10,13 +11,11 @@ const current = Astro.url.pathname;
 const isCurrent = (href: string) => (href === '/' ? current === '/' : current.startsWith(href));
 ---
 <header class="hdr">
-  <div class="hdr__in">
-    <a href="/" class="hdr__logo" aria-label="Anorak Studio, accueil" set:html={logo} />
-    <button class="hdr__burger" aria-controls="menu" aria-expanded="false" aria-label="Ouvrir le menu">
-      <span set:html={menuIcon} />
-    </button>
-  </div>
+  <a href="/" class="hdr__logo" aria-label="Anorak Studio, accueil" set:html={logo} />
 </header>
+<button class="burger" aria-controls="menu" aria-expanded="false" aria-label="Ouvrir le menu">
+  <span set:html={menuIcon} />
+</button>
 
 <div id="menu" class="menu" hidden>
   <button class="menu__close" aria-label="Fermer le menu">×</button>
@@ -29,12 +28,12 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
         ))}
       </ul>
     </nav>
-    <Social size={24} class="menu__social" />
+    <Social size={26} class="menu__social" />
   </div>
 </div>
 
 <script>
-  const btn = document.querySelector<HTMLButtonElement>('.hdr__burger')!;
+  const btn = document.querySelector<HTMLButtonElement>('.burger')!;
   const menu = document.getElementById('menu')!;
   const close = menu.querySelector<HTMLButtonElement>('.menu__close')!;
   const setOpen = (open: boolean) => {
@@ -45,37 +44,46 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   };
   btn.addEventListener('click', () => setOpen(true));
   close.addEventListener('click', () => setOpen(false));
-  menu.addEventListener('click', (e) => { if (e.target === menu) setOpen(false); });
+  menu.addEventListener('click', (e) => { if (e.target === menu || e.target === menu.firstElementChild?.nextElementSibling) setOpen(false); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) setOpen(false); });
+  // once the page scrolls past the top, give the burger a dark disc so it stays readable
+  const onScroll = () => btn.classList.toggle('is-floating', scrollY > 80);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 </script>
 
 <style>
-  .hdr { position: sticky; top: 0; z-index: 20; background: var(--c-dark); color: var(--c-on-dark); }
-  .hdr__in { height: var(--hdr-h); display: flex; align-items: center; justify-content: space-between; padding-inline: var(--gutter); max-width: 1600px; margin-inline: auto; }
-  .hdr__logo { display: block; width: 150px; color: var(--c-on-dark); }
+  .hdr { position: absolute; top: 0; left: 0; right: 0; z-index: 20; height: var(--hdr-h); display: flex; align-items: center; padding-inline: var(--gutter); pointer-events: none; }
+  .hdr__logo { pointer-events: auto; display: block; width: clamp(120px, 12vw, 170px); color: #fff; filter: drop-shadow(0 1px 8px rgba(0, 0, 0, .35)); transition: color .2s; }
+  .hdr__logo:hover { color: var(--c-neon); }
   .hdr__logo :global(svg) { width: 100%; height: auto; display: block; }
-  .hdr__burger { background: none; border: 0; padding: 10px; margin-right: -10px; cursor: pointer; color: var(--c-brand-light); }
-  .hdr__burger span { display: block; width: 34px; }
-  .hdr__burger :global(svg) { display: block; width: 100%; height: auto; }
-  .hdr__burger:hover { color: var(--c-on-dark); }
 
-  .menu { position: fixed; inset: 0; z-index: 50; background: color-mix(in srgb, var(--c-dark) 72%, transparent); backdrop-filter: blur(6px); display: flex; justify-content: flex-end; }
-  .menu[hidden] { display: none; }
-  .menu__in {
-    width: min(420px, 100%); height: 100%; overflow-y: auto;
-    background: linear-gradient(160deg, var(--c-dark-2) 0%, var(--c-dark) 44%, color-mix(in srgb, var(--c-brand) 60%, var(--c-dark)) 100%);
-    color: var(--c-on-dark); padding: 72px 40px 40px; display: flex; flex-direction: column; align-items: center; gap: 40px;
-    animation: fade .25s ease;
+  .burger {
+    position: fixed; top: 10px; right: calc(var(--gutter) - 10px); z-index: 30;
+    width: 54px; height: 44px; padding: 10px; border: 0; border-radius: 6px; cursor: pointer;
+    background: transparent; color: #fff; transition: color .2s, background .2s;
+    filter: drop-shadow(0 1px 6px rgba(0, 0, 0, .35));
   }
-  @keyframes fade { from { opacity: 0; transform: translateX(24px); } }
-  .menu__close { position: absolute; top: 12px; right: calc(var(--gutter) - 6px); z-index: 1; background: none; border: 0; color: var(--c-on-dark); font-size: 2.6rem; line-height: 1; cursor: pointer; padding: 4px 10px; }
-  .menu__logo { width: 190px; color: var(--c-on-dark); }
+  .burger span, .burger :global(svg) { display: block; width: 100%; height: auto; }
+  .burger:hover, .burger:focus-visible { color: var(--c-neon); }
+  .burger.is-floating { background: rgba(0, 0, 0, .7); filter: none; }
+
+  .menu { position: fixed; inset: 0; z-index: 50; background: rgba(0, 0, 0, .7); backdrop-filter: blur(4px); display: grid; place-items: center; overflow-y: auto; animation: fade .3s ease; }
+  .menu[hidden] { display: none; }
+  @keyframes fade { from { opacity: 0; } }
+  .menu__in { display: flex; flex-direction: column; align-items: center; gap: clamp(28px, 5vh, 56px); padding: 80px 24px; color: #fff; text-align: center; }
+  .menu__close { position: fixed; top: 8px; right: calc(var(--gutter) - 6px); background: none; border: 0; color: #fff; font-size: 3rem; line-height: 1; cursor: pointer; padding: 4px 12px; transition: color .2s; }
+  .menu__close:hover { color: var(--c-neon); }
+  .menu__logo { width: clamp(160px, 18vw, 240px); color: #fff; }
+  .menu__logo:hover { color: var(--c-neon); }
   .menu__logo :global(svg) { width: 100%; height: auto; display: block; }
-  .menu nav { width: 100%; }
-  .menu nav ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid color-mix(in srgb, var(--c-on-dark) 35%, transparent); }
-  .menu nav li { border-bottom: 1px solid color-mix(in srgb, var(--c-on-dark) 35%, transparent); }
-  .menu nav a { display: block; text-align: center; padding: 14px 0; text-decoration: none; text-transform: uppercase; letter-spacing: .06em; font: 700 clamp(1.5rem, 5vw, 2rem)/1.1 var(--f-display); transition: color .2s, background .2s; }
-  .menu nav a:hover, .menu nav a[aria-current] { color: var(--c-brand-light); }
-  .menu :global(.menu__social a:hover) { color: var(--c-brand-light); }
-  @media (max-width: 480px) { .hdr__logo { width: 120px; } }
+  .menu nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(4px, 1.2vh, 14px); }
+  .menu nav a {
+    display: inline-block; text-decoration: none; text-transform: uppercase; letter-spacing: .04em;
+    font: 800 clamp(2rem, 6.5vh, 3.8rem)/1.05 var(--f-display); transition: color .2s;
+  }
+  .menu nav a:hover, .menu nav a:focus-visible { color: var(--c-neon); }
+  .menu nav a[aria-current] { color: color-mix(in srgb, #fff 55%, transparent); }
+  .menu nav a[aria-current]:hover { color: var(--c-neon); }
+  .menu :global(.menu__social a:hover) { color: var(--c-neon); background: transparent; }
 </style>

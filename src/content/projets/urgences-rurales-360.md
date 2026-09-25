@@ -4,14 +4,13 @@ summary: "Un spectacle de docu-cirque comme outil de transfert de connaissances 
 status: "Spectacle en tournée"
 categories: ["Réalisation", "Science", "Vidéo", "Illustration"]
 cover: /images/site/carrousel-4.jpg
-carousel: /images/site/carrousel-4.jpg
 gallery: []
 videos: []
 order: 1
 links:
   - { label: "Le spectacle chez Les 7 Doigts", href: "https://7doigts.com/spectacles/creations/urgences-rurales-360" }
   - { label: "Le projet de recherche", href: "https://www.medecineurgence.ca/initiatives/ur360" }
-todo: ["Photos du spectacle et extraits vidéo", "Relire le texte"]
+todo: ["Reprendre les photos (signées Mathieu Fortin) et les textes de medecineurgence.ca/ur360 : le site bloque les robots, envoie-les-moi", "Extraits vidéo"]
 ---
 
 Urgences Rurales 360 est un spectacle de docu-cirque qui réunit recherche scientifique, arts vivants et participation citoyenne. Un narrateur excentrique et trois artistes de cirque y racontent la réalité des urgences en région à travers des cas réels, des témoignages et des projections visuelles, en rendant hommage à la résilience du personnel soignant hors des grands centres.

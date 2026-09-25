@@ -1,18 +1,17 @@
 # À compléter
 
-Ce qu'il me manque pour chaque projet. Les pastilles « À compléter » sont visibles sur le site
-tant que `showTodo: true` dans `src/data/site.ts` (à mettre à `false` avant la mise en ligne).
+Les pastilles « À compléter » restent visibles tant que `showTodo: true` dans `src/data/site.ts` (à mettre à `false` avant la mise en ligne).
 
 ## Urgences Rurales 360  
 `src/content/projets/urgences-rurales-360.md`
-- [ ] Photos du spectacle et extraits vidéo
-- [ ] Relire le texte
+- [ ] Reprendre les photos (signées Mathieu Fortin) et les textes de medecineurgence.ca/ur360 : le site bloque les robots, envoie-les-moi
+- [ ] Extraits vidéo
 
 ## The Unearthly Notes  
 `src/content/projets/the-unearthly-notes.md`
-- [ ] Image principale et image pour le carrousel
+- [ ] Affiche et images des 3 épisodes (sur tv1.bell.ca : je ne peux pas les télécharger d'ici, envoie-les-moi)
 - [ ] Bande-annonce (lien YouTube ou Vimeo)
-- [ ] Préciser le rôle de Bell et les crédits
+- [ ] Image pour le carrousel
 - [ ] Sélections en festivals
 
 ## ABKT  
@@ -30,14 +29,23 @@ tant que `showTodo: true` dans `src/data/site.ts` (à mettre à `false` avant la
 ## La Mue  
 `src/content/projets/la-mue.md`
 - [ ] Synopsis
-- [ ] Année, durée, crédits et coproducteur
+- [ ] Durée et crédits
 - [ ] Bande-annonce
 
 ## Doomed Raiders  
 `src/content/projets/doomed-raiders.md`
-- [ ] Confirmer que l'image du carrousel (bateau pixel art) est bien Doomed Raiders
 - [ ] Pitch du jeu et captures d'écran
 - [ ] Lien vers le site Doomed Raiders
+
+## Hub d'innovation en médecine rurale  
+`src/content/projets/hub-innovation-medecine-rurale.md`
+- [ ] Image principale et logo du Hub (le site bloque les robots : envoie-les-moi)
+- [ ] Texte du projet
+
+## Living Lab Charlevoix  
+`src/content/projets/living-lab-charlevoix.md`
+- [ ] Logo et images (le site bloque les robots : envoie-les-moi)
+- [ ] Texte du projet
 
 ## Datagotchi  
 `src/content/projets/datagotchi.md`
@@ -73,9 +81,10 @@ tant que `showTodo: true` dans `src/data/site.ts` (à mettre à `false` avant la
 - [ ] Boutique : afficher les gilets sur l'accueil (Shopify)
 
 ## Général
-- [ ] Carrousel : image 5 (drone dans la jungle), à quel projet l'associer? (ABKT?)
-- [ ] Images pour le carrousel : The Unearthly Notes, ABKT, Datagotchi
-- [ ] Photo d'accueil (rivière) en plus haute résolution
+- [ ] Lien de la bande-démo drone : `droneReel` dans `src/data/site.ts`
+- [ ] Média vedette de la Réalisation (vidéo) : `realisation.featured` dans `src/data/site.ts`
+- [ ] Photo ou vidéo d'accueil en plus haute résolution (l'actuelle fait 1024 px de large) : `hero` dans `src/data/site.ts`
+- [ ] Projets à identifier avec le tag IA : ajouter `ai: true` dans leur fichier
 - [ ] Relire tous les textes (accueil, services, réalisation, gamification, contact)
 - [ ] Version anglaise
 - [ ] Boutique : voir docs/boutique-plan.md

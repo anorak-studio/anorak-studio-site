@@ -5,7 +5,7 @@ status: "Jeu sorti le 4 avril 2025"
 categories: ["Jeu vidéo"]
 gallery: []
 videos: []
-order: 9
+order: 11
 links:
   - { label: "Jouer sur itch.io", href: "https://mooonbit.itch.io/fungus-forest" }
 todo: ["Images du jeu (dans le dossier Doomed Raiders)"]

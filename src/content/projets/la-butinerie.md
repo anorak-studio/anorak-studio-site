@@ -4,7 +4,7 @@ summary: "Logo et emballage."
 categories: ["Identité", "Imprimé"]
 gallery: []
 videos: []
-order: 11
+order: 13
 todo: ["Texte du projet", "Images du logo et de l'emballage"]
 ---
 

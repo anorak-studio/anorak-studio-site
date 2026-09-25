@@ -4,7 +4,7 @@ summary: "Nouveau projet."
 categories: ["Identité"]
 gallery: []
 videos: []
-order: 10
+order: 12
 todo: ["Tout : client, mandat, texte et images"]
 ---
 
