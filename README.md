@@ -46,20 +46,39 @@ Or open the folder with Claude Code and say "install and run the site".
 A project file supports: `title`, `summary`, `status`, `categories`, `cover`, `carousel`,
 `gallery`, `videos` (YouTube IDs), `links`, `ai` (IA tag), `shop`, `todo`, `order`, `draft`.
 
-## 4. Before launch
+## 4. Editing content from a browser (CMS)
+
+`public/admin/` has a ready-to-go [Decap CMS](https://decapcms.org) admin panel — a free,
+git-based CMS that edits the exact same markdown files in `src/content/projets/`. Once it's
+wired up, going to `anorakstudio.ca/admin` and logging in with GitHub gives you a form to
+add/edit projects (title, images, categories, links, etc.), and clicking "Publish" commits
+straight to GitHub — Cloudflare Pages then rebuilds the site automatically.
+
+Two things still needed before `/admin` works (see `docs/A-COMPLETER.md`):
+1. Set the real `repo:` value in `public/admin/config.yml` (needs the GitHub repo to exist first).
+2. A small GitHub OAuth handshake so Decap can log you in — the standard way on Cloudflare
+   Pages is a small Pages Function/Worker for this (a few well-documented lines); I can set
+   this up as soon as the GitHub repo exists.
+
+## 5. Before launch
 
 - [ ] Fill in `docs/A-COMPLETER.md`, then set `showTodo: false` in `src/data/site.ts`
 - [ ] Contact form: set `formEndpoint` (e.g. Formspree) or add a Cloudflare Pages Function
 - [ ] English version (Astro i18n)
-- [ ] Boutique (phase 2) and CMS (Decap CMS or Sanity)
+- [ ] Boutique (phase 2): Shopify + Printify
+- [ ] Finish wiring the CMS (see section 4)
 
-## 5. Deploy on Cloudflare Pages
+## 6. Deploy on Cloudflare Pages
 
 1. Push this folder to a GitHub repository.
 2. Cloudflare dashboard → Workers & Pages → Create → Pages → connect the repo.
    Framework preset: **Astro**. Build command: `npm run build`. Output: `dist`.
-3. Every push to `main` goes live; every other branch gets its own preview URL.
-4. Custom domain: add anorakstudio.ca under the Pages project → Custom domains.
+3. That gives you a private-by-obscurity `*.pages.dev` URL — share it, test it, keep
+   iterating. `anorakstudio.ca` keeps pointing at the current WordPress site at WHC
+   until you're ready.
+4. Every push to `main` redeploys the same URL; every other branch gets its own preview URL.
+5. When ready to go live: Custom domain → add anorakstudio.ca under the Pages project,
+   then switch the domain's DNS at WHC to Cloudflare.
 
 **Email warning:** if you move the domain's DNS to Cloudflare, copy the MX, SPF,
 DKIM and autodiscover records from Web Hosting Canada first, so that

@@ -1,0 +1,64 @@
+# Decap CMS config — a free, git-based admin panel.
+# It edits the exact markdown files in src/content/projets/, so the site and the CMS
+# never fall out of sync. Once this is live at yoursite.com/admin, editing a project
+# here and clicking "Publish" commits the change to GitHub, and Cloudflare Pages
+# automatically rebuilds the site.
+#
+# TODO before this works: replace `repo:` below with your real "owner/repo-name"
+# once the GitHub repository exists, and wire up GitHub login (see docs/A-COMPLETER.md).
+
+backend:
+  name: github
+  repo: TODO/anorak-studio-site # e.g. "mfortin/anorak-studio-site"
+  branch: main
+
+media_folder: "public/images/projets"
+public_folder: "/images/projets"
+
+collections:
+  - name: "projets"
+    label: "Projets"
+    label_singular: "Projet"
+    folder: "src/content/projets"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    fields:
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Résumé (carte projet)", name: "summary", widget: "text", required: false }
+      - { label: "Statut", name: "status", widget: "string", required: false, hint: "Ex. « Documentaire en production », « Court métrage, 2024 »" }
+      - label: "Catégories"
+        name: "categories"
+        widget: "select"
+        multiple: true
+        default: []
+        options: ["Réalisation", "Gamification", "Jeu vidéo", "Science", "Identité", "Web", "Imprimé", "Illustration", "Vidéo", "IA"]
+      - { label: "Image de couverture", name: "cover", widget: "image", required: false }
+      - label: "Galerie"
+        name: "gallery"
+        widget: "list"
+        default: []
+        field: { label: "Image", name: "image", widget: "image" }
+      - label: "Vidéos (ID YouTube)"
+        name: "videos"
+        widget: "list"
+        default: []
+        field: { label: "ID YouTube", name: "id", widget: "string", hint: "Juste l'identifiant, ex. dQw4w9WgXcQ" }
+      - label: "Liens"
+        name: "links"
+        widget: "list"
+        default: []
+        fields:
+          - { label: "Texte du bouton", name: "label", widget: "string" }
+          - { label: "URL", name: "href", widget: "string" }
+      - { label: "Fait avec l'IA", name: "ai", widget: "boolean", default: false }
+      - { label: "Note boutique", name: "shop", widget: "string", required: false }
+      - label: "À compléter (rappels internes)"
+        name: "todo"
+        widget: "list"
+        default: []
+        field: { label: "Élément", name: "item", widget: "string" }
+      - { label: "Ordre d'affichage", name: "order", widget: "number", default: 100, hint: "1-99 = nouveaux projets, 100+ = anciens projets. Plus petit = plus haut dans la grille." }
+      - { label: "Date", name: "date", widget: "datetime", required: false }
+      - { label: "Brouillon (masqué du site)", name: "draft", widget: "boolean", default: false }
+      - { label: "Texte du projet", name: "body", widget: "markdown" }

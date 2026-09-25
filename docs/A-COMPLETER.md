@@ -60,7 +60,6 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 
 ## Prof. Datagotchi  
 `src/content/projets/prof-datagotchi.md`
-- [ ] Captures et visuels du personnage
 - [ ] Rôle précis d'Anorak Studio
 
 ## Fungus Forest  
@@ -83,8 +82,12 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 
 ## Wooders  
 `src/content/projets/wooders.md`
-- [ ] Texte et images du projet
+- [ ] Photos des vêtements et illustrations
 - [ ] Boutique : afficher les gilets sur l'accueil (Shopify)
+
+## CMS (édition depuis le navigateur)
+- [ ] Mettre le vrai `repo:` (ex. `mfortin/anorak-studio-site`) dans `public/admin/config.yml` une fois le dépôt GitHub créé
+- [ ] Brancher la connexion GitHub pour Decap CMS (petite fonction Cloudflare Pages/Worker — je peux la faire dès que le dépôt existe)
 
 ## Général
 - [ ] Lien de la bande-démo drone : `droneReel` dans `src/data/site.ts`

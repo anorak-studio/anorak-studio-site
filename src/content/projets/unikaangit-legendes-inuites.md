@@ -2,8 +2,9 @@
 title: "Unikaangit, Légendes inuites"
 summary: "Créé dans le cadre d’un projet de Fusion Jeunesse dans le Nord-du-Québec, au Nunavik, ce projet de livre et d’affiches présente des oeuvres dessinées en…"
 categories: ["Illustration", "Imprimé"]
-cover: "/images/old-site/2024/02/NEW-caroussel-small-2-anorak-unikaangit.jpg"
+cover: "/images/site/unikaangit-book.png"
 gallery:
+  - /images/old-site/2024/02/NEW-caroussel-small-2-anorak-unikaangit.jpg
   - /images/old-site/2024/02/unikaangit-loup2.jpg
   - /images/old-site/2024/02/unikaangit-loup1.jpg
   - /images/old-site/2024/02/unikaangit-4.jpg
