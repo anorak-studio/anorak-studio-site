@@ -1,0 +1,50 @@
+---
+import { site, nav } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="ftr">
+  <div class="wrap ftr__grid">
+    <div>
+      <p class="ftr__big">On démarre un projet?</p>
+      <a class="btn" href={`mailto:${site.email}`}>{site.email}</a>
+    </div>
+    <div>
+      <span class="eyebrow">Studio</span>
+      <address>
+        {site.address.street}<br />
+        {site.address.city}<br />
+        {site.address.country}, {site.address.postal}
+      </address>
+      <p><a href={site.phoneHref}>{site.phone}</a></p>
+    </div>
+    <div>
+      <span class="eyebrow">Suivez-nous</span>
+      <ul>
+        {site.social.map((s) => <li><a href={s.href} rel="noopener" target="_blank">{s.label}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <span class="eyebrow">Plan du site</span>
+      <ul>{nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul>
+    </div>
+  </div>
+  <div class="wrap ftr__bottom">
+    <span>© {year} {site.name}</span>
+    <span>{site.tagline}</span>
+  </div>
+</footer>
+
+<style>
+  .ftr { background: var(--c-brand); color: var(--c-brand-ink); padding-top: clamp(56px, 8vw, 96px); margin-top: auto; }
+  .ftr .eyebrow { color: color-mix(in srgb, var(--c-brand-ink) 60%, transparent); }
+  .ftr__grid { display: grid; gap: 40px; grid-template-columns: 2fr 1fr 1fr 1fr; }
+  .ftr__big { font: 800 clamp(1.75rem, 4vw, 2.6rem)/1.05 var(--f-display); margin-bottom: 1.25rem; }
+  .ftr .btn { background: var(--c-brand-ink); color: var(--c-brand); }
+  .ftr address { font-style: normal; margin-bottom: 1em; }
+  .ftr ul { list-style: none; margin: 0; padding: 0; line-height: 2; }
+  .ftr a { text-decoration: none; }
+  .ftr a:hover { text-decoration: underline; }
+  .ftr__bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-block: 28px; margin-top: 56px; border-top: 1px solid color-mix(in srgb, var(--c-brand-ink) 20%, transparent); font-size: .9rem; opacity: .8; }
+  @media (max-width: 900px) { .ftr__grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .ftr__grid { grid-template-columns: 1fr; } }
+</style>

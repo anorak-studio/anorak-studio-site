@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+.wrangler/
+# raw backup files and the full unpacked archive stay on your computer
+*.wpress
+tools/out/

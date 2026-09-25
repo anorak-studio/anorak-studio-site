@@ -1,0 +1,30 @@
+---
+// Shows an image from /public. If the file isn't there yet (old-site images not
+// extracted), renders a striped placeholder with the expected path instead of a broken image.
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Props {
+  src?: string;
+  alt: string;
+  ratio?: string; // e.g. '4 / 3'
+  class?: string;
+  eager?: boolean;
+}
+const { src, alt, ratio = '4 / 3', class: cls = '', eager = false } = Astro.props;
+const exists = !!src && fs.existsSync(path.join(process.cwd(), 'public', decodeURI(src)));
+---
+{exists ? (
+  <img
+    src={src}
+    alt={alt}
+    class={cls}
+    style={`aspect-ratio:${ratio};object-fit:cover;width:100%`}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding="async"
+  />
+) : (
+  <div class={`img-missing ${cls}`} style={`aspect-ratio:${ratio}`} role="img" aria-label={alt}>
+    <span>{src ? `Image à venir : ${src.split('/').pop()}` : 'Image à venir'}</span>
+  </div>
+)}

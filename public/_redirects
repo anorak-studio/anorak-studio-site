@@ -1,0 +1,14 @@
+# Cloudflare Pages redirects: old WordPress (/v2/) URLs -> new pages
+/v2                                                   /                              301
+/v2/                                                  /                              301
+/v2/projets/                                          /projets/                      301
+/v2/services/                                         /services/                     301
+/v2/contact/                                          /contact/                      301
+/v2/portfolio/tutto-gelato/                           /projets/tutto-gelato/         301
+/v2/portfolio/sine-qua-non-regroupement-davocats/     /projets/sine-qua-non/         301
+/v2/portfolio/corporation-des-metiers-dart-en-charlevoix/ /projets/metiers-dart-charlevoix/ 301
+/v2/portfolio/cdr-relais-coop/                        /projets/relais-coop/          301
+/v2/portfolio/caouane/                                /projets/caouane/              301
+/v2/portfolio/quebec-aide-financiere-aux-sinistres/   /projets/aide-financiere-sinistres/ 301
+/v2/wp-content/uploads/*                              /images/old-site/:splat        301
+/v2/*                                                 /                              301

@@ -1,0 +1,95 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Img from '../components/Img.astro';
+import { site, services, categories } from '../data/site';
+
+const projets = (await getCollection('projets'))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+<Base>
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">{site.tagline}</span>
+      <h1>{site.heroTitle}</h1>
+      <p class="lead">{site.description}</p>
+      <div class="hero__cta">
+        <a class="btn" href="/projets/">Voir les projets</a>
+        <a class="btn btn--ghost" href="/contact/">Parlons de votre projet</a>
+      </div>
+      <ul class="hero__cats">{categories.map((c) => <li>{c}</li>)}</ul>
+    </div>
+    <svg class="hero__ridge" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 160V96l120-40 110 52 150-86 140 70 120-46 170 74 130-58 150 64 120-48 230 42V160Z" fill="var(--c-brand)" />
+    </svg>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head">
+        <div><span class="eyebrow">Projets choisis</span><h2>Nos réalisations</h2></div>
+        <a class="btn btn--ghost" href="/projets/">Tous les projets</a>
+      </div>
+      <div class="grid grid--3">
+        {projets.map((p) => (
+          <ProjectCard id={p.id} title={p.data.title} summary={p.data.summary} categories={p.data.categories} cover={p.data.cover} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section mission">
+    <div class="wrap mission__in">
+      <span class="eyebrow">Notre approche</span>
+      <p class="mission__quote">{site.mission}</p>
+      <p class="lead">{site.about}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head">
+        <div><span class="eyebrow">Services</span><h2>Ce qu'on fait</h2></div>
+        <a class="btn btn--ghost" href="/services/">Détails</a>
+      </div>
+      <ol class="svc">
+        {services.map((s, i) => (
+          <li>
+            <a href={`/services/#${s.id}`}>
+              <span class="svc__n">{String(i + 1).padStart(2, '0')}</span>
+              <span class="svc__t">{s.title}</span>
+              <span class="svc__img"><Img src={s.image} alt="" ratio="16 / 9" /></span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { position: relative; padding-top: clamp(64px, 12vw, 160px); padding-bottom: clamp(120px, 14vw, 200px); overflow: hidden; }
+  .hero h1 { max-width: 12ch; color: var(--c-brand); }
+  .hero__cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 2rem 0 2.5rem; }
+  .hero__cats { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .hero__cats li { padding: .35em .9em; border: 1px solid var(--c-line); border-radius: 999px; font-size: .85rem; color: var(--c-muted); }
+  .hero__ridge { position: absolute; left: 0; bottom: -1px; width: 100%; height: clamp(60px, 10vw, 160px); }
+
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .head h2 { margin: 0; }
+
+  .mission { background: var(--c-brand); color: var(--c-brand-ink); }
+  .mission .eyebrow, .mission .lead { color: color-mix(in srgb, var(--c-brand-ink) 70%, transparent); }
+  .mission__in { max-width: 900px; }
+  .mission__quote { font: 700 clamp(1.8rem, 4.5vw, 3.2rem)/1.15 var(--f-display); margin-bottom: 1.5rem; }
+
+  .svc { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--c-line); }
+  .svc a { display: grid; grid-template-columns: 4rem 1fr 180px; align-items: center; gap: 1rem; padding: 1.25rem 0; border-bottom: 1px solid var(--c-line); text-decoration: none; }
+  .svc__n { color: var(--c-muted); font-variant-numeric: tabular-nums; }
+  .svc__t { font: 700 clamp(1.3rem, 3vw, 2rem)/1.1 var(--f-display); }
+  .svc__img { border-radius: var(--radius); overflow: hidden; opacity: .9; }
+  .svc a:hover .svc__t { color: var(--c-brand); }
+  @media (max-width: 640px) { .svc a { grid-template-columns: 2.5rem 1fr; } .svc__img { display: none; } }
+</style>

@@ -1,0 +1,67 @@
+/* Design tokens. A variant site (Anorak Studio Games) can swap this block only. */
+:root {
+  --c-bg: #f4f1ea;
+  --c-surface: #ffffff;
+  --c-ink: #16201b;
+  --c-muted: #5b6660;
+  --c-line: #d9d4c7;
+  --c-brand: #1f4d3a;       /* forest green */
+  --c-brand-ink: #f4f1ea;
+  --c-accent: #c8743b;      /* rust, used sparingly */
+
+  --f-display: 'Archivo', system-ui, sans-serif;
+  --f-body: 'Inter', system-ui, sans-serif;
+
+  --w-max: 1200px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --radius: 6px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-ink);
+  font: 400 1.0625rem/1.6 var(--f-body);
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--f-display); line-height: 1.05; margin: 0 0 .5em; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.5rem, 7vw, 5.5rem); font-weight: 800; }
+h2 { font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 700; }
+h3 { font-size: 1.25rem; font-weight: 700; }
+p { margin: 0 0 1em; }
+
+.wrap { max-width: var(--w-max); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: clamp(56px, 9vw, 120px); }
+.eyebrow {
+  font: 600 .8rem/1 var(--f-body);
+  text-transform: uppercase; letter-spacing: .14em;
+  color: var(--c-muted); margin-bottom: 1rem; display: block;
+}
+.lead { font-size: clamp(1.15rem, 2vw, 1.4rem); color: var(--c-muted); max-width: 42ch; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: .5em;
+  padding: .85em 1.4em; border-radius: 999px;
+  background: var(--c-brand); color: var(--c-brand-ink);
+  font-weight: 600; text-decoration: none; border: 0; cursor: pointer; font-size: 1rem;
+}
+.btn:hover { background: var(--c-ink); }
+.btn--ghost { background: transparent; color: inherit; box-shadow: inset 0 0 0 1.5px currentColor; }
+.btn--ghost:hover { background: var(--c-ink); color: var(--c-bg); box-shadow: none; }
+
+/* Placeholder shown until the old images are extracted into /public/images/old-site */
+.img-missing {
+  display: grid; place-items: center; text-align: center;
+  background: repeating-linear-gradient(135deg, #e7e2d6 0 12px, #efebe1 12px 24px);
+  color: var(--c-muted); font-size: .8rem; padding: 1rem; word-break: break-all;
+}
+
+.grid { display: grid; gap: clamp(16px, 3vw, 32px); }
+.grid--2 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); }
+.grid--3 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+
+:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

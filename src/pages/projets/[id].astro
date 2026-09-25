@@ -1,0 +1,62 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Img from '../../components/Img.astro';
+
+export async function getStaticPaths() {
+  const projets = (await getCollection('projets')).sort((a, b) => a.data.order - b.data.order);
+  return projets.map((entry, i) => ({
+    params: { id: entry.id },
+    props: { entry, next: projets[(i + 1) % projets.length] },
+  }));
+}
+
+const { entry, next } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<Base title={d.title} description={d.summary} image={d.cover}>
+  <article class="section">
+    <div class="wrap">
+      <a class="back" href="/projets/">← Tous les projets</a>
+      <span class="eyebrow">{d.categories.join(' · ')}</span>
+      <h1>{d.title}</h1>
+      <div class="intro">
+        <p class="lead">{d.summary}</p>
+        <dl>
+          {d.client && (<><dt>Client</dt><dd>{d.client}</dd></>)}
+          <dt>Réalisation</dt><dd>Anorak Studio</dd>
+        </dl>
+      </div>
+      <div class="cover"><Img src={d.cover} alt={d.title} ratio="16 / 9" eager /></div>
+      <div class="body"><Content /></div>
+      {d.gallery.length > 0 && (
+        <div class="gallery">
+          {d.gallery.map((src, i) => <Img src={src} alt={`${d.title}, image ${i + 1}`} ratio="3 / 2" />)}
+        </div>
+      )}
+      <a class="next" href={`/projets/${next.id}/`}>
+        <span class="eyebrow">Projet suivant</span>
+        <span class="next__t">{next.data.title} →</span>
+      </a>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .back { display: inline-block; margin-bottom: 2rem; color: var(--c-muted); text-decoration: none; }
+  .back:hover { color: var(--c-ink); }
+  h1 { max-width: 18ch; color: var(--c-brand); }
+  .intro { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin: 1rem 0 3rem; }
+  dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: .4rem 1rem; font-size: .95rem; }
+  dt { color: var(--c-muted); }
+  dd { margin: 0; }
+  .cover { border-radius: var(--radius); overflow: hidden; }
+  .body { max-width: 68ch; margin: 3rem 0; font-size: 1.15rem; }
+  .gallery { display: grid; gap: clamp(12px, 2vw, 24px); grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); }
+  .gallery :global(img), .gallery :global(.img-missing) { border-radius: var(--radius); }
+  .next { display: block; margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--c-line); text-decoration: none; }
+  .next__t { font: 800 clamp(1.8rem, 5vw, 3.5rem)/1.05 var(--f-display); }
+  .next:hover .next__t { color: var(--c-brand); }
+  @media (max-width: 720px) { .intro { grid-template-columns: 1fr; } }
+</style>

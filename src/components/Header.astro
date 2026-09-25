@@ -1,0 +1,50 @@
+---
+import { site, nav } from '../data/site';
+const current = Astro.url.pathname;
+---
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a href="/" class="logo" aria-label={`${site.name}, accueil`}>
+      <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+        <path d="M20 4 36 34H4Z" fill="currentColor" />
+        <path d="M20 16 27 30H13Z" fill="var(--c-bg)" />
+      </svg>
+      <span>Anorak<b>Studio</b></span>
+    </a>
+    <input type="checkbox" id="nav-toggle" class="sr-only" />
+    <label for="nav-toggle" class="burger" aria-label="Menu"><span></span></label>
+    <nav aria-label="Principal">
+      <ul>
+        {nav.map((item) => (
+          <li>
+            <a href={item.href} aria-current={current.startsWith(item.href) ? 'page' : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .hdr { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--c-bg) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--c-line); }
+  .hdr__in { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .logo { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: var(--c-brand); font: 500 1.2rem/1 var(--f-display); }
+  .logo b { font-weight: 800; margin-left: .2em; }
+  nav ul { list-style: none; display: flex; gap: 2rem; margin: 0; padding: 0; }
+  nav a { text-decoration: none; font-weight: 500; padding-block: .3rem; border-bottom: 2px solid transparent; }
+  nav a:hover, nav a[aria-current] { border-color: var(--c-brand); }
+  .burger { display: none; }
+
+  @media (max-width: 720px) {
+    .burger { display: grid; place-items: center; width: 44px; height: 44px; cursor: pointer; }
+    .burger span, .burger span::before, .burger span::after { content: ''; display: block; width: 22px; height: 2px; background: var(--c-ink); position: relative; }
+    .burger span::before { position: absolute; top: -7px; }
+    .burger span::after { position: absolute; top: 7px; }
+    nav { position: absolute; inset: 72px 0 auto 0; background: var(--c-bg); border-bottom: 1px solid var(--c-line); display: none; }
+    nav ul { flex-direction: column; gap: 0; padding: 1rem var(--gutter) 1.5rem; }
+    nav a { display: block; padding: .8rem 0; font-size: 1.25rem; }
+    #nav-toggle:checked ~ nav { display: block; }
+  }
+</style>
