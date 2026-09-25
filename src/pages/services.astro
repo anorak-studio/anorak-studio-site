@@ -2,23 +2,36 @@
 import Base from '../layouts/Base.astro';
 import PageTitle from '../components/PageTitle.astro';
 import Img from '../components/Img.astro';
-import { services, servicesIntro, site } from '../data/site';
+import { services, site } from '../data/site';
 ---
-<Base title="Services" description="Identité visuelle, imprimé et édition, web et multimédias, illustration, publicité.">
+<Base title="Services" description="Image de marque, réalisation, gamification, web, illustration et pixel art, imprimé : les services d'Anorak Studio.">
   <PageTitle title="Services" />
 
   <section class="section intro wrap">
-    <p class="q">{servicesIntro.question}</p>
-    {servicesIntro.answer.map((p) => <p>{p}</p>)}
+    <p class="q">Vous êtes sur le point de lancer un projet?</p>
+    <p>Appelez-nous pour en parler! Depuis {site.since}, on accompagne des entreprises, des organismes et des équipes de recherche à toutes les étapes : de l'idée au lancement.</p>
+    <p>En intégrant le design dès le début, vous vous assurez d'un projet cohérent, qui rejoint vraiment votre public. Et à l'ère de l'IA, c'est ce regard qui fait la différence.</p>
     <p class="cta"><a class="btn" href={site.phoneHref}>{site.phone}</a></p>
   </section>
 
-  <section class="wrap list">
-    {services.map((s) => (
-      <article id={s.id} class="svc">
-        <h2>{s.title}</h2>
-        <Img src={s.image} alt={s.title} />
-        {s.text.map((p) => <p>{p}</p>)}
+  <section class="science ferns">
+    <div class="wrap">
+      <span class="eyebrow">Notre spécialité</span>
+      <p class="science__t">La science au cœur de notre pratique.</p>
+      <p>On fait le branding de projets scientifiques : un film pour raconter la recherche, un logo pour la reconnaître, un site web pour la partager, un jeu pour la faire vivre. Chaires de recherche, universités, organismes : on parle votre langue et celle de votre public.</p>
+    </div>
+  </section>
+
+  <section class="section wrap list">
+    {services.map((s, i) => (
+      <article id={s.id} class:list={['svc', { 'svc--rev': i % 2 === 1 }]}>
+        <div class="svc__img"><Img src={s.image} alt={s.title} ratio="4 / 3" /></div>
+        <div>
+          <span class="eyebrow">{String(i + 1).padStart(2, '0')}</span>
+          <h2>{s.title}</h2>
+          <p class="svc__lead">{s.lead}</p>
+          {s.text.map((p) => <p>{p}</p>)}
+        </div>
       </article>
     ))}
   </section>
@@ -31,9 +44,18 @@ import { services, servicesIntro, site } from '../data/site';
   .intro .q { color: var(--c-ink); }
   .cta { margin-top: 1.6rem; }
 
-  .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr)); gap: 0 clamp(24px, 4vw, 50px); padding-bottom: clamp(48px, 7vw, 96px); }
-  .svc { padding: 25px 0; scroll-margin-top: calc(var(--hdr-h) + 16px); }
-  .svc h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); }
-  .svc :global(img) { margin: 0 0 1.2rem; }
-  .svc p { color: var(--c-muted); }
+  .science { padding-block: clamp(56px, 8vw, 100px); }
+  .science .eyebrow { color: var(--c-brand-light); }
+  .science__t { font: 800 clamp(1.9rem, 4.5vw, 3.2rem)/1.05 var(--f-display); max-width: 18ch; }
+  .science p:last-child { max-width: 60ch; font-size: 1.12rem; color: color-mix(in srgb, var(--c-on-dark) 82%, transparent); margin: 0; }
+
+  .list { display: grid; gap: clamp(48px, 8vw, 100px); }
+  .svc { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 5vw, 64px); align-items: center; scroll-margin-top: calc(var(--hdr-h) + 16px); }
+  .svc--rev .svc__img { order: 2; }
+  .svc__img { border-radius: var(--radius); overflow: hidden; }
+  .svc h2 { margin-bottom: .3em; }
+  .svc__lead { font-weight: 600; color: var(--c-brand); }
+  .svc p { max-width: 50ch; }
+  .svc p:not(.svc__lead) { color: var(--c-muted); }
+  @media (max-width: 760px) { .svc { grid-template-columns: 1fr; } .svc--rev .svc__img { order: 0; } }
 </style>

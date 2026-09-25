@@ -1,0 +1,36 @@
+---
+// A row of uniform project cards (Réalisation, Gamification sections).
+import Img from './Img.astro';
+import type { CollectionEntry } from 'astro:content';
+interface Props { projets: CollectionEntry<'projets'>[]; dark?: boolean; }
+const { projets, dark = false } = Astro.props;
+---
+<div class:list={['tiles', { 'tiles--dark': dark }]}>
+  {projets.map((p) => (
+    <a class="tile" href={`/projets/${p.id}/`}>
+      <div class="tile__img">
+        {p.data.cover ? <Img src={p.data.cover} alt="" ratio="4 / 3" /> : <div class="tile__ph"><span>{p.data.title}</span></div>}
+      </div>
+      <h3>{p.data.title}</h3>
+      {p.data.status && <p>{p.data.status}</p>}
+    </a>
+  ))}
+</div>
+
+<style>
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 28px 22px; }
+  .tile { text-decoration: none; display: block; }
+  .tile__img { overflow: hidden; border-radius: var(--radius); margin-bottom: 10px; background: var(--c-grey); }
+  .tile__img :global(img) { transition: transform .4s ease; }
+  .tile:hover .tile__img :global(img) { transform: scale(1.04); }
+  .tile__ph { aspect-ratio: 4 / 3; display: flex; align-items: flex-end; padding: 16px; background: linear-gradient(150deg, color-mix(in srgb, var(--c-brand) 85%, #000), var(--c-dark)); color: var(--c-on-dark); }
+  .tile__ph span { font: 800 1.25rem/1.1 var(--f-display); }
+  .tile h3 { font-size: 1.1rem; margin: 0; }
+  .tile p { font-size: .85rem; color: var(--c-muted); margin: 3px 0 0; }
+  .tile:hover h3 { color: var(--c-brand); }
+  .tiles--dark .tile h3 { color: var(--c-on-dark); }
+  .tiles--dark .tile p { color: color-mix(in srgb, var(--c-on-dark) 65%, transparent); }
+  .tiles--dark .tile:hover h3 { color: var(--c-brand-light); }
+  .tiles--dark .tile__img { background: rgba(255, 255, 255, .06); }
+  .tiles--dark .tile__ph { background: linear-gradient(150deg, rgba(255,255,255,.12), rgba(255,255,255,.03)); }
+</style>

@@ -1,33 +1,54 @@
 ---
-// Like the old footer: fern band with the mission quote, social icons,
-// big grey menu row, then the address line.
+// Footer from the first version: green band, big call to action, columns.
 import Social from './Social.astro';
 import { site, nav } from '../data/site';
+const year = new Date().getFullYear();
 ---
-<footer>
-  <section class="ferns quote">
-    <p class="wrap">{site.mission}</p>
-  </section>
-  <div class="social-row"><Social size={24} /></div>
-  <nav class="fnav" aria-label="Pied de page">
-    <ul class="wrap">{nav.filter((n) => n.href !== '/').map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul>
-  </nav>
-  <p class="addr wrap">
-    {site.name}<br />
-    {site.address.street}, {site.address.city}, {site.address.country}, {site.address.postal}<br />
-    <a href={site.phoneHref}>{site.phone}</a> · <a href={`mailto:${site.email}`}>{site.email}</a>
-  </p>
+<footer class="ftr">
+  <div class="wrap ftr__grid">
+    <div>
+      <p class="ftr__big">On démarre un projet?</p>
+      <a class="btn ftr__btn" href={`mailto:${site.email}`}>{site.email}</a>
+      <p class="ftr__phone"><a href={site.phoneHref}>{site.phone}</a></p>
+    </div>
+    <div>
+      <span class="eyebrow">Studio</span>
+      <address>
+        {site.address.street}<br />
+        {site.address.city}<br />
+        {site.address.country}, {site.address.postal}
+      </address>
+    </div>
+    <div>
+      <span class="eyebrow">Suivez-nous</span>
+      <Social class="ftr__social" />
+    </div>
+    <div>
+      <span class="eyebrow">Plan du site</span>
+      <ul>{nav.filter((n) => n.href !== '/').map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul>
+    </div>
+  </div>
+  <div class="wrap ftr__bottom">
+    <span>© {year} {site.name} · Depuis {site.since}</span>
+    <span>{site.tagline}</span>
+  </div>
 </footer>
 
 <style>
-  .quote { padding: clamp(48px, 7vw, 80px) 0; text-align: center; }
-  .quote p { margin: 0 auto; max-width: 900px; font: 500 clamp(1.2rem, 2.4vw, 1.6rem)/1.45 var(--f-display); }
-  .social-row { display: flex; justify-content: center; padding: 22px 0; }
-  .fnav { background: var(--c-grey); }
-  .fnav ul { list-style: none; margin: 0 auto; padding-block: 18px 22px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 44px; }
-  .fnav a { text-decoration: none; font: 700 clamp(1.3rem, 3vw, 1.9rem)/1.4 var(--f-display); transition: color .2s; }
-  .fnav a:hover { color: var(--c-brand); }
-  .addr { text-align: center; font-size: .92rem; color: var(--c-muted); padding-block: 26px 34px; margin: 0 auto; }
-  .addr a { text-decoration: none; }
-  .addr a:hover { text-decoration: underline; }
+  .ftr { background: var(--c-brand); color: var(--c-brand-ink); padding-top: clamp(56px, 8vw, 96px); }
+  .ftr .eyebrow { color: color-mix(in srgb, var(--c-brand-ink) 60%, transparent); }
+  .ftr__grid { display: grid; gap: 40px; grid-template-columns: 2fr 1fr 1fr 1fr; }
+  .ftr__big { font: 800 clamp(1.9rem, 4vw, 2.8rem)/1.05 var(--f-display); margin-bottom: 1.25rem; }
+  .ftr__btn { background: var(--c-brand-ink); color: var(--c-brand); }
+  .ftr__btn:hover { background: var(--c-dark); color: var(--c-brand-ink); }
+  .ftr__phone { margin-top: 1rem; }
+  .ftr address { font-style: normal; }
+  .ftr ul { list-style: none; margin: 0; padding: 0; line-height: 2; }
+  .ftr a { text-decoration: none; }
+  .ftr a:hover { text-decoration: underline; }
+  .ftr :global(.ftr__social) { margin-left: -10px; }
+  .ftr :global(.ftr__social a:hover) { color: var(--c-brand-light); }
+  .ftr__bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-block: 28px; margin-top: 56px; border-top: 1px solid color-mix(in srgb, var(--c-brand-ink) 20%, transparent); font-size: .9rem; opacity: .8; }
+  @media (max-width: 900px) { .ftr__grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .ftr__grid { grid-template-columns: 1fr; } }
 </style>

@@ -1,7 +1,7 @@
 ---
 title: "Capsules Vidéo UGO"
 summary: "Client: La commune web Mandat: Réaliser deux capsules vidéo pour présenter le concept de jeu interactif UGO. Création de contenus destinés aux réseaux sociaux."
-categories: ["Identité", "Imprimé", "Web", "Illustration", "Publicité", "Design responsable"]
+categories: ["Vidéo"]
 cover: "/images/old-site/2024/02/UGO-BG-flou.jpg"
 gallery:
   - /images/old-site/2024/02/UGO-1.jpg
@@ -16,7 +16,7 @@ gallery:
   - /images/old-site/2024/02/UGO-13.jpg
   - /images/old-site/2024/02/UGO-BG-flou-1.jpg
 videos: ["y7_Ghybvl2s"]
-order: 25
+order: 104
 date: 2024-02-01
 draft: false
 ---

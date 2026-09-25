@@ -4,6 +4,19 @@
 /v2/projets/              /projets/                      301
 /v2/services/             /services/                     301
 /v2/contact/              /contact/                      301
+# old projects no longer on the site
+/v2/portfolio/tutto-gelato/*                                 /projets/  301
+/v2/portfolio/cherche-etoiles/*                              /projets/  301
+/v2/portfolio/camellia-sinensisthes-de-printemps-2013/*      /projets/  301
+/v2/portfolio/juulie-rousseau/*                              /projets/  301
+/v2/portfolio/zecs-quebec/*                                  /projets/  301
+/v2/portfolio/septante-construction/*                        /projets/  301
+/v2/portfolio/ironman-rescue-drone-project/*                 /projets/  301
+/v2/portfolio/humble-melodies/*                              /projets/  301
+/v2/portfolio/corporation-des-metiers-dart-en-charlevoix/*   /projets/  301
+/v2/portfolio/une-collecte-qui-carbure/*                     /projets/  301
+/v2/portfolio/parcours-ton-quartier/*                        /projets/  301
+# kept projects: same slug
 /v2/portfolio/:slug/      /projets/:slug/                301
 /v2/portfolio/:slug       /projets/:slug/                301
 /v2/wp-content/uploads/*  /images/old-site/:splat        301

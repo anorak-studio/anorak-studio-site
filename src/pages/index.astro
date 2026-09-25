@@ -1,15 +1,19 @@
 ---
-// Same order as the old home page: landscape photo with the tagline, intro row
-// (big logo + text + contact), carousel on the grey band, then the project grid.
 import Base from '../layouts/Base.astro';
 import Carousel from '../components/Carousel.astro';
 import ProjectGrid from '../components/ProjectGrid.astro';
+import ProjectTiles from '../components/ProjectTiles.astro';
 import Social from '../components/Social.astro';
 import logoStudio from '../assets/logos/anorak-studio.svg?raw';
-import { site, carousel } from '../data/site';
-import { getProjets } from '../lib/projets';
+import { site, services, realisation, gamification, boutique } from '../data/site';
+import { getProjets, pickProjets } from '../lib/projets';
 
 const projets = await getProjets();
+const slides = projets
+  .filter((p) => p.data.carousel)
+  .map((p) => ({ src: p.data.carousel!, title: p.data.title, status: p.data.status, href: `/projets/${p.id}/` }));
+const films = await pickProjets(realisation.projects);
+const jeux = await pickProjets(gamification.projects);
 ---
 <Base>
   <section class="hero" style={`background-image:url('${site.heroImage}')`}>
@@ -20,7 +24,7 @@ const projets = await getProjets();
     <div class="intro__logo" set:html={logoStudio} role="img" aria-label="Anorak Studio" />
     <div class="intro__txt">
       <p class="intro__tag">{site.tagline}</p>
-      <p>{site.intro}</p>
+      {site.intro.map((p) => <p>{p}</p>)}
       <p class="intro__contact">
         <a href={`mailto:${site.email}`}>{site.email}</a> / <a href={site.phoneHref}>{site.phone}</a>
       </p>
@@ -28,14 +32,84 @@ const projets = await getProjets();
     </div>
   </section>
 
-  <section class="band">
-    <div class="wrap"><Carousel slides={carousel} /></div>
+  {slides.length > 0 && (
+    <section class="band">
+      <div class="wrap"><Carousel slides={slides} /></div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="wrap roomy">
+      <div class="head">
+        <h2>Projets</h2>
+        <a class="link" href="/projets/">Tous les projets →</a>
+      </div>
+      <ProjectGrid projets={projets} initial={9} />
+    </div>
+  </section>
+
+  <section class="statement">
+    <div class="wrap">
+      <p class="statement__t">{site.statement.title}</p>
+      <p class="statement__p">{site.statement.text}</p>
+    </div>
   </section>
 
   <section class="section">
     <div class="wrap">
-      <h2 class="center projets-t">Projets</h2>
-      <ProjectGrid projets={projets} initial={8} />
+      <div class="head">
+        <h2>Services</h2>
+        <a class="link" href="/services/">Tous les services →</a>
+      </div>
+      <ol class="svc">
+        {services.map((s, i) => (
+          <li>
+            <a href={`/services/#${s.id}`}>
+              <span class="svc__n">{String(i + 1).padStart(2, '0')}</span>
+              <span class="svc__t">{s.title}<small>{s.lead}</small></span>
+              <span class="svc__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section ferns duo">
+    <div class="wrap">
+      <div class="duo__head">
+        <span class="eyebrow">Courts métrages et documentaires</span>
+        <h2>{realisation.title}</h2>
+        <p>{realisation.intro[0]}</p>
+      </div>
+      <ProjectTiles projets={films} dark />
+      <p class="duo__more"><a class="link link--light" href="/realisation/">En savoir plus sur la réalisation →</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="duo__head">
+        <span class="eyebrow">Jeux et expériences ludiques</span>
+        <h2>{gamification.title}</h2>
+        <p>{gamification.intro[0]}</p>
+      </div>
+      <ProjectTiles projets={jeux} />
+      <p class="duo__more"><a class="link" href="/gamification/">En savoir plus sur la gamification →</a></p>
+    </div>
+  </section>
+
+  <section class="shop">
+    <div class="wrap shop__in">
+      <div>
+        <span class="eyebrow">Boutique</span>
+        <h2>{boutique.title}</h2>
+        <p>{boutique.text}</p>
+      </div>
+      <div class="shop__cta">
+        <a class="btn" href="/boutique/">La boutique</a>
+        <a class="link" href={boutique.href} target="_blank" rel="noopener">wooders.ca →</a>
+      </div>
     </div>
   </section>
 </Base>
@@ -48,22 +122,54 @@ const projets = await getProjets();
   .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 40%, color-mix(in srgb, var(--c-dark) 45%, transparent)); }
   .hero p { position: relative; margin: 0; color: #fff; font: 700 clamp(1.8rem, 4.2vw, 3.2rem)/1.1 var(--f-display); text-shadow: 0 2px 24px rgba(0, 0, 0, .45); }
 
-  .intro { display: grid; grid-template-columns: 42% 1fr; gap: clamp(28px, 7vw, 100px); align-items: center; padding-block: 50px; }
+  .intro { display: grid; grid-template-columns: 42% 1fr; gap: clamp(28px, 7vw, 100px); align-items: center; padding-block: 56px; }
   .intro__logo { color: var(--c-brand); max-width: 420px; justify-self: center; width: 100%; }
   .intro__logo :global(svg) { width: 100%; height: auto; display: block; }
   .intro__tag { font: 700 clamp(1.4rem, 2.6vw, 1.75rem)/1.2 var(--f-display); margin-bottom: .6em; }
-  .intro__txt p { font-size: .98rem; color: var(--c-muted); }
+  .intro__txt p { color: var(--c-muted); }
   .intro__txt .intro__tag { color: var(--c-ink); }
   .intro__contact a { text-decoration: none; color: var(--c-ink); font-weight: 500; }
   .intro__contact a:hover { color: var(--c-brand); }
   .intro :global(.social) { margin-left: -8px; }
 
   .band { background: var(--c-grey); padding-block: clamp(28px, 5vw, 50px); }
-  .projets-t { margin-bottom: 1.2em; }
+
+  .roomy { padding-inline: clamp(24px, 6vw, 72px); }
+  .head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .head h2 { margin: 0; }
+  .link { color: var(--c-brand); font-weight: 600; text-decoration: none; }
+  .link:hover { text-decoration: underline; }
+  .link--light { color: var(--c-brand-light); }
+
+  .statement { background: var(--c-brand); color: var(--c-brand-ink); padding-block: clamp(64px, 10vw, 140px); }
+  .statement__t { font: 800 clamp(2rem, 5.2vw, 4rem)/1.05 var(--f-display); max-width: 18ch; margin-bottom: .6em; letter-spacing: -0.015em; }
+  .statement__p { font-size: clamp(1.1rem, 2vw, 1.35rem); max-width: 52ch; color: color-mix(in srgb, var(--c-brand-ink) 80%, transparent); margin: 0; }
+
+  .svc { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--c-line); }
+  .svc a { display: grid; grid-template-columns: 4rem 1fr auto; align-items: center; gap: 1rem; padding: 1.3rem 0; border-bottom: 1px solid var(--c-line); text-decoration: none; }
+  .svc__n { color: var(--c-muted); font-variant-numeric: tabular-nums; }
+  .svc__t { font: 700 clamp(1.35rem, 3vw, 2.1rem)/1.1 var(--f-display); }
+  .svc__t small { display: block; font: 400 .95rem/1.4 var(--f-body); color: var(--c-muted); margin-top: .35rem; }
+  .svc__arrow { font-size: 1.5rem; color: var(--c-muted); transition: transform .2s; }
+  .svc a:hover .svc__t { color: var(--c-brand); }
+  .svc a:hover .svc__arrow { transform: translateX(4px); color: var(--c-brand); }
+
+  .duo__head { max-width: 720px; margin-bottom: 2.2rem; }
+  .duo__head p { font-size: 1.1rem; }
+  .ferns .eyebrow, .ferns .duo__head p { color: color-mix(in srgb, var(--c-on-dark) 75%, transparent); }
+  .duo__more { margin: 2rem 0 0; }
+
+  .shop { background: var(--c-grey); padding-block: clamp(48px, 7vw, 80px); }
+  .shop__in { display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap; }
+  .shop h2 { margin-bottom: .3em; }
+  .shop p { color: var(--c-muted); max-width: 48ch; margin: 0; }
+  .shop__cta { display: flex; align-items: center; gap: 1.4rem; }
 
   @media (max-width: 760px) {
-    .intro { grid-template-columns: 1fr; text-align: center; padding-block: 36px; }
+    .intro { grid-template-columns: 1fr; text-align: center; padding-block: 40px; }
     .intro__logo { max-width: 260px; }
     .intro :global(.social) { justify-content: center; margin-left: 0; }
+    .svc a { grid-template-columns: 2.5rem 1fr; }
+    .svc__arrow { display: none; }
   }
 </style>

@@ -1,14 +1,14 @@
 ---
 title: "Kaléidoscope"
 summary: "Afin de favoriser des représentations d’enfants non-stéréotypées, et, du même coup, participer à la construction d’un monde plus égalitaire et inclusif, la…"
-categories: ["Identité", "Imprimé", "Web", "Illustration", "Publicité", "Design responsable"]
+categories: ["Imprimé", "Web"]
 cover: "/images/old-site/2024/02/kalei-1.jpg"
 gallery:
   - /images/old-site/2024/02/kalei-livre-new.jpg
   - /images/old-site/2024/02/kalei-6.jpg
   - /images/old-site/2024/02/kalei-5.jpg
 videos: []
-order: 21
+order: 108
 date: 2024-02-05
 draft: false
 ---

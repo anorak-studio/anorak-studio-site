@@ -3,12 +3,44 @@ import Base from '../../layouts/Base.astro';
 import PageTitle from '../../components/PageTitle.astro';
 import ProjectGrid from '../../components/ProjectGrid.astro';
 import { getProjets } from '../../lib/projets';
+import { categories } from '../../data/site';
 
 const projets = await getProjets();
+// only show filters that at least one project uses
+const used = categories.filter((c) => projets.some((p) => p.data.categories.includes(c)));
 ---
-<Base title="Projets" description="Identité, imprimé, web, vidéo, illustration, publicité et design responsable : les réalisations d'Anorak Studio.">
+<Base title="Projets" description="Réalisation, gamification, jeux, image de marque, web, imprimé et illustration : les projets d'Anorak Studio.">
   <PageTitle title="Projets" />
   <section class="section">
-    <div class="wrap"><ProjectGrid projets={projets} /></div>
+    <div class="wrap roomy">
+      <div class="filters" role="group" aria-label="Filtrer par catégorie">
+        <button class="is-on" data-f="">Tous</button>
+        {used.map((c) => <button data-f={c}>{c}</button>)}
+      </div>
+      <ProjectGrid projets={projets} />
+    </div>
   </section>
 </Base>
+
+<script>
+  const btns = document.querySelectorAll<HTMLButtonElement>('.filters button');
+  const cards = document.querySelectorAll<HTMLElement>('.pgrid .pitem');
+  const apply = (f: string) => {
+    btns.forEach((x) => x.classList.toggle('is-on', x.dataset.f === f));
+    cards.forEach((c) => { c.hidden = !!f && !(c.dataset.cats || '').split('|').includes(f); });
+    dispatchEvent(new Event('grid:change'));
+  };
+  btns.forEach((b) => b.addEventListener('click', () => {
+    apply(b.dataset.f || '');
+    history.replaceState(null, '', b.dataset.f ? `#${encodeURIComponent(b.dataset.f)}` : location.pathname);
+  }));
+  if (location.hash) apply(decodeURIComponent(location.hash.slice(1)));
+</script>
+
+<style>
+  .roomy { padding-inline: clamp(24px, 6vw, 72px); }
+  .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0 0 3rem; }
+  .filters button { font: inherit; font-size: .92rem; padding: .5em 1.1em; border-radius: 999px; border: 1px solid var(--c-line); background: transparent; color: var(--c-ink); cursor: pointer; }
+  .filters button:hover { border-color: var(--c-brand); }
+  .filters button.is-on { background: var(--c-brand); border-color: var(--c-brand); color: var(--c-brand-ink); }
+</style>

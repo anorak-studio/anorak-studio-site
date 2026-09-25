@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import PageTitle from '../components/PageTitle.astro';
+import ProjectTiles from '../components/ProjectTiles.astro';
+import { gamification, site } from '../data/site';
+import { pickProjets } from '../lib/projets';
+const jeux = await pickProjets(gamification.projects);
+const steps = [
+  { t: 'Comprendre', d: "Vos objectifs, votre public et le savoir à transmettre." },
+  { t: 'Imaginer', d: "Les mécaniques de jeu, l'univers, les personnages et le ton." },
+  { t: 'Prototyper', d: "Des maquettes et des versions jouables, testées tôt." },
+  { t: 'Livrer', d: "Le design, le pixel art, le développement web et la mise en ligne." },
+];
+---
+<Base title="Gamification" description={gamification.intro[0]}>
+  <PageTitle title="Gamification" />
+  <section class="section wrap">
+    <div class="lead">{gamification.intro.map((p) => <p>{p}</p>)}</div>
+    <ProjectTiles projets={jeux} />
+  </section>
+  <section class="section steps-band">
+    <div class="wrap">
+      <h2>Comment on travaille</h2>
+      <ol class="steps">
+        {steps.map((s, i) => <li><span>{String(i + 1).padStart(2, '0')}</span><h3>{s.t}</h3><p>{s.d}</p></li>)}
+      </ol>
+    </div>
+  </section>
+  <section class="cta">
+    <div class="wrap">
+      <p class="cta__t">Un projet à rendre plus ludique? On offre aussi des services-conseils en gamification.</p>
+      <a class="btn" href={`mailto:${site.email}?subject=Gamification`}>Parlons-en</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lead { max-width: 760px; font-size: 1.15rem; margin-bottom: 3rem; }
+  .steps-band { background: var(--c-grey); }
+  .steps { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 28px; }
+  .steps span { color: var(--c-brand); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .steps h3 { margin: .3rem 0 .4rem; font-size: 1.35rem; }
+  .steps p { color: var(--c-muted); margin: 0; }
+  .cta { background: var(--c-brand); color: var(--c-brand-ink); padding-block: clamp(48px, 7vw, 88px); }
+  .cta__t { font: 800 clamp(1.6rem, 3.6vw, 2.6rem)/1.1 var(--f-display); max-width: 26ch; }
+  .cta .btn { background: var(--c-brand-ink); color: var(--c-brand); }
+</style>

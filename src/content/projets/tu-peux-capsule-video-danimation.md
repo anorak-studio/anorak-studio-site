@@ -1,11 +1,11 @@
 ---
 title: "Tu Peux, Capsule vidéo d’animation"
 summary: "Client: YWCA Québec Mandat: Réaliser une capsule vidéo d’animation basée sur le livre « Tu peux » illustré par Elise Gravel. Grand succès de diffusion,…"
-categories: ["Vidéo", "Identité", "Imprimé", "Web", "Illustration", "Publicité", "Design responsable"]
+categories: ["Vidéo", "Illustration"]
 cover: "/images/old-site/2024/01/Tu-Peux-Bg-sombre.jpg"
 gallery: []
 videos: ["4MQe-A-O_T4"]
-order: 26
+order: 106
 date: 2024-01-31
 draft: false
 ---

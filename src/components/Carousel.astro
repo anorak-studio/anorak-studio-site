@@ -1,26 +1,27 @@
 ---
-// Home carousel on the grey band, one slide at a time, arrows + dots, autoplay every 6 s
-// (the old Visual Portfolio slider settings). Scroll-snap, so it also swipes on phones.
+// Home carousel of the newest, most important projects (those with a `carousel` image).
+// One slide at a time, arrows + dots, autoplay every 6 s. Each slide opens its project page.
 import Img from './Img.astro';
-interface Slide { src: string; alt: string; href?: string; }
+interface Slide { src: string; title: string; status?: string; href: string; }
 interface Props { slides: Slide[]; }
 const { slides } = Astro.props;
 ---
-<div class="car" aria-roledescription="carrousel" aria-label="Réalisations récentes">
+<div class="car" aria-roledescription="carrousel" aria-label="Projets à la une">
   <div class="car__track" tabindex="0">
     {slides.map((s, i) => (
-      <div class="car__slide" aria-roledescription="diapositive" aria-label={`${i + 1} / ${slides.length}`}>
-        {s.href ? (
-          <a href={s.href} target="_blank" rel="noopener"><Img src={s.src} alt={s.alt} ratio="16 / 9" eager={i === 0} /></a>
-        ) : (
-          <Img src={s.src} alt={s.alt} ratio="16 / 9" eager={i === 0} />
-        )}
-      </div>
+      <a class="car__slide" href={s.href} aria-roledescription="diapositive" aria-label={`${s.title} (${i + 1} / ${slides.length})`}>
+        <Img src={s.src} alt="" ratio="16 / 9" eager={i === 0} />
+        <span class="car__cap">
+          {s.status && <small>{s.status}</small>}
+          <strong>{s.title}</strong>
+          <em>Voir le projet →</em>
+        </span>
+      </a>
     ))}
   </div>
   <button class="car__arrow car__prev" aria-label="Précédent">‹</button>
   <button class="car__arrow car__next" aria-label="Suivant">›</button>
-  <div class="car__dots">{slides.map((_, i) => <button aria-label={`Diapositive ${i + 1}`} data-i={i} />)}</div>
+  <div class="car__dots">{slides.map((s, i) => <button aria-label={s.title} data-i={i} />)}</div>
 </div>
 
 <script>
@@ -46,12 +47,20 @@ const { slides } = Astro.props;
 
 <style>
   .car { position: relative; }
-  .car__track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .car__track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: var(--radius); }
   .car__track::-webkit-scrollbar { display: none; }
-  .car__slide { flex: 0 0 100%; scroll-snap-align: start; }
+  .car__slide { flex: 0 0 100%; scroll-snap-align: start; position: relative; display: block; color: #fff; text-decoration: none; }
   .car__slide :global(img) { display: block; }
+  .car__cap {
+    position: absolute; inset: auto 0 0 0; padding: clamp(40px, 8vw, 90px) clamp(18px, 4vw, 40px) clamp(18px, 3vw, 32px);
+    background: linear-gradient(transparent, rgba(0, 0, 0, .75)); display: grid; gap: 2px; justify-items: start;
+  }
+  .car__cap small { font-size: .78rem; text-transform: uppercase; letter-spacing: .14em; opacity: .8; }
+  .car__cap strong { font: 800 clamp(1.4rem, 3.5vw, 2.4rem)/1.1 var(--f-display); }
+  .car__cap em { font-style: normal; font-size: .92rem; color: var(--c-brand-light); margin-top: 6px; }
+  .car__slide:hover em { text-decoration: underline; }
   .car__arrow {
-    position: absolute; top: 50%; transform: translateY(-50%);
+    position: absolute; top: calc(50% - 20px); transform: translateY(-50%);
     width: 48px; height: 48px; border-radius: 50%; border: 0; cursor: pointer;
     background: color-mix(in srgb, var(--c-dark) 55%, transparent); color: var(--c-on-dark);
     font-size: 2rem; line-height: 1; display: grid; place-items: center; padding-bottom: 4px;
@@ -62,5 +71,5 @@ const { slides } = Astro.props;
   .car__dots { display: flex; justify-content: center; gap: 10px; padding-top: 16px; }
   .car__dots button { width: 10px; height: 10px; padding: 0; border-radius: 50%; border: 0; background: var(--c-line); cursor: pointer; }
   .car__dots button[aria-current='true'] { background: var(--c-brand); }
-  @media (max-width: 600px) { .car__arrow { width: 38px; height: 38px; font-size: 1.6rem; } }
+  @media (max-width: 600px) { .car__arrow { width: 38px; height: 38px; font-size: 1.6rem; top: 30%; } .car__cap em { display: none; } }
 </style>

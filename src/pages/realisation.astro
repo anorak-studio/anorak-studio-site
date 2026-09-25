@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import PageTitle from '../components/PageTitle.astro';
+import ProjectTiles from '../components/ProjectTiles.astro';
+import { realisation, site } from '../data/site';
+import { pickProjets } from '../lib/projets';
+const films = await pickProjets(realisation.projects);
+---
+<Base title="Réalisation" description={realisation.intro[0]}>
+  <PageTitle title="Réalisation" />
+  <section class="section wrap">
+    <div class="lead">{realisation.intro.map((p) => <p>{p}</p>)}</div>
+    <ProjectTiles projets={films} />
+  </section>
+  <section class="cta">
+    <div class="wrap">
+      <p class="cta__t">Un film, un documentaire, une vidéo pour faire comprendre votre recherche?</p>
+      <a class="btn" href={`mailto:${site.email}?subject=Réalisation`}>Parlons-en</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lead { max-width: 760px; font-size: 1.15rem; margin-bottom: 3rem; }
+  .cta { background: var(--c-brand); color: var(--c-brand-ink); padding-block: clamp(48px, 7vw, 88px); }
+  .cta__t { font: 800 clamp(1.6rem, 3.6vw, 2.6rem)/1.1 var(--f-display); max-width: 24ch; }
+  .cta .btn { background: var(--c-brand-ink); color: var(--c-brand); }
+</style>

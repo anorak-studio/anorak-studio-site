@@ -1,20 +1,34 @@
 ---
-// The old "Projets Anorak" list: masonry, 4 columns, image zooms on hover,
-// title with the categories in italics below. Shows `initial` items, then "Voir plus".
+// Masonry grid like the old "Projets Anorak" list (left to right, image zooms on hover),
+// with more room around it. Cards show the title (and status for new projects) only:
+// categories are on the project page. Shows `initial` items, then "Voir plus".
 import Img from './Img.astro';
+import { site } from '../data/site';
 import type { CollectionEntry } from 'astro:content';
 
-interface Props { projets: CollectionEntry<'projets'>[]; initial?: number; columns?: number; }
-const { projets, initial = 0, columns = 4 } = Astro.props;
+interface Props { projets: CollectionEntry<'projets'>[]; initial?: number; columns?: number; filters?: boolean; }
+const { projets, initial = 0, columns = 3 } = Astro.props;
 const limited = initial > 0 && projets.length > initial;
 ---
 <div class="pgrid" style={`--cols:${columns}`} data-limited={limited ? '' : undefined}>
   {projets.map((p, i) => (
-    <a class="pitem" href={`/projets/${p.id}/`} data-extra={limited && i >= initial ? '' : undefined}>
+    <a
+      class="pitem"
+      href={`/projets/${p.id}/`}
+      data-extra={limited && i >= initial ? '' : undefined}
+      data-cats={p.data.categories.join('|')}
+    >
       <div>
-        <div class="pitem__img"><Img src={p.data.cover} alt={p.data.title} ratio="auto" eager={i < 4} /></div>
+        <div class="pitem__img">
+          {p.data.cover ? (
+            <Img src={p.data.cover} alt={p.data.title} eager={i < 3} />
+          ) : (
+            <div class="pitem__ph" aria-hidden="true"><span>{p.data.title}</span><small>Image à venir</small></div>
+          )}
+          {site.showTodo && p.data.todo.length > 0 && <span class="pitem__todo">À compléter</span>}
+        </div>
         <h2 class="pitem__t">{p.data.title}</h2>
-        {p.data.categories.length > 0 && <p class="pitem__c">{p.data.categories.join(', ')}</p>}
+        {p.data.status && <p class="pitem__s">{p.data.status}</p>}
       </div>
     </a>
   ))}
@@ -24,17 +38,18 @@ const limited = initial > 0 && projets.length > initial;
 )}
 
 <script>
-  // Masonry, left to right like the old site: each card spans as many 4px rows as it is tall.
+  // Masonry, left to right: each card spans as many 4px rows as it is tall.
   const layout = () =>
     document.querySelectorAll<HTMLElement>('.pgrid').forEach((g) => {
       g.classList.add('is-masonry');
       g.querySelectorAll<HTMLElement>('.pitem').forEach((it) => {
         const inner = it.firstElementChild as HTMLElement;
-        it.style.gridRowEnd = `span ${Math.ceil((inner.getBoundingClientRect().height + 22) / 4)}`;
+        it.style.gridRowEnd = `span ${Math.ceil((inner.getBoundingClientRect().height + 36) / 4)}`;
       });
     });
   document.querySelectorAll<HTMLImageElement>('.pgrid img').forEach((img) => img.addEventListener('load', layout));
   addEventListener('resize', layout);
+  addEventListener('grid:change', layout);
   layout();
 
   document.querySelectorAll<HTMLButtonElement>('.more .btn').forEach((b) =>
@@ -47,18 +62,25 @@ const limited = initial > 0 && projets.length > initial;
 </script>
 
 <style>
-  .pgrid { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: 22px 15px; align-items: start; }
+  .pgrid { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: 36px clamp(20px, 3vw, 36px); align-items: start; }
   .pgrid.is-masonry { grid-auto-rows: 4px; row-gap: 0; }
-  .pgrid[data-limited] .pitem[data-extra] { display: none; }
+  .pgrid[data-limited] .pitem[data-extra], .pitem[hidden] { display: none; }
   .pitem { display: block; text-decoration: none; min-width: 0; }
-  @media (max-width: 1000px) { .pgrid { grid-template-columns: repeat(min(var(--cols), 3), 1fr); } }
-  @media (max-width: 760px) { .pgrid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 480px) { .pgrid { grid-template-columns: 1fr; } }
-  .pitem__img { overflow: hidden; margin-bottom: 10px; background: var(--c-grey); }
-  .pitem__img :global(img) { transition: transform .4s ease; aspect-ratio: auto !important; }
-  .pitem:hover .pitem__img :global(img) { transform: scale(1.05); }
-  .pitem__t { font: 700 1.1rem/1.25 var(--f-display); margin: 0 0 4px; letter-spacing: 0; }
+  @media (max-width: 900px) { .pgrid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .pgrid { grid-template-columns: 1fr; } }
+  .pitem__img { position: relative; overflow: hidden; margin-bottom: 12px; background: var(--c-grey); border-radius: var(--radius); }
+  .pitem__img :global(img) { transition: transform .4s ease; }
+  .pitem:hover .pitem__img :global(img) { transform: scale(1.04); }
+  .pitem__ph {
+    aspect-ratio: 4 / 3; display: flex; flex-direction: column; justify-content: flex-end; gap: 4px; padding: 20px;
+    background: linear-gradient(150deg, color-mix(in srgb, var(--c-brand) 85%, #000), var(--c-dark));
+    color: var(--c-on-dark);
+  }
+  .pitem__ph span { font: 800 clamp(1.3rem, 2.2vw, 1.7rem)/1.1 var(--f-display); }
+  .pitem__ph small { font-size: .78rem; opacity: .6; text-transform: uppercase; letter-spacing: .12em; }
+  .pitem__todo { position: absolute; top: 10px; left: 10px; background: #f3d36b; color: #3a2f00; font: 600 .7rem/1 var(--f-body); text-transform: uppercase; letter-spacing: .08em; padding: 6px 8px; border-radius: 3px; }
+  .pitem__t { font: 700 1.15rem/1.25 var(--f-display); margin: 0; letter-spacing: 0; }
   .pitem:hover .pitem__t { color: var(--c-brand); }
-  .pitem__c { font-size: .8rem; font-style: italic; color: var(--c-muted); margin: 0; line-height: 1.5; }
-  .more { text-align: center; margin: 24px 0 0; }
+  .pitem__s { font-size: .85rem; color: var(--c-muted); margin: 4px 0 0; }
+  .more { text-align: center; margin: 32px 0 0; }
 </style>

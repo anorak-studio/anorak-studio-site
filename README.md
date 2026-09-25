@@ -15,50 +15,37 @@ npm run dev          # opens http://localhost:4321
 
 Or open the folder with Claude Code and say "install and run the site".
 
-## 2. What came from the old site
+## 2. Content
 
-Imported from the UpdraftPlus backup of anorakstudio.ca/v2 (September 2026):
-
-- **All 175 original images** of the media library, in `public/images/old-site/<year>/<month>/`
-  (WordPress's resized copies left out, very large files scaled to 2400 px max).
-- **29 projects** (27 published + 2 drafts: Zecs Québec, Septante construction) with their text,
-  categories, cover image, image gallery, YouTube videos and original order:
-  `src/content/projets/`. Each file name is the old URL slug.
-- **Logos** (ANORAK, ANORAK STUDIO, menu icon) as recolorable SVGs in `src/assets/logos/`.
-- Page texts (home, services, contact, footer) in `src/data/site.ts`.
-- A readable dump of every old page and project: `docs/old-site-content.md`.
-
-`tools/extract-wpress.py` can still unpack an All-in-One WP Migration `.wpress` file
-(useful for another WordPress site).
+- **31 projects** in `src/content/projets/`: 13 new ones first (order 1-99), then the 18 old
+  projects kept from anorakstudio.ca/v2 (order 100+, same slugs as the old URLs).
+- Home carousel = projects that have a `carousel:` image.
+- Réalisation and Gamification sections: lists of projects in `src/data/site.ts`.
+- Old site images still used: `public/images/old-site/`. Brand images: `public/images/site/`.
+- **What's missing, project by project: `docs/A-COMPLETER.md`.**
+- Shop plan (Wooders, Printify, Shopify, multi-currency, FR/EN): `docs/boutique-plan.md`.
+- Dump of the old site's texts: `docs/old-site-content.md`.
 
 ## 3. Where things live
 
 | What | File |
 |---|---|
-| Contact info, socials, tagline, services, carousel | `src/data/site.ts` |
+| Texts, services, contact, nav, filters, Réalisation/Gamification lists | `src/data/site.ts` |
 | Projects (one file each) | `src/content/projets/*.md` |
 | Colors and fonts (design tokens) | `src/styles/global.css` (`:root`) |
 | Header / full-screen menu, footer | `src/components/Header.astro`, `Footer.astro` |
 | Pages | `src/pages/` |
 | Old URL redirects (`/v2/...`) | `public/_redirects` |
 
-To add a project, copy a `.md` file in `src/content/projets/`, change the text,
-and point `cover` and `gallery` to images in `public/images/`. Set `draft: true` to hide it.
-`order` sets its position in the grid.
+A project file supports: `title`, `summary`, `status`, `categories`, `cover`, `carousel`,
+`gallery`, `videos` (YouTube IDs), `links`, `shop`, `todo`, `order`, `draft`.
 
-## 4. Still to do
+## 4. Before launch
 
-- [ ] Categories: on the old site almost every project was tagged with all six
-      categories (and three with "Tout"). Clean them up if we want a working filter.
-- [ ] Hero photo (`public/images/site/hero-riviere.jpg`) is only 1024 px wide: a larger
-      original would look sharper full-width.
-- [ ] Carousel: the 5 images prepared in March 2025 (hidden on the old site). Add links
-      (trailers) in `src/data/site.ts` if wanted.
-- [ ] Contact form: set `formEndpoint` in `src/data/site.ts` (e.g. Formspree), or
-      add a Cloudflare Pages Function
-- [ ] Boutique: Printify → Shopify, then show products on `/boutique/`
-- [ ] English version (Astro i18n) if needed
-- [ ] CMS (Decap CMS or Sanity) to edit projects without code
+- [ ] Fill in `docs/A-COMPLETER.md`, then set `showTodo: false` in `src/data/site.ts`
+- [ ] Contact form: set `formEndpoint` (e.g. Formspree) or add a Cloudflare Pages Function
+- [ ] English version (Astro i18n)
+- [ ] Boutique (phase 2) and CMS (Decap CMS or Sanity)
 
 ## 5. Deploy on Cloudflare Pages
 
