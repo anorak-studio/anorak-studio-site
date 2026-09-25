@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageTitle from '../components/PageTitle.astro';
 import ProjectTiles from '../components/ProjectTiles.astro';
-import { gamification, site } from '../data/site';
+import { gamification } from '../data/site';
 import { pickProjets } from '../lib/projets';
 const jeux = await pickProjets(gamification.projects);
 const steps = [
@@ -29,7 +29,7 @@ const steps = [
   <section class="cta">
     <div class="wrap">
       <p class="cta__t">Un projet à rendre plus ludique? On offre aussi des services-conseils en gamification.</p>
-      <a class="btn" href={`mailto:${site.email}?subject=Gamification`}>Parlons-en</a>
+      <a class="btn" href="/contact/">Parlons-en</a>
     </div>
   </section>
 </Base>

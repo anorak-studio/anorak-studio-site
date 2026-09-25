@@ -3,7 +3,7 @@
 // (Wooders sweaters, the Unikaangit book), multi-currency and bilingual.
 import Base from '../layouts/Base.astro';
 import PageTitle from '../components/PageTitle.astro';
-import { boutique, site } from '../data/site';
+import { boutique } from '../data/site';
 ---
 <Base title="Boutique" description={boutique.text}>
   <PageTitle title="Boutique" />
@@ -15,7 +15,7 @@ import { boutique, site } from '../data/site';
     </p>
     <p class="btns">
       <a class="btn" href={boutique.href} target="_blank" rel="noopener">Visiter wooders.ca</a>
-      <a class="btn btn--ghost" href={`mailto:${site.email}?subject=Boutique`}>Être avisé à l'ouverture</a>
+      <a class="btn btn--ghost" href="/contact/">Être avisé à l'ouverture</a>
     </p>
   </section>
 </Base>

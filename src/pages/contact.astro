@@ -19,11 +19,6 @@ const mapQuery = encodeURIComponent(`${site.address.street}, ${site.address.city
             {site.address.street},<br />{site.address.city}, {site.address.country}<br />{site.address.postal}
           </a>
         </p>
-        <p>
-          <a href={`mailto:${site.emailDirect}`}>{site.emailDirect}</a><br />
-          <a href={`mailto:${site.email}`}>{site.email}</a><br />
-          <a href={site.phoneHref}>{site.phone}</a>
-        </p>
         <Social />
       </div>
 

@@ -8,16 +8,7 @@ const year = new Date().getFullYear();
   <div class="wrap ftr__grid">
     <div>
       <p class="ftr__big">On démarre un projet?</p>
-      <a class="btn ftr__btn" href={`mailto:${site.email}`}>{site.email}</a>
-      <p class="ftr__phone"><a href={site.phoneHref}>{site.phone}</a></p>
-    </div>
-    <div>
-      <span class="eyebrow">Studio</span>
-      <address>
-        {site.address.street}<br />
-        {site.address.city}<br />
-        {site.address.country}, {site.address.postal}
-      </address>
+      <a class="btn ftr__btn" href="/contact/">Nous écrire</a>
     </div>
     <div>
       <span class="eyebrow">Suivez-nous</span>
@@ -37,12 +28,10 @@ const year = new Date().getFullYear();
 <style>
   .ftr { background: var(--c-brand); color: var(--c-brand-ink); padding-top: clamp(56px, 8vw, 96px); }
   .ftr .eyebrow { color: color-mix(in srgb, var(--c-brand-ink) 60%, transparent); }
-  .ftr__grid { display: grid; gap: 40px; grid-template-columns: 2fr 1fr 1fr 1fr; }
+  .ftr__grid { display: grid; gap: 40px; grid-template-columns: 2fr 1fr 1fr; }
   .ftr__big { font: 800 clamp(1.9rem, 4vw, 2.8rem)/1.05 var(--f-display); margin-bottom: 1.25rem; }
   .ftr__btn { background: var(--c-brand-ink); color: var(--c-brand); }
   .ftr__btn:hover { background: var(--c-neon); color: #000; }
-  .ftr__phone { margin-top: 1rem; }
-  .ftr address { font-style: normal; }
   .ftr ul { list-style: none; margin: 0; padding: 0; line-height: 2; }
   .ftr a { text-decoration: none; }
   .ftr a:hover { color: var(--c-neon); }

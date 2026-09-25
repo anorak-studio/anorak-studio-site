@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageTitle from '../components/PageTitle.astro';
 import ProjectTiles from '../components/ProjectTiles.astro';
 import Featured from '../components/Featured.astro';
-import { realisation, site } from '../data/site';
+import { realisation } from '../data/site';
 import { pickProjets } from '../lib/projets';
 const films = await pickProjets(realisation.projects);
 ---
@@ -17,7 +17,7 @@ const films = await pickProjets(realisation.projects);
   <section class="cta">
     <div class="wrap">
       <p class="cta__t">Un film, un documentaire, une vidéo pour faire comprendre votre recherche?</p>
-      <a class="btn" href={`mailto:${site.email}?subject=Réalisation`}>Parlons-en</a>
+      <a class="btn" href="/contact/">Parlons-en</a>
     </div>
   </section>
 </Base>
