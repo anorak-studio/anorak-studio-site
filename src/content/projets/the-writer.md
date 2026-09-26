@@ -18,7 +18,9 @@ gallery:
   - /images/projets/the-writer/the-writer-11.jpg
   - /images/projets/the-writer/the-writer-12.jpg
   - /images/projets/the-writer/the-writer-13.jpg
-thumb: "/images/projets/the-writer/the-writer-8.jpg"
+  - /images/projets/the-writer/the-writer-14.jpg
+  - /images/projets/the-writer/the-writer-15.jpg
+thumb: "/images/projets/the-writer/the-writer-15.jpg"
 videos: ["EdsdRQN1OdE"]
 order: 2.3
 links:

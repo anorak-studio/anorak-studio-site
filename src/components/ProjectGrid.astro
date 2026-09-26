@@ -5,6 +5,7 @@
 // Shows `initial` items, then "Voir plus".
 import Img from './Img.astro';
 import { site } from '../data/site';
+import { gridThumbFor } from '../lib/projets';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props { projets: CollectionEntry<'projets'>[]; initial?: number; columns?: number; filters?: boolean; }
@@ -12,7 +13,9 @@ const { projets, initial = 0, columns = 3 } = Astro.props;
 const limited = initial > 0 && projets.length > initial;
 ---
 <div class="pgrid" style={`--cols:${columns}`} data-limited={limited ? '' : undefined}>
-  {projets.map((p, i) => (
+  {projets.map((p, i) => {
+    const thumb = gridThumbFor(p.data);
+    return (
     <a
       class="pitem"
       href={`/projets/${p.id}/`}
@@ -21,8 +24,8 @@ const limited = initial > 0 && projets.length > initial;
     >
       <div>
         <div class="pitem__img">
-          {p.data.thumb || p.data.cover ? (
-            <Img src={p.data.thumb || p.data.cover} alt={p.data.title} eager={i < 3} />
+          {thumb ? (
+            <Img src={thumb} alt={p.data.title} eager={i < 3} />
           ) : (
             <div class="pitem__ph" aria-hidden="true"><span>{p.data.title}</span><small>Image à venir</small></div>
           )}
@@ -32,7 +35,8 @@ const limited = initial > 0 && projets.length > initial;
         {p.data.status && <p class="pitem__s">{p.data.status}</p>}
       </div>
     </a>
-  ))}
+    );
+  })}
 </div>
 {limited && (
   <p class="more"><button class="btn" type="button">Voir plus de projets</button></p>

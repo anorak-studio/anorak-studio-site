@@ -4,10 +4,11 @@ summary: "Après avoir hérité d'une maison dans le Vieux-Québec, Lauren déco
 status: "Épisode 1 de la série The Unearthly Notes, sur Bell TV1"
 categories: ["Réalisation"]
 cover: "/images/projets/the-parrot/the-parrot-poster.jpg"
+thumb: "/images/projets/the-parrot/the-parrot-3.jpg"
 gallery:
   - /images/projets/the-parrot/the-parrot-2.jpg
   - /images/projets/the-parrot/the-parrot-3.jpg
-videos: ["ivheFQJSjYk"]
+videos: ["gEVRwL99NXw"]
 order: 2.1
 links:
   - { label: "Voir la série sur Bell TV1", href: "https://tv1.bell.ca/fibetv1/shows/the-unearthly-notes" }

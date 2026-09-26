@@ -46,7 +46,11 @@ h3 { font-size: 1.2rem; font-weight: 700; }
 p { margin: 0 0 1em; }
 
 .wrap { max-width: var(--w-max); margin-inline: auto; padding-inline: var(--gutter); }
-.section { padding-block: clamp(48px, 7vw, 96px); }
+/* Opaque on purpose: pages with a truly-fixed hero background (z-index:-1, see Hero.astro and
+   [id].astro) rely on every normal-flow section painting an opaque layer over it once scrolled
+   into place — otherwise the fixed image would bleed through any padding/gutter gaps for the
+   rest of the page. Same color as the body background, so this is a no-op everywhere else. */
+.section { padding-block: clamp(48px, 7vw, 96px); background: var(--c-bg); }
 .eyebrow {
   font: 600 .78rem/1 var(--f-body);
   text-transform: uppercase; letter-spacing: .16em;

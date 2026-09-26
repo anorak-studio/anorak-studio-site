@@ -20,8 +20,9 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 - [x] Affiche et images de The Writer (13 photos + affiche)
 - [x] Affiche et 18 images de The Plant (scènes de laboratoire et d'expédition en forêt/tourbière)
 - [x] Affiche et 2 écrans-titres de The Parrot
-- [x] Bande-annonce de chaque épisode ajoutée : The Parrot (ivheFQJSjYk), The Plant (gEVRwL99NXw), The Writer (EdsdRQN1OdE) — **à valider : les 3 liens envoyés n'étaient pas identifiés par film, je les ai associés dans l'ordre des épisodes (1. The Parrot, 2. The Plant, 3. The Writer). Dis-moi si l'association est incorrecte.**
-- [x] The Writer a maintenant une image `thumb` (the-writer-8.jpg) pour que sa vignette dans la grille Réalisation soit horizontale plutôt que l'affiche verticale
+- [x] Bande-annonce de chaque épisode confirmée et corrigée : The Parrot (gEVRwL99NXw), The Plant (ivheFQJSjYk), The Writer (EdsdRQN1OdE)
+- [x] Vignettes (`thumb`) : The Writer → the-writer-15.jpg (image horizontale), The Plant → the-plant-3.jpg, The Parrot → the-parrot-3.jpg
+- [x] 2 images supplémentaires ajoutées pour The Writer (écrans-titres 14 et 15)
 - Note : quelques images reçues n'ont pas été utilisées pour éviter les doublons dans les détails (le lit vide, l'écran-titre de l'escalier sans/avec crédits pour The Writer, une affiche répétée de The Writer et de The Plant, un plan flou de météore et un gros plan au visage déjà couverts par des images similaires) — seuls les écrans-titres avec les noms des interprètes et les meilleures versions de chaque scène ont été retenus, comme demandé.
 - Ces 3 fichiers remplacent « The Unearthly Notes » dans la section Réalisation seulement ; la fiche groupée reste dans « Projets récents » et dans la liste complète des projets.
 

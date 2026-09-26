@@ -41,9 +41,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <script>
       // Parallax hero media: the media inside [data-parallax] is rendered oversized
       // (see Media.astro / Img.astro's `parallax` prop) so it can shift a little without
-      // ever revealing an edge. The offset is a pure function of the element's current
+      // ever revealing an edge. `target` is a pure function of the element's current
       // position relative to the viewport centre — never an accumulated delta — so it
-      // can't drift, jump, or lag behind native scrolling; it just tracks it exactly.
+      // can't drift or end up somewhere wrong. What's applied each frame is `current`,
+      // eased a little further toward `target` every frame (current += (target-current)*factor):
+      // while scrolling this tracks the target closely, and once scrolling stops it keeps
+      // gliding those last few pixels for a couple hundred ms so the movement is easy to
+      // actually see, instead of stopping the instant the page does.
       // data-parallax-speed sets each section's normal (desktop) intensity; it's scaled
       // down further on narrow/mobile viewports, and to zero under prefers-reduced-motion,
       // which leaves the media visible in its normal, centred crop with no motion at all.
@@ -52,32 +56,54 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         if (!els.length) return;
 
         const targets = els
-          .map((el) => ({ el, media: el.querySelector<HTMLElement>('.parallax__media'), base: parseFloat(el.dataset.parallaxSpeed || '0.15') }))
-          .filter((t): t is { el: HTMLElement; media: HTMLElement; base: number } => !!t.media);
+          .map((el) => ({
+            el,
+            media: el.querySelector<HTMLElement>('.parallax__media'),
+            base: parseFloat(el.dataset.parallaxSpeed || '0.15'),
+            current: 0,
+            target: 0,
+          }))
+          .filter((t): t is { el: HTMLElement; media: HTMLElement; base: number; current: number; target: number } => !!t.media);
         if (!targets.length) return;
 
         const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+        if (reduceMotion.matches) return; // media stays put in its default centred crop
         const narrow = matchMedia('(max-width: 700px)');
+        const settleFactor = 0.09; // higher = snappier/shorter settle, lower = slower/longer
 
-        let queued = false;
-        const update = () => {
-          queued = false;
-          if (reduceMotion.matches) return; // media stays put in its default centred crop
+        const computeTargets = () => {
           const vh = window.innerHeight;
           const scale = narrow.matches ? 0.55 : 1; // gentler, still-stable version on small screens
-          for (const { el, media, base } of targets) {
-            const rect = el.getBoundingClientRect();
-            if (rect.bottom < -200 || rect.top > vh + 200) continue; // well off-screen: skip
+          for (const t of targets) {
+            const rect = t.el.getBoundingClientRect();
+            if (rect.bottom < -200 || rect.top > vh + 200) continue; // well off-screen: leave as-is
             const center = rect.top + rect.height / 2 - vh / 2;
             const max = rect.height * 0.18; // stays inside the 20%-oversized media (see Media.astro/Img.astro)
-            const offset = Math.max(-max, Math.min(max, center * base * scale));
-            media.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
+            t.target = Math.max(-max, Math.min(max, center * t.base * scale));
           }
         };
-        const onScroll = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
-        addEventListener('scroll', onScroll, { passive: true });
-        addEventListener('resize', onScroll, { passive: true });
-        update();
+
+        let ticking = false;
+        const loop = () => {
+          computeTargets();
+          let stillMoving = false;
+          for (const t of targets) {
+            t.current += (t.target - t.current) * settleFactor;
+            if (Math.abs(t.target - t.current) > 0.05) stillMoving = true;
+            else t.current = t.target;
+            t.media.style.transform = `translate3d(0, ${t.current.toFixed(2)}px, 0)`;
+          }
+          // Keep the loop running a little past the last scroll/resize event so the ease-out
+          // is actually visible, then stop (no point burning frames once everything's settled).
+          if (stillMoving) requestAnimationFrame(loop);
+          else ticking = false;
+        };
+        const kick = () => { if (!ticking) { ticking = true; requestAnimationFrame(loop); } };
+        addEventListener('scroll', kick, { passive: true });
+        addEventListener('resize', kick, { passive: true });
+        computeTargets();
+        for (const t of targets) t.current = t.target;
+        kick();
       })();
 
       // Project-card reveal: cards fade up the first time they enter the viewport, then

@@ -24,33 +24,44 @@ const d = entry.data;
 const heroSrc = heroImageFor(d);
 ---
 <Base title={d.title} description={d.summary} image={d.cover}>
-  <article>
-    <header class="phead">
-      {d.cover
-        ? <div class="phead__img" data-parallax data-parallax-speed="0.4"><Img src={heroSrc} alt="" eager sizes="100vw" fill parallax /></div>
-        : <div class="phead__ph" aria-hidden="true"></div>}
-      <div class="phead__band">
-        <div class="wrap">
-          {d.status && <p class="phead__status">{d.status}</p>}
-          <h1>{d.title}</h1>
-          {(d.categories.length > 0 || d.ai) && (
-            <ul class="phead__cats">
-              {d.categories.map((c) => <li><a href={`/projets/#${encodeURIComponent(c)}`}>{c}</a></li>)}
-              {d.ai && <li><a class="is-ai" href="/projets/#IA" title="Projet réalisé avec des outils d'IA">IA</a></li>}
-            </ul>
-          )}
-          <div class="phead__txt prose"><Content /></div>
-          {(d.links.length > 0 || d.shop) && (
-            <p class="phead__links">
-              {d.links.map((l) => <a class="btn btn--light" href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noopener">{l.label} ↗</a>)}
-              {d.shop && <a class="btn" href="/boutique/">Boutique</a>}
-            </p>
-          )}
-          {d.shop && <p class="phead__shop">{d.shop}</p>}
-        </div>
+  {/* Kept out of <article> on purpose: <article> below gets an opaque full-bleed background
+      (needed so its content never lets the fixed hero image bleed through side gutters), and
+      that would also cover .phead__spacer's transparent reveal window if it were inside it. */}
+  <header class="phead">
+    {d.cover ? (
+      <>
+        {/* True fixed background (z-index:-1, see the style block below): the image never
+            moves. .phead__spacer right after is transparent and just reserves the scroll
+            height, so .phead__band (opaque) scrolls up and covers the image once past it. */}
+        <div class="phead__fixedbg" aria-hidden="true"><Img src={heroSrc} alt="" eager sizes="100vw" fill /></div>
+        <div class="phead__spacer"></div>
+      </>
+    ) : (
+      <div class="phead__ph" aria-hidden="true"></div>
+    )}
+    <div class="phead__band">
+      <div class="wrap">
+        {d.status && <p class="phead__status">{d.status}</p>}
+        <h1>{d.title}</h1>
+        {(d.categories.length > 0 || d.ai) && (
+          <ul class="phead__cats">
+            {d.categories.map((c) => <li><a href={`/projets/#${encodeURIComponent(c)}`}>{c}</a></li>)}
+            {d.ai && <li><a class="is-ai" href="/projets/#IA" title="Projet réalisé avec des outils d'IA">IA</a></li>}
+          </ul>
+        )}
+        <div class="phead__txt prose"><Content /></div>
+        {(d.links.length > 0 || d.shop) && (
+          <p class="phead__links">
+            {d.links.map((l) => <a class="btn btn--light" href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noopener">{l.label} ↗</a>)}
+            {d.shop && <a class="btn" href="/boutique/">Boutique</a>}
+          </p>
+        )}
+        {d.shop && <p class="phead__shop">{d.shop}</p>}
       </div>
-    </header>
+    </div>
+  </header>
 
+  <article>
     {site.showTodo && d.todo.length > 0 && (
       <aside class="todo wrap">
         <strong>À compléter</strong>
@@ -86,10 +97,16 @@ const heroSrc = heroImageFor(d);
 </Base>
 
 <style>
-  .phead__img { background: var(--c-dark); position: relative; overflow: hidden; height: clamp(320px, 82vh, 900px); }
-  .phead__img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 55%, var(--c-dark)); pointer-events: none; }
+  .phead__fixedbg { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--c-dark); }
+  .phead__fixedbg :global(img) { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .phead__spacer { height: clamp(320px, 82vh, 900px); }
   .phead__ph { height: clamp(160px, 22vw, 280px); background: linear-gradient(150deg, var(--c-brand), var(--c-dark)); }
-  .phead__band { background: var(--c-dark); color: var(--c-on-dark); padding: 18px 0 48px; }
+  .phead__band { position: relative; background: var(--c-dark); color: var(--c-on-dark); padding: 18px 0 48px; }
+  /* Full-bleed opaque layer: keeps the fixed hero image (z-index:-1, above) from bleeding
+     through any side gutter or gap below the band, all the way to "Autres réalisations". */
+  article { background: var(--c-bg); }
+  /* Fades the (fixed, always-sharp-edged) image into the band as it scrolls up to meet it. */
+  .phead__band::before { content: ''; position: absolute; left: 0; right: 0; top: -120px; height: 120px; background: linear-gradient(transparent, var(--c-dark)); pointer-events: none; }
   .phead__status { font-size: .8rem; text-transform: uppercase; letter-spacing: .14em; color: var(--c-neon); margin-bottom: .6rem; }
   .phead h1 { font-size: clamp(1.9rem, 4.5vw, 3.2rem); max-width: 26ch; margin-bottom: .5em; }
   .phead__cats { list-style: none; padding: 0; margin: 0 0 1.6rem; display: flex; flex-wrap: wrap; gap: 8px; }
@@ -109,10 +126,16 @@ const heroSrc = heroImageFor(d);
   .todo strong { text-transform: uppercase; letter-spacing: .08em; font-size: .85rem; }
   .todo ul { margin: .4rem 0 0; padding-left: 1.2rem; }
 
-  .media { display: grid; gap: clamp(16px, 3vw, 32px); padding-block: clamp(32px, 5vw, 64px); max-width: 1000px; justify-items: center; }
+  .media { display: grid; gap: clamp(16px, 3vw, 32px); padding-block: clamp(32px, 5vw, 64px); max-width: 1000px; justify-items: center; align-items: start; }
   .media > :global(img) { width: auto !important; max-width: 100%; }
   .video { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; }
   .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  @media (min-width: 900px) {
+    /* Two columns of photos on large screens; videos still span the full width. */
+    .media { grid-template-columns: repeat(2, 1fr); max-width: 1400px; }
+    .media > :global(img) { width: 100% !important; }
+    .video { grid-column: 1 / -1; }
+  }
 
   .others { background: var(--c-grey); margin-top: clamp(32px, 5vw, 64px); }
   .others h2 { margin-bottom: 1.2em; }

@@ -26,3 +26,14 @@ export function heroImageFor(data: CollectionEntry<'projets'>['data']): string |
   const landscapeGalleryImg = data.gallery.find((src) => isLandscape(src));
   return landscapeGalleryImg ?? data.cover;
 }
+
+/** The image for a masonry grid vignette (Projets récents, grille Projets) — the opposite
+ * preference from `heroImageFor`: these tiles are tall/portrait cards, so a vertical photo
+ * reads better as a vignette than a landscape one does. Prefers `cover` if it's portrait,
+ * else the first portrait image in `gallery`, else falls back to `thumb` (set in the CMS for
+ * exactly this case) or `cover`. */
+export function gridThumbFor(data: CollectionEntry<'projets'>['data']): string | undefined {
+  if (data.cover && !isLandscape(data.cover)) return data.cover;
+  const portraitGalleryImg = data.gallery.find((src) => !isLandscape(src));
+  return portraitGalleryImg ?? data.thumb ?? data.cover;
+}

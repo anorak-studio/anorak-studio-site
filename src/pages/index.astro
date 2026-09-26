@@ -127,7 +127,8 @@ const taglineWords = site.tagline.split(' ');
 </Base>
 
 <style>
-  .intro { padding-block: clamp(48px, 7vw, 110px) clamp(40px, 6vw, 90px); }
+  /* Opaque so it fully covers the Hero's fixed background (z-index:-1) as it scrolls up over it. */
+  .intro { position: relative; padding-block: clamp(48px, 7vw, 110px) clamp(40px, 6vw, 90px); background: var(--c-bg); }
   .intro__logo { color: var(--c-brand); width: min(1100px, 84vw); margin: 0 auto clamp(36px, 5vw, 72px); }
   .intro__logo :global(svg) { width: 100%; height: auto; display: block; }
   .intro__cols { display: grid; grid-template-columns: 1fr 1.6fr; gap: clamp(20px, 5vw, 80px); align-items: start; }
