@@ -46,9 +46,9 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 
 ## Doomed Raiders  
 `src/content/projets/doomed-raiders.md`
-- [x] Pitch du jeu et captures d'écran
+- [x] Pitch du jeu et captures d'écran (17 images au total)
 - [x] 7 vidéos de gameplay ajoutées (extraits YouTube Shorts, humour noir)
-- [ ] Lien vers le site Doomed Raiders
+- [x] Lien vers le site (doomedraiders.com)
 
 ## Hub d'innovation en médecine rurale  
 `src/content/projets/hub-innovation-medecine-rurale.md`
