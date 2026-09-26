@@ -12,6 +12,9 @@ const projets = defineCollection({
     status: z.string().optional(), // e.g. "Documentaire en production"
     categories: z.array(z.string()).default([]), // shown on the project page and used by the filters
     cover: z.string().optional(),
+    // Horizontal image for grid tiles (Réalisation, Projets récents, etc.) when `cover` is a
+    // vertical poster that wouldn't crop well as a small tile. Falls back to `cover` if unset.
+    thumb: z.string().optional(),
     gallery: z.array(z.string()).default([]),
     videos: z.array(z.string()).default([]), // YouTube video IDs
     links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),

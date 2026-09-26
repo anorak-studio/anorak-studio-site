@@ -21,8 +21,8 @@ const limited = initial > 0 && projets.length > initial;
     >
       <div>
         <div class="pitem__img">
-          {p.data.cover ? (
-            <Img src={p.data.cover} alt={p.data.title} eager={i < 3} />
+          {p.data.thumb || p.data.cover ? (
+            <Img src={p.data.thumb || p.data.cover} alt={p.data.title} eager={i < 3} />
           ) : (
             <div class="pitem__ph" aria-hidden="true"><span>{p.data.title}</span><small>Image à venir</small></div>
           )}

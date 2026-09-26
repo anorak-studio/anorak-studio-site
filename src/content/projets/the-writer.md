@@ -16,11 +16,14 @@ gallery:
   - /images/projets/the-writer/the-writer-9.jpg
   - /images/projets/the-writer/the-writer-10.jpg
   - /images/projets/the-writer/the-writer-11.jpg
-videos: []
+  - /images/projets/the-writer/the-writer-12.jpg
+  - /images/projets/the-writer/the-writer-13.jpg
+thumb: "/images/projets/the-writer/the-writer-8.jpg"
+videos: ["EdsdRQN1OdE"]
 order: 2.3
 links:
   - { label: "Voir la série sur Bell TV1", href: "https://tv1.bell.ca/fibetv1/shows/the-unearthly-notes" }
-todo: ["Bande-annonce (lien YouTube ou Vimeo)"]
+todo: []
 ---
 
 Troisième épisode de la série [The Unearthly Notes](/projets/the-unearthly-notes/), inspirée de H.P. Lovecraft. En 1930, un écrivain de passage à Québec soupçonne la ville d'abriter de sinistres habitants.

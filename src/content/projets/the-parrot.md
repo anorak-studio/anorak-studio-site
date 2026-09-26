@@ -7,11 +7,11 @@ cover: "/images/projets/the-parrot/the-parrot-poster.jpg"
 gallery:
   - /images/projets/the-parrot/the-parrot-2.jpg
   - /images/projets/the-parrot/the-parrot-3.jpg
-videos: []
+videos: ["ivheFQJSjYk"]
 order: 2.1
 links:
   - { label: "Voir la série sur Bell TV1", href: "https://tv1.bell.ca/fibetv1/shows/the-unearthly-notes" }
-todo: ["Bande-annonce (lien YouTube ou Vimeo)"]
+todo: []
 ---
 
 Premier épisode de la série [The Unearthly Notes](/projets/the-unearthly-notes/), inspirée de H.P. Lovecraft. Après avoir hérité d'une maison dans le Vieux-Québec, Lauren découvre un vieil oiseau parleur dont les mots deviennent troublants.

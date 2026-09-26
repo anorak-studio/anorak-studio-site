@@ -9,7 +9,7 @@ const { projets, dark = false, cols = 4, ratio = '16 / 9' } = Astro.props;
   {projets.map((p) => (
     <a class="tile" href={`/projets/${p.id}/`}>
       <div class="tile__img">
-        {p.data.cover ? <Img src={p.data.cover} alt="" ratio={ratio} /> : <div class="tile__ph"><span>{p.data.title}</span></div>}
+        {p.data.thumb || p.data.cover ? <Img src={p.data.thumb || p.data.cover} alt="" ratio={ratio} /> : <div class="tile__ph"><span>{p.data.title}</span></div>}
       </div>
       <h3>{p.data.title}</h3>
       {p.data.status && <p>{p.data.status}</p>}

@@ -9,18 +9,20 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 
 ## The Unearthly Notes  
 `src/content/projets/the-unearthly-notes.md`
-- [ ] Affiche et images des 3 épisodes (sur tv1.bell.ca : je ne peux pas les télécharger d'ici, envoie-les-moi)
-- [ ] Bande-annonce (lien YouTube ou Vimeo)
+- [x] Affiche de la série (image principale)
+- [ ] Images des 3 épisodes en plus (sur tv1.bell.ca : je ne peux pas les télécharger d'ici, envoie-les-moi)
+- [ ] Bande-annonce de la série (lien YouTube ou Vimeo)
 - [ ] Image pour le carrousel
 - [ ] Sélections en festivals
 
 ## The Parrot, The Plant, The Writer (épisodes individuels)  
 `src/content/projets/the-parrot.md`, `the-plant.md`, `the-writer.md`
-- [x] Affiche et images de The Writer (11 photos + affiche)
-- [x] Affiche et 2 écrans-titres de The Plant
+- [x] Affiche et images de The Writer (13 photos + affiche)
+- [x] Affiche et 18 images de The Plant (scènes de laboratoire et d'expédition en forêt/tourbière)
 - [x] Affiche et 2 écrans-titres de The Parrot
-- [ ] Bande-annonce de chaque épisode (lien YouTube ou Vimeo)
-- Note : quelques images reçues n'ont pas été utilisées pour éviter les doublons dans les détails (le lit vide et l'écran-titre de l'escalier sans/avec crédits pour The Writer, qui reprennent la même photo déjà utilisée) — seuls les écrans-titres avec les noms des interprètes ont été retenus, comme demandé.
+- [x] Bande-annonce de chaque épisode ajoutée : The Parrot (ivheFQJSjYk), The Plant (gEVRwL99NXw), The Writer (EdsdRQN1OdE) — **à valider : les 3 liens envoyés n'étaient pas identifiés par film, je les ai associés dans l'ordre des épisodes (1. The Parrot, 2. The Plant, 3. The Writer). Dis-moi si l'association est incorrecte.**
+- [x] The Writer a maintenant une image `thumb` (the-writer-8.jpg) pour que sa vignette dans la grille Réalisation soit horizontale plutôt que l'affiche verticale
+- Note : quelques images reçues n'ont pas été utilisées pour éviter les doublons dans les détails (le lit vide, l'écran-titre de l'escalier sans/avec crédits pour The Writer, une affiche répétée de The Writer et de The Plant, un plan flou de météore et un gros plan au visage déjà couverts par des images similaires) — seuls les écrans-titres avec les noms des interprètes et les meilleures versions de chaque scène ont été retenus, comme demandé.
 - Ces 3 fichiers remplacent « The Unearthly Notes » dans la section Réalisation seulement ; la fiche groupée reste dans « Projets récents » et dans la liste complète des projets.
 
 ## ABKT  
@@ -48,7 +50,7 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 
 ## Hub d'innovation en médecine rurale  
 `src/content/projets/hub-innovation-medecine-rurale.md`
-- [ ] Image principale et logo du Hub (le site bloque les robots : envoie-les-moi)
+- [x] Image principale (illustration avec logo)
 - [ ] Texte du projet
 
 ## Living Lab Charlevoix  
@@ -76,7 +78,8 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 ## Fungus Forest  
 `src/content/projets/fungus-forest.md`
 - [x] Rédaction à jour à partir de la page itch.io officielle (mooonbit.itch.io/fungus-forest)
-- [ ] Images du jeu (dans le dossier Doomed Raiders)
+- [x] Affiche et capture du jeu ajoutées
+- [x] Bande-annonce ajoutée (rDnTc8gzyCA)
 
 ## Havrio  
 `src/content/projets/havrio.md`
@@ -104,6 +107,8 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 ## Général
 - [x] Date de fondation corrigée : 2010 (2010-02-01), et non 2007, partout sur le site (`since`/`sinceDate` dans `src/data/site.ts`)
 - [x] Carrousel : le texte d'Urgences Rurales 360 est repassé en position standard (bas), comme les autres diapositives. Toutes les diapositives mènent déjà à la page projet/service correspondante au clic.
+- [x] Nouveau champ `thumb` (optionnel) dans les fiches projet : permet d'afficher une image horizontale dans les grilles (Réalisation, Projets récents, etc.) quand `cover` est une affiche verticale — utilisé pour The Writer pour l'instant.
+- [x] Les bandes-annonces (`videos: [...]`) s'affichent maintenant comme de vraies vidéos YouTube intégrées sur la page de chaque projet.
 - [ ] Lien de la bande-démo drone : `droneReel` dans `src/data/site.ts`
 - [ ] Média vedette de la Réalisation (vidéo) : `realisation.featured` dans `src/data/site.ts`
 - [ ] Média vedette de Gamification et Indie Game : `gamification.featured` (reprend pour l'instant l'image Doomed Raiders du carrousel — à remplacer si tu préfères autre chose)

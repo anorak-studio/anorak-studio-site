@@ -3,12 +3,16 @@ title: "Fungus Forest"
 summary: "Jeu de casse-tête au tour par tour pour Game Boy Advance, jouable en ligne. Avec mooon.bit."
 status: "Jeu sorti le 4 avril 2025"
 categories: ["Jeu vidéo"]
-gallery: []
-videos: []
+cover: "/images/projets/fungus-forest/fungus-forest-poster.jpg"
+thumb: "/images/projets/fungus-forest/fungus-forest-1.jpg"
+gallery:
+  - /images/projets/fungus-forest/fungus-forest-1.jpg
+videos: ["rDnTc8gzyCA"]
 order: 11
 links:
   - { label: "Jouer sur itch.io", href: "https://mooonbit.itch.io/fungus-forest" }
-todo: ["Images du jeu (dans le dossier Doomed Raiders)"]
+  - { label: "Extrait de gameplay (vidéo)", href: "/videos/fungus-forest/fungus-forest-extrait.mp4" }
+todo: []
 ---
 
 Un jeu de casse-tête au tour par tour pour la Game Boy Advance, développé avec [mooon.bit](https://mooonbit.itch.io/). Vous incarnez un champignon qui refuse de finir mangé par une limace : réfléchissez à chaque pas, car la limace avance en même temps que vous. Arriverez-vous à fuir sur le radeau avant qu'elle ne vous rattrape?
