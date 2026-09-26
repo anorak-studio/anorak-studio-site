@@ -18,6 +18,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      // Always start a newly-loaded page at the top (some browsers/embeds restore the
+      // previous page's scroll position on navigation, which looks like a broken link).
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+    </script>
     <meta name="theme-color" content="#111814" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
