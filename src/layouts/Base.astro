@@ -64,12 +64,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           queued = false;
           if (reduceMotion.matches) return; // media stays put in its default centred crop
           const vh = window.innerHeight;
-          const scale = narrow.matches ? 0.4 : 1; // gentler, still-stable version on small screens
+          const scale = narrow.matches ? 0.55 : 1; // gentler, still-stable version on small screens
           for (const { el, media, base } of targets) {
             const rect = el.getBoundingClientRect();
             if (rect.bottom < -200 || rect.top > vh + 200) continue; // well off-screen: skip
             const center = rect.top + rect.height / 2 - vh / 2;
-            const max = rect.height * 0.14;
+            const max = rect.height * 0.18; // stays inside the 20%-oversized media (see Media.astro/Img.astro)
             const offset = Math.max(-max, Math.min(max, center * base * scale));
             media.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
           }

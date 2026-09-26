@@ -55,14 +55,21 @@ p { margin: 0 0 1em; }
 .center { text-align: center; }
 .wrap--text { max-width: var(--w-text); }
 
-/* Dark fern texture, like the old footer and page titles, tinted green */
-.ferns {
+/* Dark fern texture, like the old footer and page titles, tinted green. The texture itself
+   lives in .ferns-bg, an oversized absolutely-positioned layer behind the content, so it can
+   carry the same subtle parallax as the photo heroes (see the shared script in Base.astro)
+   without ever revealing an edge as it's translated. */
+.ferns { position: relative; overflow: hidden; color: var(--c-on-dark); }
+.ferns-bg {
+  position: absolute; left: 0; top: -20%; width: 100%; height: 140%; will-change: transform;
   background-color: var(--c-dark);
   background-image: linear-gradient(color-mix(in srgb, var(--c-brand) 45%, transparent), color-mix(in srgb, var(--c-dark) 55%, transparent)), url('/images/site/fougeres.jpg');
   background-size: auto, 420px;
   background-blend-mode: multiply, normal;
-  color: var(--c-on-dark);
 }
+/* A positioned (absolute) layer paints above static in-flow content by default, so without
+   this the fern texture would cover the title/text sitting next to it in the same section. */
+.ferns > :not(.ferns-bg) { position: relative; z-index: 1; }
 
 .btn {
   display: inline-flex; align-items: center; gap: .5em;

@@ -5,7 +5,7 @@ import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Img from '../../components/Img.astro';
 import ProjectTiles from '../../components/ProjectTiles.astro';
-import { getProjets } from '../../lib/projets';
+import { getProjets, heroImageFor } from '../../lib/projets';
 import { site } from '../../data/site';
 
 export async function getStaticPaths() {
@@ -19,12 +19,15 @@ export async function getStaticPaths() {
 const { entry, others } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
+// Prefer a landscape photo for the wide hero band when the project has one (see heroImageFor);
+// `d.cover` itself is untouched, so it still drives the grid thumbnail and the OG image below.
+const heroSrc = heroImageFor(d);
 ---
 <Base title={d.title} description={d.summary} image={d.cover}>
   <article>
     <header class="phead">
       {d.cover
-        ? <div class="phead__img" data-parallax data-parallax-speed="0.18"><Img src={d.cover} alt="" eager sizes="100vw" fill parallax /></div>
+        ? <div class="phead__img" data-parallax data-parallax-speed="0.4"><Img src={heroSrc} alt="" eager sizes="100vw" fill parallax /></div>
         : <div class="phead__ph" aria-hidden="true"></div>}
       <div class="phead__band">
         <div class="wrap">

@@ -5,7 +5,7 @@ import Media from './Media.astro';
 import { site } from '../data/site';
 const h = site.hero;
 ---
-<section class="hero" data-parallax data-parallax-speed="0.16">
+<section class="hero" data-parallax data-parallax-speed="0.35">
   <Media media={h.media} alt={h.text} fill eager background parallax />
   {h.showText && h.text && <p class={`hero__t hero__t--${h.position}`}>{h.text}</p>}
 </section>

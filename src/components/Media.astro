@@ -10,7 +10,7 @@ const { media, alt = '', fill = false, ratio = '16 / 9', eager = false, backgrou
 // translateY (see the shared parallax script in Base.astro) never reveals empty edges.
 const box = fill
   ? parallax
-    ? 'position:absolute;left:0;top:-16%;width:100%;height:132%;object-fit:cover;will-change:transform'
+    ? 'position:absolute;left:0;top:-20%;width:100%;height:140%;object-fit:cover;will-change:transform'
     : 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover'
   : `aspect-ratio:${ratio};width:100%;object-fit:cover;display:block`;
 const mediaClass = parallax ? 'parallax__media' : undefined;

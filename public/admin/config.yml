@@ -36,7 +36,8 @@ collections:
         multiple: true
         default: []
         options: ["Réalisation", "Gamification", "Jeu vidéo", "Science", "Identité", "Web", "Imprimé", "Illustration", "Vidéo", "IA"]
-      - { label: "Image de couverture", name: "cover", widget: "image", required: false }
+      - { label: "Image de couverture", name: "cover", widget: "image", required: false, hint: "Photo principale : hero de la page projet. Idéalement une image en format paysage (pas verticale) pour une bonne bannière." }
+      - { label: "Vignette (grille de projets)", name: "thumb", widget: "image", required: false, hint: "Optionnel. Si vide, la couverture est utilisée. Utile pour montrer une version horizontale de la couverture dans la grille." }
       - label: "Galerie"
         name: "gallery"
         widget: "list"
