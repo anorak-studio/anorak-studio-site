@@ -9,7 +9,7 @@
 
 backend:
   name: github
-  repo: TODO/anorak-studio-site # e.g. "mfortin/anorak-studio-site"
+  repo: anorak-studio/anorak-studio-site
   branch: main
 
 media_folder: "public/images/projets"
