@@ -9,7 +9,8 @@ export type TextPosition = 'center' | 'bottom-left' | 'bottom-center' | 'top-lef
 
 export const site = {
   name: 'Anorak Studio',
-  since: 2007,
+  since: 2010,
+  sinceDate: '2010-02-01', // date de création officielle de l'entreprise
   tagline: 'Simple. Créatif. Efficace.',
   // Home hero: an image OR a video (mp4 in public/videos/, or a Vimeo/YouTube background later).
   hero: {
@@ -23,18 +24,18 @@ export const site = {
   droneReel: '', // link to the drone demo reel (YouTube/Vimeo) when ready
   texture: '/images/site/fougeres.jpg',
   intro: [
-    "Anorak Studio est un studio de création de Québec, actif depuis 2007. Image de marque, réalisation de films, gamification, web et pixel art : on met le design au service de projets qui ont quelque chose à dire.",
+    "Anorak Studio est un studio de création de Québec, actif depuis 2010. Image de marque, réalisation de films, gamification, web et pixel art : on met le design au service de projets qui ont quelque chose à dire.",
     "La science est au cœur de notre pratique. On accompagne chercheurs, universités et organismes pour faire rayonner leurs projets : film, logo, site web, jeu.",
   ],
   description:
-    "Studio de création de Québec depuis 2007 : image de marque, réalisation, gamification, web, illustration et pixel art. La science au cœur de notre pratique.",
+    "Studio de création de Québec depuis 2010 : image de marque, réalisation, gamification, web, illustration et pixel art. La science au cœur de notre pratique.",
   // Big text on the green band (home page)
   statement: {
     title: "À l'ère de l'IA, le design a plus que jamais sa place.",
-    text: "Les outils changent, le regard reste. Une idée claire, une image juste et une histoire bien racontée : c'est encore ce qui rend un projet percutant. Depuis 2007, on mélange l'expérience du design, de la réalisation et du jeu pour créer des projets qui marquent.",
+    text: "Les outils changent, le regard reste. Une idée claire, une image juste et une histoire bien racontée : c'est encore ce qui rend un projet percutant. Depuis 2010, on mélange l'expérience du design, de la réalisation et du jeu pour créer des projets qui marquent.",
   },
   about: [
-    "Anorak Studio, c'est le studio de Mathieu Fortin : directeur artistique, designer graphique, réalisateur et pixel artiste. Depuis 2007, il s'entoure de collaborateurs de confiance (programmeurs, animateurs, photographes, rédacteurs, chercheurs) selon les besoins de chaque projet.",
+    "Anorak Studio, c'est le studio de Mathieu Fortin : directeur artistique, designer graphique, réalisateur et pixel artiste. Depuis 2010, il s'entoure de collaborateurs de confiance (programmeurs, animateurs, photographes, rédacteurs, chercheurs) selon les besoins de chaque projet.",
     "Un projet scientifique à faire rayonner, un film, un jeu, une marque à bâtir? Une petite équipe, disponible et accessible, pour des projets qui ont du sens.",
   ],
   email: 'allo@anorakstudio.ca',
@@ -76,7 +77,7 @@ export type Slide = {
   media: Media; title: string; text?: string; showText: boolean; position?: TextPosition; href?: string; cta?: string;
 };
 export const carousel: Slide[] = [
-  { media: { type: 'image', src: '/images/site/carrousel-4.jpg' }, title: 'Urgences Rurales 360', text: 'Docu-cirque et transfert de connaissances', showText: true, position: 'top-left', href: '/projets/urgences-rurales-360/', cta: 'Voir le projet' },
+  { media: { type: 'image', src: '/images/site/carrousel-4.jpg' }, title: 'Urgences Rurales 360', text: 'Docu-cirque et transfert de connaissances', showText: true, href: '/projets/urgences-rurales-360/', cta: 'Voir le projet' },
   { media: { type: 'image', src: '/images/site/carrousel-2.jpg' }, title: 'Art Robots', text: 'Prix du meilleur court métrage canadien, FIFA 42', showText: true, href: '/projets/art-robots/', cta: 'Voir le projet' },
   { media: { type: 'image', src: '/images/site/carrousel-3.jpg' }, title: 'La Mue', text: 'Compétition nationale, FIFA 43', showText: true, href: '/projets/la-mue/', cta: 'Voir le projet' },
   { media: { type: 'image', src: '/images/site/carrousel-1.jpg' }, title: 'Doomed Raiders', text: 'Anorak Studio Games, annoncé pour 2027', showText: true, href: '/projets/doomed-raiders/', cta: 'Voir le projet' },
@@ -137,7 +138,7 @@ export const services = [
     image: '/images/site/carrousel-1.jpg',
     lead: "Conception de jeux, expériences ludiques et services-conseils.",
     text: [
-      "Transformer une démarche complexe en expérience qu'on a envie de vivre. On participe régulièrement à la conception et au développement de projets gamifiés, comme Datagotchi, et on offre des services-conseils en gamification.",
+      "Transformer une démarche complexe en expérience qu'on a envie de vivre. On participe régulièrement à la conception et au développement de projets gamifiés, comme le Défi Datagotchi, et on offre des services-conseils en gamification.",
       "Anorak Studio Games développe aussi ses propres jeux en pixel art.",
     ],
   },
@@ -199,9 +200,9 @@ export const gamification = {
   featuredCaption: 'Doomed Raiders — Anorak Studio Games',
   intro: [
     "Le jeu est un formidable outil pour apprendre, comprendre et participer. On conçoit des expériences ludiques et on offre des services-conseils en gamification, surtout pour des projets scientifiques et citoyens.",
-    "Datagotchi et Prof. Datagotchi en sont de parfaits exemples. Fungus Forest est un jeu déjà livré et jouable en ligne, et Doomed Raiders est notre projet coup de cœur, développé à l'interne.",
+    "Le Défi Datagotchi et Prof. Datagotchi en sont de parfaits exemples. Fungus Forest est un jeu déjà livré et jouable en ligne, et Doomed Raiders est notre projet coup de cœur, développé à l'interne.",
   ],
-  projects: ['datagotchi', 'prof-datagotchi', 'fungus-forest', 'doomed-raiders'],
+  projects: ['defi-datagotchi', 'prof-datagotchi', 'fungus-forest', 'doomed-raiders'],
 };
 
 export const boutique = {

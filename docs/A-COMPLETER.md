@@ -16,8 +16,11 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 
 ## The Parrot, The Plant, The Writer (épisodes individuels)  
 `src/content/projets/the-parrot.md`, `the-plant.md`, `the-writer.md`
-- [ ] Image principale et image pour la grille de chaque épisode (sur tv1.bell.ca : envoie-les-moi)
+- [x] Affiche et images de The Writer (11 photos + affiche)
+- [x] Affiche et 2 écrans-titres de The Plant
+- [x] Affiche et 2 écrans-titres de The Parrot
 - [ ] Bande-annonce de chaque épisode (lien YouTube ou Vimeo)
+- Note : quelques images reçues n'ont pas été utilisées pour éviter les doublons dans les détails (le lit vide et l'écran-titre de l'escalier sans/avec crédits pour The Writer, qui reprennent la même photo déjà utilisée) — seuls les écrans-titres avec les noms des interprètes ont été retenus, comme demandé.
 - Ces 3 fichiers remplacent « The Unearthly Notes » dans la section Réalisation seulement ; la fiche groupée reste dans « Projets récents » et dans la liste complète des projets.
 
 ## ABKT  
@@ -53,17 +56,26 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 - [ ] Logo et images (le site bloque les robots : envoie-les-moi)
 - [ ] Texte du projet
 
-## Datagotchi  
+## Datagotchi (projet général)  
 `src/content/projets/datagotchi.md`
+- [x] Rédaction à jour, avec liens vers datagotchi.com, le Défi Datagotchi et Prof. Datagotchi
 - [ ] Captures de l'application, du logo et de l'image de marque
 - [ ] Préciser l'étendue du mandat Anorak Studio
 
+## Défi Datagotchi (nouveau fichier, pour la section Gamification)  
+`src/content/projets/defi-datagotchi.md`
+- [x] Fiche créée à partir de quebec.datagotchi.com — remplace « Datagotchi » dans la section Gamification (le fichier groupé « Datagotchi » reste dans Projets récents et la liste complète)
+- [ ] Captures de l'application et des illustrations
+- [ ] Préciser l'étendue du mandat Anorak Studio (illustration, IA, pixel art)
+
 ## Prof. Datagotchi  
 `src/content/projets/prof-datagotchi.md`
+- [x] Lien officiel ajouté (prof-datagotchi.com)
 - [ ] Rôle précis d'Anorak Studio
 
 ## Fungus Forest  
 `src/content/projets/fungus-forest.md`
+- [x] Rédaction à jour à partir de la page itch.io officielle (mooonbit.itch.io/fungus-forest)
 - [ ] Images du jeu (dans le dossier Doomed Raiders)
 
 ## Havrio  
@@ -90,6 +102,8 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 - [ ] Brancher la connexion GitHub pour Decap CMS (petite fonction Cloudflare Pages/Worker — je peux la faire dès que le dépôt existe)
 
 ## Général
+- [x] Date de fondation corrigée : 2010 (2010-02-01), et non 2007, partout sur le site (`since`/`sinceDate` dans `src/data/site.ts`)
+- [x] Carrousel : le texte d'Urgences Rurales 360 est repassé en position standard (bas), comme les autres diapositives. Toutes les diapositives mènent déjà à la page projet/service correspondante au clic.
 - [ ] Lien de la bande-démo drone : `droneReel` dans `src/data/site.ts`
 - [ ] Média vedette de la Réalisation (vidéo) : `realisation.featured` dans `src/data/site.ts`
 - [ ] Média vedette de Gamification et Indie Game : `gamification.featured` (reprend pour l'instant l'image Doomed Raiders du carrousel — à remplacer si tu préfères autre chose)

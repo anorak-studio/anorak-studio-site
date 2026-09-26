@@ -11,6 +11,8 @@ links:
 todo: ["Images du jeu (dans le dossier Doomed Raiders)"]
 ---
 
-Un jeu de casse-tête au tour par tour pour la Game Boy Advance, créé avec mooon.bit. Vous incarnez un champignon qui refuse de finir mangé par une limace : chaque pas compte, car la limace avance en même temps que vous. Arriverez-vous à fuir sur le radeau avant qu'elle ne vous rattrape?
+Un jeu de casse-tête au tour par tour pour la Game Boy Advance, développé avec [mooon.bit](https://mooonbit.itch.io/). Vous incarnez un champignon qui refuse de finir mangé par une limace : réfléchissez à chaque pas, car la limace avance en même temps que vous. Arriverez-vous à fuir sur le radeau avant qu'elle ne vous rattrape?
 
-Sorti le 4 avril 2025, Fungus Forest se joue directement dans le navigateur, sur Windows ou sur une vraie GBA. Un exemple de jeu livré et jouable en ligne, tout en pixel art.
+**Anorak Studio et mooon.bit : co-développement du jeu.**
+
+Sorti le 4 avril 2025, Fungus Forest se joue directement dans le navigateur (émulateur GBA intégré), et se télécharge aussi pour Windows ou pour une vraie 3DS. Tout en pixel art, avec la police Tildan Minima (studiosetoril) — et sans aucune IA générative. Un exemple de jeu livré et jouable en ligne.

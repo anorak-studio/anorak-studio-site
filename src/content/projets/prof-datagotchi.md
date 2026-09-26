@@ -13,10 +13,12 @@ gallery:
 videos: []
 order: 10
 links:
-  - { label: "datagotchi.com", href: "https://www.datagotchi.com" }
+  - { label: "prof-datagotchi.com", href: "https://prof-datagotchi.com" }
+  - { label: "Datagotchi (projet général)", href: "/projets/datagotchi/" }
+  - { label: "Défi Datagotchi (élections)", href: "https://quebec.datagotchi.com" }
 todo: ["Rôle précis d'Anorak Studio"]
 ---
 
-Prof. Datagotchi est le petit frère conversationnel de [Datagotchi](/projets/datagotchi/) : un agent qui permet aux citoyens d'interroger en détail les plateformes et les promesses des partis politiques, à partir d'une base de contenus validée par des politologues. Un projet pilote universitaire de l'Université Laval et de la CLESSN.
+Prof. Datagotchi est le petit frère conversationnel de [Datagotchi](/projets/datagotchi/) : un agent qui a lu les plateformes et communiqués des partis, écouté leurs entrevues et leurs balados, pour répondre aux questions des citoyens sur les élections québécoises — sources à l'appui. Un projet pilote universitaire de l'Université Laval et de la CLESSN.
 
-Un bel exemple de gamification au service de la science et de la participation citoyenne.
+Un bel exemple de gamification au service de la science et de la participation citoyenne, aux côtés du [Défi Datagotchi](/projets/defi-datagotchi/).
