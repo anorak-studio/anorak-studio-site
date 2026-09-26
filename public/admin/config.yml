@@ -11,6 +11,9 @@ backend:
   name: github
   repo: anorak-studio/anorak-studio-site
   branch: main
+  # Ce site héberge lui-même son "fournisseur" d'authentification GitHub
+  # (voir functions/auth.js et functions/callback.js). Pas besoin de Netlify.
+  base_url: https://anorak-studio-site.pages.dev
 
 media_folder: "public/images/projets"
 public_folder: "/images/projets"
