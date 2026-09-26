@@ -85,37 +85,91 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
     )}
 
     {portraitVideos.length > 0 && (
-      <div class="vrow vrow--portrait" role="list" aria-label={`Vidéos verticales, ${d.title}`}>
-        {portraitVideos.map((v) => (
-          <div class="vrow__item" role="listitem">
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${v.id}?${videoParams}`}
-              title={`${d.title} (vidéo)`}
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
-        ))}
+      <div class="vrow-wrap">
+        <div class="vrow vrow--portrait" role="list" aria-label={`Vidéos verticales, ${d.title}`}>
+          {portraitVideos.map((v) => (
+            <div class="vrow__item" role="listitem">
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${v.id}?${videoParams}`}
+                title={`${d.title} (vidéo)`}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          ))}
+        </div>
+        {portraitVideos.length > 1 && (
+          <>
+            <button class="vrow-nav vrow-nav--prev" type="button" aria-label="Vidéo précédente">‹</button>
+            <button class="vrow-nav vrow-nav--next" type="button" aria-label="Vidéo suivante">›</button>
+          </>
+        )}
       </div>
     )}
 
     {otherVideos.length > 0 && (
-      <div class="vrow vrow--wide" role="list" aria-label={`Vidéos, ${d.title}`}>
-        {otherVideos.map((v) => (
-          <div class={`vrow__item vrow__item--${v.ratio}`} role="listitem">
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${v.id}?${videoParams}`}
-              title={`${d.title} (vidéo)`}
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
-        ))}
+      <div class="vrow-wrap">
+        <div class="vrow vrow--wide" role="list" aria-label={`Vidéos, ${d.title}`}>
+          {otherVideos.map((v) => (
+            <div class={`vrow__item vrow__item--${v.ratio}`} role="listitem">
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${v.id}?${videoParams}`}
+                title={`${d.title} (vidéo)`}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          ))}
+        </div>
+        {otherVideos.length > 1 && (
+          <>
+            <button class="vrow-nav vrow-nav--prev" type="button" aria-label="Vidéo précédente">‹</button>
+            <button class="vrow-nav vrow-nav--next" type="button" aria-label="Vidéo suivante">›</button>
+          </>
+        )}
       </div>
     )}
   </article>
+
+  <script>
+    // Video carousels: click-to-scroll arrows for pointer/mouse users (the row itself already
+    // scrolls with a trackpad or touch). Hidden entirely on narrow screens (see CSS), where the
+    // native swipe + scroll-snap is the whole interaction.
+    document.querySelectorAll<HTMLElement>('.vrow-wrap').forEach((wrap) => {
+      const row = wrap.querySelector<HTMLElement>('.vrow');
+      const first = row?.firstElementChild as HTMLElement | null;
+      if (!row || !first) return;
+      const scrollByOne = (dir: 1 | -1) => {
+        const gap = parseFloat(getComputedStyle(row).columnGap || getComputedStyle(row).gap || '16');
+        row.scrollBy({ left: dir * (first.getBoundingClientRect().width + gap), behavior: 'smooth' });
+      };
+      wrap.querySelector('.vrow-nav--prev')?.addEventListener('click', () => scrollByOne(-1));
+      wrap.querySelector('.vrow-nav--next')?.addEventListener('click', () => scrollByOne(1));
+    });
+  </script>
+
+  <script>
+    // Masonry for the photo grid: rather than every image snapping to the same strict row
+    // height (leaving big gaps next to a tall one), each image only spans as many auto-rows as
+    // its own rendered height needs — so a short image and a tall one next to it condense
+    // upward instead of both being held down to the tall one's row. Degrades to a plain single
+    // column with no JS (see the CSS default), which already looks correct.
+    const layoutMedia = () => {
+      document.querySelectorAll<HTMLElement>('.media').forEach((grid) => {
+        grid.classList.add('is-masonry');
+        const gap = parseFloat(getComputedStyle(grid).columnGap) || 24;
+        Array.from(grid.children).forEach((el) => {
+          const item = el as HTMLElement;
+          item.style.gridRowEnd = `span ${Math.ceil((item.getBoundingClientRect().height + gap) / 4)}`;
+        });
+      });
+    };
+    document.querySelectorAll<HTMLImageElement>('.media img').forEach((img) => img.addEventListener('load', layoutMedia));
+    addEventListener('resize', layoutMedia);
+    layoutMedia();
+  </script>
 
   <section class="section others">
     <div class="wrap">
@@ -157,13 +211,17 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
   .todo ul { margin: .4rem 0 0; padding-left: 1.2rem; }
 
   .media {
-    display: grid; gap: clamp(16px, 2vw, 28px);
+    display: grid; column-gap: clamp(16px, 2vw, 28px); row-gap: clamp(16px, 2vw, 28px);
     padding-block: clamp(32px, 5vw, 64px); padding-inline: clamp(12px, 2vw, 32px);
     max-width: 1900px; justify-items: center; align-items: start;
   }
   .media > :global(img) { width: auto !important; max-width: 100%; }
-  @media (min-width: 1600px) {
-    /* Two columns from ~20" monitors up — smaller/laptop screens keep one big full-width photo. */
+  /* Masonry (see the script above): once JS has measured each image, rows become a fine 4px
+     grid with each image spanning just what it needs, so a short image doesn't get held down
+     to a tall neighbour's height — several shorter images stack and condense upward instead. */
+  .media.is-masonry { grid-auto-rows: 4px; row-gap: 0; }
+  @media (min-width: 1440px) {
+    /* Two columns from ~18" monitors up — smaller/laptop screens keep one big full-width photo. */
     .media { grid-template-columns: repeat(2, 1fr); }
     .media > :global(img) { width: 100% !important; }
   }
@@ -173,17 +231,41 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
      mix with 16:9/square ones — each item's box matches its own video's ratio, never stretched
      or letterboxed. Query params on the iframe (see above) already keep YouTube's own UI to a
      minimum; there's nothing more layered on top here. */
+  .vrow-wrap { position: relative; }
   .vrow {
     display: flex; gap: clamp(12px, 2vw, 24px);
     padding: clamp(12px, 2.5vw, 28px) var(--gutter);
     overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; -ms-overflow-style: none; /* the arrows (or a swipe on mobile) are the UI, not a visible scrollbar */
   }
+  .vrow::-webkit-scrollbar { display: none; }
   .vrow__item { position: relative; flex: none; background: #000; scroll-snap-align: start; }
   .vrow__item iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   .vrow--portrait .vrow__item { height: clamp(340px, 62vh, 620px); aspect-ratio: 9 / 16; }
   .vrow--wide .vrow__item { height: clamp(200px, 34vw, 440px); }
   .vrow--wide .vrow__item--landscape { aspect-ratio: 16 / 9; }
   .vrow--wide .vrow__item--square { aspect-ratio: 1 / 1; }
+
+  /* Prev/next arrows, like a classic carousel — desktop/pointer only (see the media query
+     below); the row itself is still a native scroller underneath for trackpad/touch. */
+  .vrow-nav {
+    position: absolute; top: 50%; translate: 0 -50%; z-index: 2;
+    width: 44px; height: 44px; border-radius: 50%; border: 0; cursor: pointer;
+    background: rgba(0, 0, 0, .55); color: #fff; font-size: 1.6rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .vrow-nav:hover, .vrow-nav:focus-visible { background: var(--c-neon); color: #000; }
+  .vrow-nav--prev { left: clamp(6px, 1.5vw, 20px); }
+  .vrow-nav--next { right: clamp(6px, 1.5vw, 20px); }
+
+  @media (max-width: 700px) {
+    /* Below ~700px, no arrows: swipe/scroll is the whole interaction, and each video takes the
+       full row so exactly one is visible at a time — no visible scrollbar (see above) and no
+       neighbouring video peeking in. */
+    .vrow-nav { display: none; }
+    .vrow--portrait .vrow__item { flex: 0 0 100%; height: auto; aspect-ratio: 9 / 16; scroll-snap-align: center; }
+    .vrow--wide .vrow__item { flex: 0 0 100%; height: auto; }
+  }
 
   .others { background: var(--c-grey); margin-top: clamp(32px, 5vw, 64px); }
   .others h2 { margin-bottom: 1.2em; }
