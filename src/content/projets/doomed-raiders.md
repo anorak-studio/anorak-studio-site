@@ -23,7 +23,14 @@ gallery:
   - "/images/projets/doomed-raiders/doomed-raiders-15.jpg"
   - "/images/projets/doomed-raiders/doomed-raiders-16.jpg"
   - "/images/projets/doomed-raiders/doomed-raiders-17.jpg"
-videos: ["vE-tIhJjqfg", "4TmaXXlAyGM", "lCLhahZo38g", "mpqBcLO0HEM", "nnvYn06pqTo", "wtj_6cCgZkM", "Jas44EyeR8I"]
+videos:
+  - { id: "vE-tIhJjqfg", ratio: "portrait" }
+  - { id: "4TmaXXlAyGM", ratio: "portrait" }
+  - { id: "lCLhahZo38g", ratio: "portrait" }
+  - { id: "mpqBcLO0HEM", ratio: "portrait" }
+  - { id: "nnvYn06pqTo", ratio: "portrait" }
+  - { id: "wtj_6cCgZkM", ratio: "portrait" }
+  - { id: "Jas44EyeR8I", ratio: "portrait" }
 order: 6
 links:
   - { label: "Site de Doomed Raiders", href: "https://doomedraiders.com/" }

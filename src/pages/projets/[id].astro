@@ -22,6 +22,15 @@ const d = entry.data;
 // Prefer a landscape photo for the wide hero band when the project has one (see heroImageFor);
 // `d.cover` itself is untouched, so it still drives the grid thumbnail and the OG image below.
 const heroSrc = heroImageFor(d);
+// Portrait videos (e.g. YouTube Shorts) get their own full-width, side-by-side carousel sized
+// to their own 9:16 box; landscape/square videos get a separate carousel below, each box sized
+// to its own ratio. Keeps a vertical clip from being squeezed into (or a widescreen one from
+// being stretched into) the wrong shape.
+const portraitVideos = d.videos.filter((v) => v.ratio === 'portrait');
+const otherVideos = d.videos.filter((v) => v.ratio !== 'portrait');
+// Trims YouTube's own UI as much as it allows: no related-video suggestions, no annotations,
+// muted branding — the goal is to keep as little as possible on top of the video itself.
+const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
 ---
 <Base title={d.title} description={d.summary} image={d.cover}>
   {/* Kept out of <article> on purpose: <article> below gets an opaque full-bleed background
@@ -69,12 +78,18 @@ const heroSrc = heroImageFor(d);
       </aside>
     )}
 
-    {(d.videos.length > 0 || d.gallery.length > 0) && (
+    {d.gallery.length > 0 && (
       <div class="media wrap">
-        {d.videos.map((id) => (
-          <div class="video">
+        {d.gallery.map((src, i) => <Img src={src} alt={`${d.title}, image ${i + 1}`} />)}
+      </div>
+    )}
+
+    {portraitVideos.length > 0 && (
+      <div class="vrow vrow--portrait" role="list" aria-label={`Vidéos verticales, ${d.title}`}>
+        {portraitVideos.map((v) => (
+          <div class="vrow__item" role="listitem">
             <iframe
-              src={`https://www.youtube-nocookie.com/embed/${id}`}
+              src={`https://www.youtube-nocookie.com/embed/${v.id}?${videoParams}`}
               title={`${d.title} (vidéo)`}
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -82,7 +97,22 @@ const heroSrc = heroImageFor(d);
             ></iframe>
           </div>
         ))}
-        {d.gallery.map((src, i) => <Img src={src} alt={`${d.title}, image ${i + 1}`} />)}
+      </div>
+    )}
+
+    {otherVideos.length > 0 && (
+      <div class="vrow vrow--wide" role="list" aria-label={`Vidéos, ${d.title}`}>
+        {otherVideos.map((v) => (
+          <div class={`vrow__item vrow__item--${v.ratio}`} role="listitem">
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${v.id}?${videoParams}`}
+              title={`${d.title} (vidéo)`}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        ))}
       </div>
     )}
   </article>
@@ -132,16 +162,28 @@ const heroSrc = heroImageFor(d);
     max-width: 1900px; justify-items: center; align-items: start;
   }
   .media > :global(img) { width: auto !important; max-width: 100%; }
-  /* Trailers stay at their own fixed width and centered, one per row, in both 1- and 2-column
-     layouts below — only the photos grow with the wider breakpoint. */
-  .video { position: relative; width: 100%; max-width: 1000px; margin-inline: auto; aspect-ratio: 16 / 9; background: #000; }
-  .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   @media (min-width: 1800px) {
     /* Two columns only past ~22" monitors — smaller/laptop screens keep one big full-width photo. */
     .media { grid-template-columns: repeat(2, 1fr); }
     .media > :global(img) { width: 100% !important; }
-    .video { grid-column: 1 / -1; }
   }
+
+  /* Videos: a horizontally-scrolling, full-width row (not boxed into `.media`'s max-width), so
+     several can sit side by side. Portrait clips (Shorts, etc.) get their own row so they don't
+     mix with 16:9/square ones — each item's box matches its own video's ratio, never stretched
+     or letterboxed. Query params on the iframe (see above) already keep YouTube's own UI to a
+     minimum; there's nothing more layered on top here. */
+  .vrow {
+    display: flex; gap: clamp(12px, 2vw, 24px);
+    padding: clamp(12px, 2.5vw, 28px) var(--gutter);
+    overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
+  }
+  .vrow__item { position: relative; flex: none; background: #000; scroll-snap-align: start; }
+  .vrow__item iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .vrow--portrait .vrow__item { height: clamp(340px, 62vh, 620px); aspect-ratio: 9 / 16; }
+  .vrow--wide .vrow__item { height: clamp(200px, 34vw, 440px); }
+  .vrow--wide .vrow__item--landscape { aspect-ratio: 16 / 9; }
+  .vrow--wide .vrow__item--square { aspect-ratio: 1 / 1; }
 
   .others { background: var(--c-grey); margin-top: clamp(32px, 5vw, 64px); }
   .others h2 { margin-bottom: 1.2em; }

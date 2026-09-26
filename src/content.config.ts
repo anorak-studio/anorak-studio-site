@@ -16,7 +16,21 @@ const projets = defineCollection({
     // vertical poster that wouldn't crop well as a small tile. Falls back to `cover` if unset.
     thumb: z.string().optional(),
     gallery: z.array(z.string()).default([]),
-    videos: z.array(z.string()).default([]), // YouTube video IDs
+    // YouTube video IDs. Accepts a plain string (old shape, defaults to "landscape" — every
+    // project that already has videos is a normal 16:9 trailer) or an object with an explicit
+    // `ratio`, used to size and group the video on the project page (see [id].astro): a portrait
+    // (e.g. a Short) shows next to other portrait videos in their own full-width carousel,
+    // separate from landscape/square ones, and each video's box matches its own ratio.
+    videos: z
+      .array(
+        z
+          .union([
+            z.string(),
+            z.object({ id: z.string(), ratio: z.enum(['landscape', 'portrait', 'square']).default('landscape') }),
+          ])
+          .transform((v) => (typeof v === 'string' ? { id: v, ratio: 'landscape' as const } : v)),
+      )
+      .default([]),
     links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
     ai: z.boolean().default(false), // shows an "IA" tag (project made with AI tools)
     shop: z.string().optional(), // note shown with a "Boutique" button
