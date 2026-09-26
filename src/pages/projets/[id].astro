@@ -162,8 +162,8 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
     max-width: 1900px; justify-items: center; align-items: start;
   }
   .media > :global(img) { width: auto !important; max-width: 100%; }
-  @media (min-width: 1800px) {
-    /* Two columns only past ~22" monitors — smaller/laptop screens keep one big full-width photo. */
+  @media (min-width: 1600px) {
+    /* Two columns from ~20" monitors up — smaller/laptop screens keep one big full-width photo. */
     .media { grid-template-columns: repeat(2, 1fr); }
     .media > :global(img) { width: 100% !important; }
   }
