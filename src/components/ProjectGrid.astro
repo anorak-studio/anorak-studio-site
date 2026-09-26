@@ -67,7 +67,7 @@ const limited = initial > 0 && projets.length > initial;
   .pgrid { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: calc(var(--gap) * 1.6) var(--gap); align-items: start; }
   .pgrid.is-masonry { grid-auto-rows: 4px; row-gap: 0; }
   .pgrid[data-limited] .pitem[data-extra], .pitem[hidden] { display: none; }
-  .pitem { display: block; text-decoration: none; min-width: 0; }
+  .pitem { display: block; text-decoration: none; min-width: 0; transition: opacity .32s ease, transform .32s ease; }
   @media (max-width: 900px) { .pgrid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 520px) { .pgrid { grid-template-columns: 1fr; } }
   .pitem__img { position: relative; overflow: hidden; margin-bottom: 12px; background: var(--c-grey); }

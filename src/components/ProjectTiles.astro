@@ -21,7 +21,7 @@ const { projets, dark = false, cols = 4, ratio = '16 / 9' } = Astro.props;
   .tiles { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: calc(var(--gap) * 1.6) var(--gap); }
   @media (max-width: 1000px) { .tiles { grid-template-columns: repeat(min(var(--cols), 2), 1fr); } }
   @media (max-width: 560px) { .tiles { grid-template-columns: 1fr; } }
-  .tile { text-decoration: none; display: block; min-width: 0; }
+  .tile { text-decoration: none; display: block; min-width: 0; transition: opacity .32s ease, transform .32s ease; }
   .tile__img { position: relative; overflow: hidden; margin-bottom: 12px; background: var(--c-grey); }
   .tile__img::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--c-neon); transform: scaleX(0); transform-origin: left; transition: transform .35s ease; }
   .tile:hover .tile__img::after, .tile:focus-visible .tile__img::after { transform: scaleX(1); }

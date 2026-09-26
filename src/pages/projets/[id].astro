@@ -24,7 +24,7 @@ const d = entry.data;
   <article>
     <header class="phead">
       {d.cover
-        ? <div class="phead__img"><Img src={d.cover} alt="" eager sizes="100vw" /></div>
+        ? <div class="phead__img" data-parallax data-parallax-speed="0.18"><Img src={d.cover} alt="" eager sizes="100vw" fill parallax /></div>
         : <div class="phead__ph" aria-hidden="true"></div>}
       <div class="phead__band">
         <div class="wrap">
@@ -83,8 +83,7 @@ const d = entry.data;
 </Base>
 
 <style>
-  .phead__img { background: var(--c-dark); position: relative; }
-  .phead__img :global(img) { max-height: 86vh; object-fit: cover; }
+  .phead__img { background: var(--c-dark); position: relative; overflow: hidden; height: clamp(320px, 82vh, 900px); }
   .phead__img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 55%, var(--c-dark)); pointer-events: none; }
   .phead__ph { height: clamp(160px, 22vw, 280px); background: linear-gradient(150deg, var(--c-brand), var(--c-dark)); }
   .phead__band { background: var(--c-dark); color: var(--c-on-dark); padding: 18px 0 48px; }

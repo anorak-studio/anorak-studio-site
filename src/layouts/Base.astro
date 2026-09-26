@@ -38,5 +38,78 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <Header />
     <main><slot /></main>
     <Footer />
+    <script>
+      // Parallax hero media: the media inside [data-parallax] is rendered oversized
+      // (see Media.astro / Img.astro's `parallax` prop) so it can shift a little without
+      // ever revealing an edge. The offset is a pure function of the element's current
+      // position relative to the viewport centre — never an accumulated delta — so it
+      // can't drift, jump, or lag behind native scrolling; it just tracks it exactly.
+      // data-parallax-speed sets each section's normal (desktop) intensity; it's scaled
+      // down further on narrow/mobile viewports, and to zero under prefers-reduced-motion,
+      // which leaves the media visible in its normal, centred crop with no motion at all.
+      (() => {
+        const els = Array.from(document.querySelectorAll<HTMLElement>('[data-parallax]'));
+        if (!els.length) return;
+
+        const targets = els
+          .map((el) => ({ el, media: el.querySelector<HTMLElement>('.parallax__media'), base: parseFloat(el.dataset.parallaxSpeed || '0.15') }))
+          .filter((t): t is { el: HTMLElement; media: HTMLElement; base: number } => !!t.media);
+        if (!targets.length) return;
+
+        const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+        const narrow = matchMedia('(max-width: 700px)');
+
+        let queued = false;
+        const update = () => {
+          queued = false;
+          if (reduceMotion.matches) return; // media stays put in its default centred crop
+          const vh = window.innerHeight;
+          const scale = narrow.matches ? 0.4 : 1; // gentler, still-stable version on small screens
+          for (const { el, media, base } of targets) {
+            const rect = el.getBoundingClientRect();
+            if (rect.bottom < -200 || rect.top > vh + 200) continue; // well off-screen: skip
+            const center = rect.top + rect.height / 2 - vh / 2;
+            const max = rect.height * 0.14;
+            const offset = Math.max(-max, Math.min(max, center * base * scale));
+            media.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
+          }
+        };
+        const onScroll = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+        addEventListener('scroll', onScroll, { passive: true });
+        addEventListener('resize', onScroll, { passive: true });
+        update();
+      })();
+
+      // Project-card reveal: cards fade up the first time they enter the viewport, then
+      // stay put — they never replay on the way back up. Progressive enhancement: cards
+      // are only hidden once we know IntersectionObserver can reveal them again, so a
+      // browser without it (or reduced-motion) simply shows every card, fully visible,
+      // from the start.
+      (() => {
+        const cards = Array.from(document.querySelectorAll<HTMLElement>('.pitem, .tile'));
+        if (!cards.length || !('IntersectionObserver' in window)) return;
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        cards.forEach((c) => { c.style.opacity = '0'; c.style.transform = 'translateY(10px)'; });
+
+        const io = new IntersectionObserver((entries) => {
+          const visible = entries.filter((e) => e.isIntersecting);
+          if (!visible.length) return;
+          visible
+            .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top || a.boundingClientRect.left - b.boundingClientRect.left)
+            .forEach((entry, i) => {
+              const el = entry.target as HTMLElement;
+              el.style.transitionDelay = `${Math.min(i, 11) * 45}ms`;
+              requestAnimationFrame(() => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+              });
+              io.unobserve(el);
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+        cards.forEach((c) => io.observe(c));
+      })();
+    </script>
   </body>
 </html>

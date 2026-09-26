@@ -11,8 +11,10 @@ interface Props {
   class?: string;
   eager?: boolean;
   sizes?: string;
+  fill?: boolean; // absolutely-position to cover the parent instead of sizing to its own ratio
+  parallax?: boolean; // with fill: oversize (132%) so a JS translateY never reveals empty edges
 }
-const { src, alt, ratio = 'auto', class: cls = '', eager = false, sizes } = Astro.props;
+const { src, alt, ratio = 'auto', class: cls = '', eager = false, sizes, fill = false, parallax = false } = Astro.props;
 const file = src ? path.join(process.cwd(), 'public', decodeURI(src)) : '';
 const exists = !!src && fs.existsSync(file);
 
@@ -33,13 +35,18 @@ function dims(f: string): [number, number] | null {
   return null;
 }
 const wh = exists ? dims(file) : null;
-const style = ratio === 'auto' ? 'width:100%;height:auto' : `aspect-ratio:${ratio};object-fit:cover;width:100%`;
+const style = fill
+  ? parallax
+    ? 'position:absolute;left:0;top:-16%;width:100%;height:132%;object-fit:cover;will-change:transform'
+    : 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover'
+  : ratio === 'auto' ? 'width:100%;height:auto' : `aspect-ratio:${ratio};object-fit:cover;width:100%`;
+const cls2 = parallax ? `${cls} parallax__media`.trim() : cls;
 ---
 {exists ? (
   <img
     src={src}
     alt={alt}
-    class={cls}
+    class={cls2}
     width={wh?.[0]}
     height={wh?.[1]}
     sizes={sizes}

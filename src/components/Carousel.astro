@@ -63,8 +63,9 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
   .car__track::-webkit-scrollbar { display: none; }
   .car__slide {
     flex: 0 0 100%; scroll-snap-align: start; position: relative; display: block; overflow: hidden;
-    aspect-ratio: 16 / 9; max-height: 88vh; min-height: 320px; width: 100%; color: #fff; text-decoration: none;
+    aspect-ratio: 16 / 9; max-height: 100vh; min-height: 220px; width: 100%; color: #fff; text-decoration: none;
   }
+  .car__slide > :global(img), .car__slide > :global(video), .car__slide > :global(iframe) { object-fit: cover; }
   .car__cap { position: absolute; display: grid; gap: 4px; max-width: min(760px, 86%); padding: clamp(18px, 3vw, 48px) clamp(20px, 5vw, 96px); }
   .car__cap--bottom-left { left: 0; bottom: 0; right: 0; max-width: none; justify-items: start; padding-top: clamp(60px, 10vw, 140px); background: linear-gradient(transparent, rgba(0, 0, 0, .7)); }
   .car__cap--bottom-center { left: 0; right: 0; bottom: 0; max-width: none; justify-items: center; text-align: center; padding-top: clamp(60px, 10vw, 140px); background: linear-gradient(transparent, rgba(0, 0, 0, .7)); }
@@ -91,7 +92,7 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
   .car__dots button { pointer-events: auto; width: 9px; height: 9px; padding: 0; border-radius: 50%; border: 0; background: rgba(255, 255, 255, .45); cursor: pointer; }
   .car__dots button[aria-current='true'] { background: var(--c-neon); }
   @media (max-width: 700px) {
-    .car__slide { aspect-ratio: 4 / 3; }
+    /* Keep the same true 16:9 ratio on mobile — just crop, never stretch. */
     .car__cap em { display: none; }
     .car__dots { bottom: 8px; }
   }

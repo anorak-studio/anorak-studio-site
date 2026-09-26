@@ -33,6 +33,7 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
 </div>
 
 <script>
+  const hdr = document.querySelector<HTMLElement>('.hdr')!;
   const btn = document.querySelector<HTMLButtonElement>('.burger')!;
   const menu = document.getElementById('menu')!;
   const close = menu.querySelector<HTMLButtonElement>('.menu__close')!;
@@ -46,14 +47,22 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   close.addEventListener('click', () => setOpen(false));
   menu.addEventListener('click', (e) => { if (e.target === menu || e.target === menu.firstElementChild?.nextElementSibling) setOpen(false); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) setOpen(false); });
-  // once the page scrolls past the top, give the burger a dark disc so it stays readable
-  const onScroll = () => btn.classList.toggle('is-floating', scrollY > 80);
+  // once the page scrolls past the top, give the logo and burger a dark backdrop so they stay readable
+  const onScroll = () => {
+    const floating = scrollY > 80;
+    btn.classList.toggle('is-floating', floating);
+    hdr.classList.toggle('is-floating', floating);
+  };
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 </script>
 
 <style>
-  .hdr { position: absolute; top: 0; left: 0; right: 0; z-index: 20; height: var(--hdr-h); display: flex; align-items: center; padding-inline: var(--gutter); pointer-events: none; }
+  .hdr {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 20; height: var(--hdr-h); display: flex; align-items: center;
+    padding-inline: var(--gutter); pointer-events: none; transition: background .25s ease;
+  }
+  .hdr.is-floating { background: linear-gradient(rgba(0, 0, 0, .5), transparent); }
   .hdr__logo { pointer-events: auto; display: block; width: clamp(120px, 12vw, 170px); color: #fff; filter: drop-shadow(0 1px 8px rgba(0, 0, 0, .35)); transition: color .2s; }
   .hdr__logo:hover { color: var(--c-neon); }
   .hdr__logo :global(svg) { width: 100%; height: auto; display: block; }
@@ -68,19 +77,27 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   .burger:hover, .burger:focus-visible { color: var(--c-neon); }
   .burger.is-floating { background: rgba(0, 0, 0, .7); filter: none; }
 
-  .menu { position: fixed; inset: 0; z-index: 50; background: rgba(0, 0, 0, .7); backdrop-filter: blur(4px); display: grid; place-items: center; overflow-y: auto; animation: fade .3s ease; }
+  .menu {
+    position: fixed; inset: 0; z-index: 50; background: rgba(0, 0, 0, .7); backdrop-filter: blur(4px);
+    display: grid; place-items: center; overflow-y: auto; animation: fade .3s ease;
+    height: 100svh;
+  }
   .menu[hidden] { display: none; }
   @keyframes fade { from { opacity: 0; } }
-  .menu__in { display: flex; flex-direction: column; align-items: center; gap: clamp(28px, 5vh, 56px); padding: 80px 24px; color: #fff; text-align: center; }
+  .menu__in {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: clamp(8px, 2.2svh, 48px); padding: clamp(16px, 5svh, 80px) 24px; min-height: 100%;
+    color: #fff; text-align: center;
+  }
   .menu__close { position: fixed; top: 8px; right: calc(var(--gutter) - 6px); background: none; border: 0; color: #fff; font-size: 3rem; line-height: 1; cursor: pointer; padding: 4px 12px; transition: color .2s; }
   .menu__close:hover { color: var(--c-neon); }
-  .menu__logo { width: clamp(160px, 18vw, 240px); color: #fff; }
+  .menu__logo { width: clamp(130px, 16vw, 220px); color: #fff; flex: none; }
   .menu__logo:hover { color: var(--c-neon); }
   .menu__logo :global(svg) { width: 100%; height: auto; display: block; }
-  .menu nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(4px, 1.2vh, 14px); }
+  .menu nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(2px, 1svh, 12px); }
   .menu nav a {
     display: inline-block; text-decoration: none; text-transform: uppercase; letter-spacing: .04em;
-    font: 800 clamp(2rem, 6.5vh, 3.8rem)/1.05 var(--f-display); transition: color .2s;
+    font: 800 clamp(1.65rem, 5.8svh, 3.4rem)/1.08 var(--f-display); transition: color .2s;
   }
   .menu nav a:hover, .menu nav a:focus-visible { color: var(--c-neon); }
   .menu nav a[aria-current] { color: color-mix(in srgb, #fff 55%, transparent); }
