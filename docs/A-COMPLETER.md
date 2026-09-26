@@ -46,7 +46,8 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 
 ## Doomed Raiders  
 `src/content/projets/doomed-raiders.md`
-- [ ] Pitch du jeu et captures d'écran
+- [x] Pitch du jeu et captures d'écran
+- [x] 7 vidéos de gameplay ajoutées (extraits YouTube Shorts, humour noir)
 - [ ] Lien vers le site Doomed Raiders
 
 ## Hub d'innovation en médecine rurale  
@@ -84,17 +85,21 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 
 ## Havrio  
 `src/content/projets/havrio.md`
-- [ ] Tout : client, mandat, texte et images
+- [x] Logo, variantes et visuels du balado « La Discussion » ajoutés
+- [ ] Texte du projet
+- [ ] Confirmer l'étendue exacte du mandat Anorak Studio (identité seulement, ou aussi le web/les visuels du balado ?)
 
 ## La Butinerie  
 `src/content/projets/la-butinerie.md`
+- [x] Logo ajouté
 - [ ] Texte du projet
-- [ ] Images du logo et de l'emballage
+- [ ] Images de l'emballage
 
 ## Student Portfolio, Kativik Ilisarnilirinia  
 `src/content/projets/portfolio-etudiant-kativik.md`
-- [ ] Texte du projet et nature du mandat (imprimé, web?)
-- [ ] Images
+- [x] Images ajoutées (fiches du portfolio et illustrations)
+- [ ] Texte du projet
+- [ ] Confirmer la nature exacte du mandat (imprimé, web?)
 
 ## Wooders  
 `src/content/projets/wooders.md`

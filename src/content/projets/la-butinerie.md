@@ -2,10 +2,11 @@
 title: "La Butinerie"
 summary: "Logo et emballage."
 categories: ["Identité", "Imprimé"]
+cover: "/images/projets/la-butinerie/la-butinerie-logo.jpg"
 gallery: []
 videos: []
 order: 13
-todo: ["Texte du projet", "Images du logo et de l'emballage"]
+todo: ["Texte du projet", "Images de l'emballage"]
 ---
 
-Création du logo et de l'emballage de La Butinerie. Texte à venir.
+Création du logo de La Butinerie, une entreprise d'apiculture. Texte à venir.

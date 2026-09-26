@@ -31,7 +31,9 @@ const year = new Date().getFullYear();
   .ftr__grid { display: grid; gap: 40px; grid-template-columns: 2fr 1fr 1fr; }
   .ftr__big { font: 800 clamp(1.9rem, 4vw, 2.8rem)/1.05 var(--f-display); margin-bottom: 1.25rem; }
   .ftr__btn { background: var(--c-brand-ink); color: var(--c-brand); }
-  .ftr__btn:hover { background: var(--c-neon); color: #000; }
+  /* Specific enough to beat the generic ".ftr a:hover" neon-text rule below — otherwise the
+     button's own background turns neon too and the (also neon) text disappears into it. */
+  .ftr a.ftr__btn:hover { background: var(--c-neon); color: #000; }
   .ftr ul { list-style: none; margin: 0; padding: 0; line-height: 2; }
   .ftr a { text-decoration: none; }
   .ftr a:hover { color: var(--c-neon); }
