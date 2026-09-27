@@ -107,8 +107,9 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 - [ ] Boutique : afficher les gilets sur l'accueil (Shopify)
 
 ## CMS (édition depuis le navigateur)
-- [ ] Mettre le vrai `repo:` (ex. `mfortin/anorak-studio-site`) dans `public/admin/config.yml` une fois le dépôt GitHub créé
-- [ ] Brancher la connexion GitHub pour Decap CMS (petite fonction Cloudflare Pages/Worker — je peux la faire dès que le dépôt existe)
+- [x] Mettre le vrai `repo:` dans `public/admin/config.yml`
+- [x] Brancher la connexion GitHub pour Decap CMS
+- [x] Collection « Pages » dans /admin/ : les textes de l'accueil, des services, de la réalisation, de la gamification et du contact (+ réseaux sociaux) sont maintenant éditables depuis le navigateur, en plus des projets. Les fichiers édités sont dans `src/content/site/*.json`.
 
 ## Général
 - [x] Date de fondation corrigée : 2010 (2010-02-01), et non 2007, partout sur le site (`since`/`sinceDate` dans `src/data/site.ts`)
