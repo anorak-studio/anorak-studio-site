@@ -4,7 +4,7 @@ summary: "Image de marque du Living Lab Charlevoix."
 status: "Image de marque"
 categories: ["Identité", "Science"]
 gallery: []
-videos: []
+videos: ["Pu4OAoKknZo", "eNLVHFZ92rY"]
 order: 8
 links:
   - { label: "Voir le Living Lab", href: "https://www.medecineurgence.ca/lab" }

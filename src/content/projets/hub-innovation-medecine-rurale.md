@@ -6,7 +6,7 @@ categories: ["Identité", "Web", "Science"]
 cover: "/images/projets/hub-innovation-1.jpg"
 gallery:
   - /images/projets/hub-innovation-1.jpg
-videos: []
+videos: ["WEr9rolI8sY"]
 order: 7
 links:
   - { label: "medecineurgence.ca", href: "https://www.medecineurgence.ca/" }

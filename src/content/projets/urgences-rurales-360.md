@@ -7,7 +7,7 @@ cover: /images/site/carrousel-4.jpg
 gallery:
   - /images/projets/urgences-rurales-360-1.jpg
   - /images/projets/urgences-rurales-360-2.jpg
-videos: []
+videos: ["Fj1gfmXJtEQ"]
 order: 1
 links:
   - { label: "Le spectacle chez Les 7 Doigts", href: "https://7doigts.com/spectacles/creations/urgences-rurales-360" }
