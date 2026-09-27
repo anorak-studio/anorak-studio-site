@@ -59,7 +59,7 @@ export const site = {
   },
   // Services page: short, discreet note on AI tools (not a headline promise).
   aiNote:
-    "Les outils évoluent, y compris ceux fondés sur l'intelligence artificielle. Anorak Studio les utilise lorsqu'ils apportent quelque chose au projet, avec le regard acquis par des années de pratique en design, en image et en réalisation. Leur emploi doit soutenir la qualité du résultat et le travail des personnes qui y contribuent. Le savoir-faire, les expériences et les points de vue humains restent ce qui donne au projet son caractère singulier.
+    "Les outils évoluent, y compris ceux fondés sur l'intelligence artificielle. Anorak Studio les utilise lorsqu'ils apportent quelque chose au projet, avec le regard acquis par des années de pratique en design, en image et en réalisation. Leur emploi doit soutenir la qualité du résultat et le travail des personnes qui y contribuent. Le savoir-faire, les expériences et les points de vue humains restent ce qui donne au projet son caractère singulier.",
   email: 'allo@anorakstudio.ca',
   emailDirect: 'm.fortin@anorakstudio.ca',
   phone: '418 524-2578',
