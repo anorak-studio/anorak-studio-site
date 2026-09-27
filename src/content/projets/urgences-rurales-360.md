@@ -4,7 +4,9 @@ summary: "Un spectacle de docu-cirque comme outil de transfert de connaissances 
 status: "Spectacle en tournée"
 categories: ["Réalisation", "Science", "Vidéo", "Illustration"]
 cover: /images/site/carrousel-4.jpg
-gallery: []
+gallery:
+  - /images/projets/urgences-rurales-360-1.jpg
+  - /images/projets/urgences-rurales-360-2.jpg
 videos: []
 order: 1
 links:
