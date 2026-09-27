@@ -1,24 +1,38 @@
 ---
-title: "Datagotchi"
-summary: "Plateforme scientifique de sondages illustrés : image de marque, logo, site web (illustrations IA et pixel art) pour la CLESSN et la CRRSMAT, Université Laval."
-status: "Plateforme web, depuis 2021"
-categories: ["Gamification", "Science", "Web", "Identité"]
-ai: true
-cover: "/images/projets/datagotchi-1.gif"
+title: Datagotchi
+summary: "Plateforme scientifique de sondages illustrés : image de marque, logo,
+  site web (illustrations IA et pixel art) pour la CLESSN et la CRRSMAT,
+  Université Laval."
+status: Plateforme web, depuis 2021
+categories:
+  - Gamification
+  - Science
+  - Web
+  - Identité
+cover: /images/projets/datagotchi-1.gif
+thumb: /images/projets/datagotchi-1.gif
 gallery:
   - /images/projets/datagotchi-2.png
   - /images/projets/datagotchi-3.png
 videos: []
-order: 8
 links:
-  - { label: "datagotchi.com", href: "https://www.datagotchi.com" }
-  - { label: "Le projet Datagotchi", href: "https://www.datagotchi.com/datagotchi" }
-  - { label: "La science derrière Datagotchi", href: "https://www.datagotchi.com/science" }
-  - { label: "Défi Datagotchi (élections)", href: "https://quebec.datagotchi.com" }
-  - { label: "Prof. Datagotchi", href: "https://prof-datagotchi.com" }
-  - { label: "CLESSN", href: "https://www.clessn.com/" }
-  - { label: "CRRSMAT", href: "https://crrsmat.ca/" }
+  - label: datagotchi.com
+    href: https://www.datagotchi.com
+  - label: Le projet Datagotchi
+    href: https://www.datagotchi.com/datagotchi
+  - label: La science derrière Datagotchi
+    href: https://www.datagotchi.com/science
+  - label: Défi Datagotchi (élections)
+    href: https://quebec.datagotchi.com
+  - label: Prof. Datagotchi
+    href: https://prof-datagotchi.com
+  - label: CLESSN
+    href: https://www.clessn.com/
+  - label: CRRSMAT
+    href: https://crrsmat.ca/
+ai: true
 todo: []
+order: 8
 ---
 
 Datagotchi est le tout premier sondage 100% illustré, un projet développé par l'équipe de la Chaire de leadership en enseignement des sciences sociales numériques ([CLESSN](https://www.clessn.com/)) et de la Chaire de recherche Relief en santé mentale, autogestion et travail ([CRRSMAT](https://crrsmat.ca/)) de l'Université Laval, sous la direction des chercheurs **Yannick Dufresne, PhD**, **Catherine Ouellet, PhD** et **Simon Coulombe, PhD**. Sa mission : conscientiser les citoyens à la richesse et à la valeur prédictive de leurs propres données, dans un esprit de vulgarisation scientifique et de dépolarisation.
