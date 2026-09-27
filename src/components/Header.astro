@@ -4,7 +4,6 @@
 // fluorescent green on hover; it opens a full-screen menu on black at 70%.
 import logo from '../assets/logos/anorak.svg?raw';
 import logoStudio from '../assets/logos/anorak-studio.svg?raw';
-import menuIcon from '../assets/logos/menu.svg?raw';
 import Social from './Social.astro';
 import { nav } from '../data/site';
 const current = Astro.url.pathname;
@@ -14,11 +13,21 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   <a href="/" class="hdr__logo" aria-label="Anorak Studio, accueil" set:html={logo} />
 </header>
 <button class="burger" aria-controls="menu" aria-expanded="false" aria-label="Ouvrir le menu">
-  <span set:html={menuIcon} />
+  <svg class="micon" viewBox="0 0 51 38" aria-hidden="true">
+    <g class="micon__burger">
+      <polygon class="micon__bar micon__bar--top" points="43 11.5 25.5 11.5 8 11.5 8 8.5 25.5 8.5 43 8.5 43 11.5" />
+      <rect class="micon__bar micon__bar--mid" x="8" y="17.5" width="35" height="3" />
+      <rect class="micon__bar micon__bar--bot" x="8" y="26.5" width="35" height="3" />
+    </g>
+    <g class="micon__eye">
+      <path class="micon__outline" d="M8,19s6.75-10.5,17.5-10.5,17.5,10.5,17.5,10.5c0,0-6.25,10.5-17.5,10.5s-17.5-10.5-17.5-10.5Z" />
+      <circle class="micon__pupil" cx="25.5" cy="19" r="4.5" />
+      <path class="micon__lid" d="M8,20s6.75-5.5,17.5-5.5,17.5,5.5,17.5,5.5" />
+    </g>
+  </svg>
 </button>
 
 <div id="menu" class="menu" hidden>
-  <button class="menu__close" aria-label="Fermer le menu">×</button>
   <div class="menu__in">
     <a href="/" class="menu__logo" aria-label="Anorak Studio, accueil" set:html={logoStudio} />
     <hr class="menu__rule" />
@@ -38,17 +47,54 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   const hdr = document.querySelector<HTMLElement>('.hdr')!;
   const btn = document.querySelector<HTMLButtonElement>('.burger')!;
   const menu = document.getElementById('menu')!;
-  const close = menu.querySelector<HTMLButtonElement>('.menu__close')!;
+  const firstLink = menu.querySelector<HTMLAnchorElement>('nav a')!;
   const setOpen = (open: boolean) => {
     menu.hidden = !open;
     btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    btn.classList.toggle('is-open', open);
     document.documentElement.style.overflow = open ? 'hidden' : '';
-    (open ? close : btn).focus();
+    (open ? firstLink : btn).focus();
   };
-  btn.addEventListener('click', () => setOpen(true));
-  close.addEventListener('click', () => setOpen(false));
-  menu.addEventListener('click', (e) => { if (e.target === menu || e.target === menu.firstElementChild?.nextElementSibling) setOpen(false); });
+  btn.addEventListener('click', () => setOpen(menu.hidden));
+  menu.addEventListener('click', (e) => { if (e.target === menu) setOpen(false); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) setOpen(false); });
+
+  // Burger <-> eye icon: blinking and pupil that looks toward the cursor while the eye is showing
+  // (menu open), resting centered otherwise (respects prefers-reduced-motion).
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const micon = btn.querySelector<SVGSVGElement>('.micon')!;
+  const eyeGroup = btn.querySelector<SVGGElement>('.micon__eye')!;
+  const pupil = btn.querySelector<SVGCircleElement>('.micon__pupil')!;
+  const EYE_CX = 25.5, EYE_CY = 19, MAX_R = 2.4;
+  const centerPupil = () => { pupil.setAttribute('cx', String(EYE_CX)); pupil.setAttribute('cy', String(EYE_CY)); };
+  const lookAt = (clientX: number, clientY: number) => {
+    const r = micon.getBoundingClientRect();
+    if (!r.width || !r.height) return;
+    const cx = r.left + (EYE_CX / 51) * r.width;
+    const cy = r.top + (EYE_CY / 38) * r.height;
+    const scaleX = 51 / r.width, scaleY = 38 / r.height;
+    const dx = (clientX - cx) * scaleX, dy = (clientY - cy) * scaleY;
+    const dist = Math.hypot(dx, dy) || 1;
+    const mag = Math.min(MAX_R, dist * 0.15);
+    pupil.setAttribute('cx', String(EYE_CX + (dx / dist) * mag));
+    pupil.setAttribute('cy', String(EYE_CY + (dy / dist) * mag));
+  };
+  if (!reduceMotion) {
+    btn.addEventListener('mousemove', (e) => { if (!menu.hidden) lookAt(e.clientX, e.clientY); });
+    btn.addEventListener('mouseleave', centerPupil);
+  }
+  let blinkTimer: ReturnType<typeof setTimeout> | undefined;
+  const scheduleBlink = () => {
+    blinkTimer = setTimeout(() => {
+      if (!menu.hidden && !reduceMotion) {
+        eyeGroup.classList.add('is-blinking');
+        setTimeout(() => eyeGroup.classList.remove('is-blinking'), 140);
+      }
+      scheduleBlink();
+    }, 2600 + Math.random() * 3200);
+  };
+  scheduleBlink();
   // once the page scrolls past the top, give the logo and burger a dark backdrop so they stay readable
   const onScroll = () => {
     const floating = scrollY > 80;
@@ -70,14 +116,35 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   .hdr__logo :global(svg) { width: 100%; height: auto; display: block; }
 
   .burger {
-    position: fixed; top: 10px; right: calc(var(--gutter) - 10px); z-index: 30;
+    position: fixed; top: 10px; right: calc(var(--gutter) - 10px); z-index: 55;
     width: 54px; height: 44px; padding: 10px; border: 0; border-radius: 6px; cursor: pointer;
     background: transparent; color: #fff; transition: color .2s, background .2s;
     filter: drop-shadow(0 1px 6px rgba(0, 0, 0, .35));
   }
-  .burger span, .burger :global(svg) { display: block; width: 100%; height: auto; }
   .burger:hover, .burger:focus-visible { color: var(--c-neon); }
-  .burger.is-floating { background: rgba(0, 0, 0, .7); filter: none; }
+  .burger.is-floating:not(.is-open) { background: rgba(0, 0, 0, .7); filter: none; }
+
+  /* Burger <-> eye icon */
+  .micon { display: block; width: 100%; height: auto; overflow: visible; }
+  .micon__bar { fill: currentColor; transition: transform .22s ease; transition-delay: .18s; }
+  .micon__bar--top { transform-origin: 25.5px 10px; }
+  .micon__bar--bot { transform-origin: 25.5px 28px; }
+  .burger.is-open .micon__bar--top { transform: translateY(9px); transition-delay: 0s; }
+  .burger.is-open .micon__bar--bot { transform: translateY(-9px); transition-delay: 0s; }
+  .micon__burger { transition: opacity .16s ease; transition-delay: 0s; }
+  .burger.is-open .micon__burger { opacity: 0; transition-delay: .2s; }
+  .micon__eye {
+    opacity: 0; transition: opacity .16s ease; transition-delay: 0s;
+    fill: none; stroke: currentColor; stroke-width: 3px; stroke-linecap: round; stroke-miterlimit: 10;
+  }
+  .burger.is-open .micon__eye { opacity: 1; transition-delay: .22s; }
+  .micon__pupil { transition: cx .12s ease, cy .12s ease; }
+  .micon__lid { opacity: 0; transition: opacity .07s ease; }
+  .micon__eye.is-blinking .micon__outline, .micon__eye.is-blinking .micon__pupil { opacity: 0; }
+  .micon__eye.is-blinking .micon__lid { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .micon__bar, .micon__burger, .micon__eye, .micon__pupil, .micon__lid { transition: none; }
+  }
 
   .menu {
     position: fixed; inset: 0; z-index: 50; background: rgba(0, 0, 0, .7); backdrop-filter: blur(4px);
@@ -91,8 +158,6 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
     gap: clamp(10px, 4svh, 88px); padding: clamp(16px, 5svh, 80px) 24px; min-height: 100%;
     color: #fff; text-align: center;
   }
-  .menu__close { position: fixed; top: 8px; right: calc(var(--gutter) - 6px); background: none; border: 0; color: #fff; font-size: 3rem; line-height: 1; cursor: pointer; padding: 4px 12px; transition: color .2s; }
-  .menu__close:hover { color: var(--c-neon); }
   .menu__logo { width: clamp(150px, 18vw, 240px); color: #fff; flex: none; }
   .menu__logo:hover { color: var(--c-neon); }
   .menu__logo :global(svg) { width: 100%; height: auto; display: block; }

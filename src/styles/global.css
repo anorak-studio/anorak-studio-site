@@ -28,7 +28,14 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--hdr-h) + 16px); }
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--hdr-h) + 16px);
+  /* Reserve the scrollbar's space at all times, so toggling overflow:hidden
+     (menu overlay open/close) never changes the viewport width and causes
+     a layout "jump". Falls back gracefully where unsupported. */
+  scrollbar-gutter: stable;
+}
 body {
   margin: 0;
   background: var(--c-bg);
