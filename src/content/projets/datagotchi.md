@@ -9,8 +9,8 @@ categories:
   - Science
   - Web
   - Identité
-cover: /images/projets/datagotchi-1.gif
-thumb: /images/projets/datagotchi-1.gif
+cover: /images/projets/defi-datagotchi-10.jpg
+thumb: /images/projets/defi-datagotchi-10.jpg
 gallery:
   - /images/projets/datagotchi-2.png
   - /images/projets/datagotchi-3.png
