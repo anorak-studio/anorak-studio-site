@@ -14,6 +14,13 @@ thumb: /images/projets/defi-datagotchi-10.jpg
 gallery:
   - /images/projets/datagotchi-2.png
   - /images/projets/datagotchi-3.png
+  - /images/projets/datagotchi-4.jpg
+  - /images/projets/datagotchi-5.jpg
+  - /images/projets/datagotchi-6.jpg
+  - /images/projets/datagotchi-7.jpg
+  - /images/projets/datagotchi-8.jpg
+  - /images/projets/datagotchi-9.jpg
+  - /images/projets/datagotchi-10.jpg
 videos: []
 links:
   - label: datagotchi.com
