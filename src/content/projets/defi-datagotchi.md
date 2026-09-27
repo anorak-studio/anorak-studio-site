@@ -8,8 +8,8 @@ categories:
   - Science
   - Web
   - Illustration
-cover: /images/projets/defi-datagotchi-1.jpg
-thumb: /images/projets/defi-datagotchi-4.jpg
+cover: /images/projets/defi-datagotchi-8.jpg
+thumb: /images/projets/datagotchi-1.gif
 gallery:
   - /images/projets/defi-datagotchi-2.jpg
   - /images/projets/defi-datagotchi-3.jpg
