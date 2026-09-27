@@ -55,18 +55,21 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
     btn.classList.toggle('is-open', open);
     document.documentElement.style.overflow = open ? 'hidden' : '';
     (open ? firstLink : btn).focus();
+    if (!open) { cancelIdle(); centerPupil(); }
   };
   btn.addEventListener('click', () => setOpen(menu.hidden));
   menu.addEventListener('click', (e) => { if (e.target === menu) setOpen(false); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) setOpen(false); });
 
-  // Burger <-> eye icon: blinking and pupil that looks toward the cursor while the eye is showing
-  // (menu open), resting centered otherwise (respects prefers-reduced-motion).
+  // Burger <-> eye icon: blinking, and a pupil that looks toward the cursor whenever the cursor
+  // comes near the icon while the eye is showing (menu open). It keeps looking at the cursor's
+  // last position for a few seconds after the cursor moves away before easing back to centered
+  // (idle, looking straight at the visitor). Respects prefers-reduced-motion.
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const micon = btn.querySelector<SVGSVGElement>('.micon')!;
   const eyeGroup = btn.querySelector<SVGGElement>('.micon__eye')!;
   const pupil = btn.querySelector<SVGCircleElement>('.micon__pupil')!;
-  const EYE_CX = 25.5, EYE_CY = 19, MAX_R = 2.4;
+  const EYE_CX = 25.5, EYE_CY = 19, MAX_R = 2.4, PROXIMITY = 200;
   const centerPupil = () => { pupil.setAttribute('cx', String(EYE_CX)); pupil.setAttribute('cy', String(EYE_CY)); };
   const lookAt = (clientX: number, clientY: number) => {
     const r = micon.getBoundingClientRect();
@@ -80,9 +83,21 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
     pupil.setAttribute('cx', String(EYE_CX + (dx / dist) * mag));
     pupil.setAttribute('cy', String(EYE_CY + (dy / dist) * mag));
   };
+  let idleTimer: ReturnType<typeof setTimeout> | undefined;
+  const cancelIdle = () => { if (idleTimer) { clearTimeout(idleTimer); idleTimer = undefined; } };
+  const scheduleIdle = () => {
+    if (idleTimer) return;
+    idleTimer = setTimeout(() => { centerPupil(); idleTimer = undefined; }, 3000 + Math.random() * 2000);
+  };
   if (!reduceMotion) {
-    btn.addEventListener('mousemove', (e) => { if (!menu.hidden) lookAt(e.clientX, e.clientY); });
-    btn.addEventListener('mouseleave', centerPupil);
+    document.addEventListener('mousemove', (e) => {
+      if (menu.hidden) return;
+      const r = micon.getBoundingClientRect();
+      if (!r.width) return;
+      const dist = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2));
+      if (dist <= PROXIMITY) { cancelIdle(); lookAt(e.clientX, e.clientY); }
+      else scheduleIdle();
+    });
   }
   let blinkTimer: ReturnType<typeof setTimeout> | undefined;
   const scheduleBlink = () => {
@@ -97,9 +112,7 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   scheduleBlink();
   // once the page scrolls past the top, give the logo and burger a dark backdrop so they stay readable
   const onScroll = () => {
-    const floating = scrollY > 80;
-    btn.classList.toggle('is-floating', floating);
-    hdr.classList.toggle('is-floating', floating);
+    hdr.classList.toggle('is-floating', scrollY > 80);
   };
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
@@ -116,13 +129,12 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   .hdr__logo :global(svg) { width: 100%; height: auto; display: block; }
 
   .burger {
-    position: fixed; top: 10px; right: calc(var(--gutter) - 10px); z-index: 55;
-    width: 54px; height: 44px; padding: 10px; border: 0; border-radius: 6px; cursor: pointer;
-    background: transparent; color: #fff; transition: color .2s, background .2s;
+    position: fixed; top: 15px; right: calc(var(--gutter) - 15px); z-index: 55;
+    width: 81px; height: 66px; padding: 15px; border: 0; border-radius: 6px; cursor: pointer;
+    background: transparent; color: #fff; transition: color .2s;
     filter: drop-shadow(0 1px 6px rgba(0, 0, 0, .35));
   }
   .burger:hover, .burger:focus-visible { color: var(--c-neon); }
-  .burger.is-floating:not(.is-open) { background: rgba(0, 0, 0, .7); filter: none; }
 
   /* Burger <-> eye icon */
   .micon { display: block; width: 100%; height: auto; overflow: visible; }

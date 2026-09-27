@@ -126,6 +126,27 @@ const taglineWords = site.tagline.split(' ');
   </section>
 </Base>
 
+<script>
+  // Each ANORAK/studio letter fades out on hover. Once a fade starts it always finishes (the
+  // class stays on even if the cursor leaves mid-transition), and the letter stays fully
+  // vanished for a short hold after the cursor actually leaves before fading back in.
+  const FADE_MS = 350; // matches the CSS transition duration
+  const HOLD_MS = 1000;
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll<HTMLElement>('.intro__logo .alogo__word > *').forEach((el) => {
+      let timer: ReturnType<typeof setTimeout> | undefined;
+      el.addEventListener('mouseenter', () => {
+        clearTimeout(timer);
+        el.classList.add('is-vanished');
+      });
+      el.addEventListener('mouseleave', () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => el.classList.remove('is-vanished'), FADE_MS + HOLD_MS);
+      });
+    });
+  }
+</script>
+
 <style>
   /* Opaque so it fully covers the Hero's fixed background (z-index:-1) as it scrolls up over it. */
   .intro { position: relative; padding-block: clamp(48px, 7vw, 110px) clamp(40px, 6vw, 90px); background: var(--c-bg); }
@@ -133,12 +154,11 @@ const taglineWords = site.tagline.split(' ');
   .intro__logo :global(svg) { width: 100%; height: auto; display: block; }
   /* Each letter is its own group in the SVG (see src/assets/logos/anorak-studio.svg). Each
      letter reacts on its own: only the letter under the cursor fades out, independently of
-     its neighbours — not the whole word at once. */
+     its neighbours — not the whole word at once. Driven by JS (.is-vanished, below) rather
+     than :hover, so a fade that has started always finishes and holds briefly once the
+     cursor leaves, instead of reversing immediately. */
   .intro__logo :global(.alogo__word > *) { transition: opacity .35s ease; cursor: default; }
-  .intro__logo :global(.alogo__word > *:hover) { opacity: 0; }
-  @media (prefers-reduced-motion: reduce) {
-    .intro__logo :global(.alogo__word > *:hover) { opacity: 1; }
-  }
+  .intro__logo :global(.alogo__word > *.is-vanished) { opacity: 0; }
   .intro__cols { display: grid; grid-template-columns: 1fr 1.6fr; gap: clamp(20px, 5vw, 80px); align-items: start; }
   .intro__tag { font: 800 clamp(1.6rem, 3vw, 2.4rem)/1.1 var(--f-display); margin: 0; }
   .intro__txt p { color: var(--c-muted); font-size: 1.08rem; }
