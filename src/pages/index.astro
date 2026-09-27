@@ -131,19 +131,13 @@ const taglineWords = site.tagline.split(' ');
   .intro { position: relative; padding-block: clamp(48px, 7vw, 110px) clamp(40px, 6vw, 90px); background: var(--c-bg); }
   .intro__logo { color: var(--c-brand); width: min(1100px, 84vw); margin: 0 auto clamp(36px, 5vw, 72px); }
   .intro__logo :global(svg) { width: 100%; height: auto; display: block; }
-  /* Each letter is its own path in the SVG (see src/assets/logos/anorak-studio.svg, reordered
-     left-to-right within each word so nth-child below matches reading order). On hover, the
-     letters fade out one after another instead of all at once. */
-  .intro__logo :global(.alogo__word > *) { transition: opacity .35s ease; }
-  .intro__logo:hover :global(.alogo__word > *) { opacity: 0; }
-  .intro__logo :global(.alogo__word > *:nth-child(1)) { transition-delay: 0ms; }
-  .intro__logo :global(.alogo__word > *:nth-child(2)) { transition-delay: 40ms; }
-  .intro__logo :global(.alogo__word > *:nth-child(3)) { transition-delay: 80ms; }
-  .intro__logo :global(.alogo__word > *:nth-child(4)) { transition-delay: 120ms; }
-  .intro__logo :global(.alogo__word > *:nth-child(5)) { transition-delay: 160ms; }
-  .intro__logo :global(.alogo__word > *:nth-child(6)) { transition-delay: 200ms; }
+  /* Each letter is its own group in the SVG (see src/assets/logos/anorak-studio.svg). Each
+     letter reacts on its own: only the letter under the cursor fades out, independently of
+     its neighbours — not the whole word at once. */
+  .intro__logo :global(.alogo__word > *) { transition: opacity .35s ease; cursor: default; }
+  .intro__logo :global(.alogo__word > *:hover) { opacity: 0; }
   @media (prefers-reduced-motion: reduce) {
-    .intro__logo:hover :global(.alogo__word > *) { opacity: 1; }
+    .intro__logo :global(.alogo__word > *:hover) { opacity: 1; }
   }
   .intro__cols { display: grid; grid-template-columns: 1fr 1.6fr; gap: clamp(20px, 5vw, 80px); align-items: start; }
   .intro__tag { font: 800 clamp(1.6rem, 3vw, 2.4rem)/1.1 var(--f-display); margin: 0; }
