@@ -93,10 +93,10 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   }
   .menu__close { position: fixed; top: 8px; right: calc(var(--gutter) - 6px); background: none; border: 0; color: #fff; font-size: 3rem; line-height: 1; cursor: pointer; padding: 4px 12px; transition: color .2s; }
   .menu__close:hover { color: var(--c-neon); }
-  .menu__logo { width: clamp(90px, 11vw, 140px); color: #fff; flex: none; }
+  .menu__logo { width: clamp(150px, 18vw, 240px); color: #fff; flex: none; }
   .menu__logo:hover { color: var(--c-neon); }
   .menu__logo :global(svg) { width: 100%; height: auto; display: block; }
-  .menu__rule { width: min(220px, 60%); border: 0; border-top: 1px solid rgba(255, 255, 255, .35); margin: 0; }
+  .menu__rule { width: min(220px, 60%); border: 0; border-top: 2px solid rgba(255, 255, 255, .5); margin: 0; }
   .menu nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(2px, 1svh, 12px); }
   .menu nav a {
     display: inline-block; text-decoration: none; text-transform: uppercase; letter-spacing: .04em;

@@ -13,7 +13,6 @@
     { "label": "Facebook", "icon": "facebook", "href": "https://www.facebook.com/AnorakStudio" },
     { "label": "Instagram", "icon": "instagram", "href": "https://www.instagram.com/anorakstudio/" },
     { "label": "LinkedIn", "icon": "linkedin", "href": "https://www.linkedin.com/in/mathieu-fortin-0b1a47a7/" },
-    { "label": "YouTube", "icon": "youtube", "href": "https://www.youtube.com/@AnorakStudioFilms" },
-    { "label": "Linktree", "icon": "linktree", "href": "https://linktr.ee/anorakstudio" }
+    { "label": "YouTube", "icon": "youtube", "href": "https://www.youtube.com/@AnorakStudioFilms" }
   ]
 }
