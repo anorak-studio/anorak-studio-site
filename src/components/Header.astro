@@ -61,15 +61,16 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   menu.addEventListener('click', (e) => { if (e.target === menu) setOpen(false); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) setOpen(false); });
 
-  // Burger <-> eye icon: blinking, and a pupil that looks toward the cursor whenever the cursor
-  // comes near the icon while the eye is showing (menu open). It keeps looking at the cursor's
-  // last position for a few seconds after the cursor moves away before easing back to centered
-  // (idle, looking straight at the visitor). Respects prefers-reduced-motion.
+  // Burger <-> eye icon: blinking, and a pupil that looks toward the cursor anywhere on screen
+  // while the eye is showing (menu open) and the cursor is moving ("looking" state — no
+  // blinking then). Once the cursor stops moving for a few seconds, the eye eases back to
+  // centered (idle, looking straight at the visitor) and resumes blinking. Respects
+  // prefers-reduced-motion.
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const micon = btn.querySelector<SVGSVGElement>('.micon')!;
   const eyeGroup = btn.querySelector<SVGGElement>('.micon__eye')!;
   const pupil = btn.querySelector<SVGCircleElement>('.micon__pupil')!;
-  const EYE_CX = 25.5, EYE_CY = 19, MAX_R = 2.4, PROXIMITY = 200;
+  const EYE_CX = 25.5, EYE_CY = 19, MAX_R = 2.4;
   const centerPupil = () => { pupil.setAttribute('cx', String(EYE_CX)); pupil.setAttribute('cy', String(EYE_CY)); };
   const lookAt = (clientX: number, clientY: number) => {
     const r = micon.getBoundingClientRect();
@@ -83,26 +84,22 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
     pupil.setAttribute('cx', String(EYE_CX + (dx / dist) * mag));
     pupil.setAttribute('cy', String(EYE_CY + (dy / dist) * mag));
   };
+  let isLooking = false;
   let idleTimer: ReturnType<typeof setTimeout> | undefined;
-  const cancelIdle = () => { if (idleTimer) { clearTimeout(idleTimer); idleTimer = undefined; } };
-  const scheduleIdle = () => {
-    if (idleTimer) return;
-    idleTimer = setTimeout(() => { centerPupil(); idleTimer = undefined; }, 3000 + Math.random() * 2000);
-  };
+  const cancelIdle = () => { if (idleTimer) { clearTimeout(idleTimer); idleTimer = undefined; } isLooking = false; };
   if (!reduceMotion) {
     document.addEventListener('mousemove', (e) => {
       if (menu.hidden) return;
-      const r = micon.getBoundingClientRect();
-      if (!r.width) return;
-      const dist = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2));
-      if (dist <= PROXIMITY) { cancelIdle(); lookAt(e.clientX, e.clientY); }
-      else scheduleIdle();
+      isLooking = true;
+      clearTimeout(idleTimer);
+      lookAt(e.clientX, e.clientY);
+      idleTimer = setTimeout(() => { isLooking = false; centerPupil(); }, 3000 + Math.random() * 2000);
     });
   }
   let blinkTimer: ReturnType<typeof setTimeout> | undefined;
   const scheduleBlink = () => {
     blinkTimer = setTimeout(() => {
-      if (!menu.hidden && !reduceMotion) {
+      if (!menu.hidden && !reduceMotion && !isLooking) {
         eyeGroup.classList.add('is-blinking');
         setTimeout(() => eyeGroup.classList.remove('is-blinking'), 140);
       }
