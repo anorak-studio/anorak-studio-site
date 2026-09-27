@@ -4,10 +4,10 @@ summary: "Plateforme scientifique de sondages illustrés : image de marque, logo
 status: "Plateforme web, depuis 2021"
 categories: ["Gamification", "Science", "Web", "Identité"]
 ai: true
-cover: "/images/projets/datagotchi/datagotchi-1.gif"
+cover: "/images/projets/datagotchi-1.gif"
 gallery:
-  - /images/projets/datagotchi/datagotchi-2.png
-  - /images/projets/datagotchi/datagotchi-3.png
+  - /images/projets/datagotchi-2.png
+  - /images/projets/datagotchi-3.png
 videos: []
 order: 8
 links:

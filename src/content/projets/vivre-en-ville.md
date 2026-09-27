@@ -3,18 +3,18 @@ title: "Vivre en Ville"
 summary: "Série de capsules d'animation vulgarisant les enjeux des systèmes alimentaires durables et de la démarche nourricière municipale."
 status: "Série de capsules d'animation"
 categories: ["Vidéo", "Illustration"]
-cover: "/images/projets/vivre-en-ville/vivre-en-ville-1.jpg"
+cover: "/images/projets/vivre-en-ville-1.jpg"
 gallery:
-  - /images/projets/vivre-en-ville/vivre-en-ville-1.jpg
-  - /images/projets/vivre-en-ville/vivre-en-ville-2.jpg
-  - /images/projets/vivre-en-ville/vivre-en-ville-3.jpg
-  - /images/projets/vivre-en-ville/vivre-en-ville-4.jpg
-  - /images/projets/vivre-en-ville/vivre-en-ville-5.jpg
-  - /images/projets/vivre-en-ville/vivre-en-ville-6.jpg
-  - /images/projets/vivre-en-ville/vivre-en-ville-7.jpg
-  - /images/projets/vivre-en-ville/vivre-en-ville-8.jpg
-  - /images/projets/vivre-en-ville/vivre-en-ville-9.jpg
-  - /images/projets/vivre-en-ville/vivre-en-ville-10.jpg
+  - /images/projets/vivre-en-ville-1.jpg
+  - /images/projets/vivre-en-ville-2.jpg
+  - /images/projets/vivre-en-ville-3.jpg
+  - /images/projets/vivre-en-ville-4.jpg
+  - /images/projets/vivre-en-ville-5.jpg
+  - /images/projets/vivre-en-ville-6.jpg
+  - /images/projets/vivre-en-ville-7.jpg
+  - /images/projets/vivre-en-ville-8.jpg
+  - /images/projets/vivre-en-ville-9.jpg
+  - /images/projets/vivre-en-ville-10.jpg
 videos: ["80EFGuY4wUk", "3kawBFXQ_XQ", "5TJXkrlWl1Q"]
 order: 15
 links: []

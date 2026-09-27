@@ -3,10 +3,10 @@ title: "Fungus Forest"
 summary: "Jeu de casse-tête au tour par tour pour Game Boy Advance, jouable en ligne. Avec mooon.bit."
 status: "Jeu sorti le 4 avril 2025"
 categories: ["Jeu vidéo"]
-cover: "/images/projets/fungus-forest/fungus-forest-poster.jpg"
-thumb: "/images/projets/fungus-forest/fungus-forest-1.jpg"
+cover: "/images/projets/fungus-forest-poster.jpg"
+thumb: "/images/projets/fungus-forest-1.jpg"
 gallery:
-  - /images/projets/fungus-forest/fungus-forest-1.jpg
+  - /images/projets/fungus-forest-1.jpg
 videos: ["rDnTc8gzyCA"]
 order: 11
 links:

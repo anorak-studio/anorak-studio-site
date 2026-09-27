@@ -3,13 +3,13 @@ title: "Prof. Datagotchi"
 summary: "Un agent conversationnel qui répond aux questions des citoyens sur les plateformes des partis. Gamification et science politique."
 status: "Projet pilote, 2026"
 categories: ["Gamification", "Science", "Web"]
-cover: "/images/projets/prof-datagotchi/prof-datagotchi-1.jpg"
+cover: "/images/projets/prof-datagotchi-1.jpg"
 gallery:
-  - /images/projets/prof-datagotchi/prof-datagotchi-2.jpg
-  - /images/projets/prof-datagotchi/prof-datagotchi-3.jpg
-  - /images/projets/prof-datagotchi/prof-datagotchi-4.jpg
-  - /images/projets/prof-datagotchi/prof-datagotchi-5.jpg
-  - /images/projets/prof-datagotchi/prof-datagotchi-6.jpg
+  - /images/projets/prof-datagotchi-2.jpg
+  - /images/projets/prof-datagotchi-3.jpg
+  - /images/projets/prof-datagotchi-4.jpg
+  - /images/projets/prof-datagotchi-5.jpg
+  - /images/projets/prof-datagotchi-6.jpg
 videos: []
 order: 10
 links:

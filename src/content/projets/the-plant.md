@@ -3,25 +3,25 @@ title: "The Plant"
 summary: "Les expériences d'un biologiste sur des plantes carnivores dérapent, et sa voisine Adeline se retrouve prise dans ce mystère grandissant."
 status: "Épisode 2 de la série The Unearthly Notes, sur Bell TV1"
 categories: ["Réalisation"]
-cover: "/images/projets/the-plant/the-plant-poster.jpg"
-thumb: "/images/projets/the-plant/the-plant-3.jpg"
+cover: "/images/projets/the-plant-poster.jpg"
+thumb: "/images/projets/the-plant-3.jpg"
 gallery:
-  - /images/projets/the-plant/the-plant-2.jpg
-  - /images/projets/the-plant/the-plant-3.jpg
-  - /images/projets/the-plant/the-plant-4.jpg
-  - /images/projets/the-plant/the-plant-5.jpg
-  - /images/projets/the-plant/the-plant-7.jpg
-  - /images/projets/the-plant/the-plant-8.jpg
-  - /images/projets/the-plant/the-plant-9.jpg
-  - /images/projets/the-plant/the-plant-10.jpg
-  - /images/projets/the-plant/the-plant-11.jpg
-  - /images/projets/the-plant/the-plant-12.jpg
-  - /images/projets/the-plant/the-plant-13.jpg
-  - /images/projets/the-plant/the-plant-14.jpg
-  - /images/projets/the-plant/the-plant-15.jpg
-  - /images/projets/the-plant/the-plant-16.jpg
-  - /images/projets/the-plant/the-plant-17.jpg
-  - /images/projets/the-plant/the-plant-18.jpg
+  - /images/projets/the-plant-2.jpg
+  - /images/projets/the-plant-3.jpg
+  - /images/projets/the-plant-4.jpg
+  - /images/projets/the-plant-5.jpg
+  - /images/projets/the-plant-7.jpg
+  - /images/projets/the-plant-8.jpg
+  - /images/projets/the-plant-9.jpg
+  - /images/projets/the-plant-10.jpg
+  - /images/projets/the-plant-11.jpg
+  - /images/projets/the-plant-12.jpg
+  - /images/projets/the-plant-13.jpg
+  - /images/projets/the-plant-14.jpg
+  - /images/projets/the-plant-15.jpg
+  - /images/projets/the-plant-16.jpg
+  - /images/projets/the-plant-17.jpg
+  - /images/projets/the-plant-18.jpg
 videos: ["ivheFQJSjYk"]
 order: 2.2
 links:

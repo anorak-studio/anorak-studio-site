@@ -3,9 +3,9 @@ title: "The Unearthly Notes"
 summary: "Série de trois épisodes inspirée de H.P. Lovecraft, diffusée sur Bell TV1. Scénario, réalisation, production exécutive et image de marque : Mathieu Fortin."
 status: "Série, 3 épisodes, sur Bell TV1"
 categories: ["Réalisation", "Identité"]
-cover: "/images/projets/the-unearthly-notes/the-unearthly-notes-poster.jpg"
+cover: "/images/projets/the-unearthly-notes-poster.jpg"
 gallery:
-  - /images/projets/the-unearthly-notes/the-unearthly-notes-poster.jpg
+  - /images/projets/the-unearthly-notes-poster.jpg
 videos: []
 order: 2
 links:

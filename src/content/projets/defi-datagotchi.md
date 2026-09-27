@@ -3,19 +3,19 @@ title: "Défi Datagotchi"
 summary: "Le défi qui prédit votre vote à partir de vos habitudes de vie : avatar, salon et 30 questions, tout en illustration pixel art faite main."
 status: "Édition élections, Québec 2026 (aussi 2022 et États-Unis 2024)"
 categories: ["Gamification", "Science", "Web", "Illustration"]
-cover: "/images/projets/defi-datagotchi/defi-datagotchi-1.jpg"
+cover: "/images/projets/defi-datagotchi-1.jpg"
 gallery:
-  - /images/projets/defi-datagotchi/defi-datagotchi-2.jpg
-  - /images/projets/defi-datagotchi/defi-datagotchi-3.jpg
-  - /images/projets/defi-datagotchi/defi-datagotchi-4.jpg
-  - /images/projets/defi-datagotchi/defi-datagotchi-5.png
-  - /images/projets/defi-datagotchi/defi-datagotchi-6.jpg
-  - /images/projets/defi-datagotchi/defi-datagotchi-7.png
-  - /images/projets/defi-datagotchi/defi-datagotchi-8.jpg
-  - /images/projets/defi-datagotchi/defi-datagotchi-9.png
-  - /images/projets/defi-datagotchi/defi-datagotchi-10.jpg
-  - /images/projets/defi-datagotchi/defi-datagotchi-11.png
-  - /images/projets/defi-datagotchi/defi-datagotchi-12.jpg
+  - /images/projets/defi-datagotchi-2.jpg
+  - /images/projets/defi-datagotchi-3.jpg
+  - /images/projets/defi-datagotchi-4.jpg
+  - /images/projets/defi-datagotchi-5.png
+  - /images/projets/defi-datagotchi-6.jpg
+  - /images/projets/defi-datagotchi-7.png
+  - /images/projets/defi-datagotchi-8.jpg
+  - /images/projets/defi-datagotchi-9.png
+  - /images/projets/defi-datagotchi-10.jpg
+  - /images/projets/defi-datagotchi-11.png
+  - /images/projets/defi-datagotchi-12.jpg
 videos: []
 order: 9
 links:

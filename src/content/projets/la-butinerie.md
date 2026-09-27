@@ -4,7 +4,7 @@ summary: Logo et emballage.
 categories:
   - Identité
   - Imprimé
-cover: /images/projets/la-butinerie/la-butinerie-logo.jpg
+cover: /images/projets/la-butinerie-logo.jpg
 gallery: []
 videos: []
 ai: false

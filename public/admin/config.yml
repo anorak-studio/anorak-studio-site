@@ -26,12 +26,6 @@ collections:
     create: true
     slug: "{{slug}}"
     identifier_field: title
-    # Chaque projet a son propre sous-dossier d'images (public/images/projets/<slug>/) : sans
-    # ceci, la bibliothèque de médias ne regarde que la racine "public/images/projets" (qui ne
-    # contient aucun fichier, seulement des sous-dossiers) et affiche "No assets found" même s'il
-    # y a des centaines d'images sur le site.
-    media_folder: "{{media_folder}}/{{slug}}"
-    public_folder: "{{public_folder}}/{{slug}}"
     fields:
       - { label: "Titre", name: "title", widget: "string" }
       - { label: "Résumé (carte projet)", name: "summary", widget: "text", required: false }
