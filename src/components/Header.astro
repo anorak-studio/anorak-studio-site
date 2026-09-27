@@ -48,14 +48,46 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   const btn = document.querySelector<HTMLButtonElement>('.burger')!;
   const menu = document.getElementById('menu')!;
   const firstLink = menu.querySelector<HTMLAnchorElement>('nav a')!;
+  // Blink-close / blink-open duration: long enough for the lid's opacity fade (CSS, .07s)
+  // to fully register, short enough to read as a natural blink.
+  const BLINK_TRANSITION_MS = 110;
+  let transitioning = false;
+  let transitionTimer: ReturnType<typeof setTimeout> | undefined;
   const setOpen = (open: boolean) => {
-    menu.hidden = !open;
-    btn.setAttribute('aria-expanded', String(open));
-    btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
-    btn.classList.toggle('is-open', open);
-    document.documentElement.style.overflow = open ? 'hidden' : '';
-    (open ? firstLink : btn).focus();
-    if (!open) { cancelIdle(); centerPupil(); }
+    clearTimeout(transitionTimer);
+    transitioning = true;
+    if (open) {
+      // The eye fades in already blinked shut (lid down), then opens once it's on screen —
+      // mirroring the burger bars sliding together into a flat line before the eye appears.
+      eyeGroup.classList.add('is-blinking');
+      menu.hidden = false;
+      btn.setAttribute('aria-expanded', 'true');
+      btn.setAttribute('aria-label', 'Fermer le menu');
+      btn.classList.add('is-open');
+      document.documentElement.style.overflow = 'hidden';
+      firstLink.focus();
+      // Let the bars-merge / burger-fade / eye-fade-in sequence (~380ms) finish, then open the
+      // lid to reveal the pupil.
+      transitionTimer = setTimeout(() => {
+        eyeGroup.classList.remove('is-blinking');
+        transitioning = false;
+      }, 420);
+    } else {
+      // Blink the eye shut first, then swap back to the burger while it's closed — the
+      // reverse of the burger bars merging into a line before the eye appears.
+      eyeGroup.classList.add('is-blinking');
+      transitionTimer = setTimeout(() => {
+        menu.hidden = true;
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Ouvrir le menu');
+        btn.classList.remove('is-open');
+        document.documentElement.style.overflow = '';
+        btn.focus();
+        cancelIdle();
+        centerPupil();
+        transitioning = false;
+      }, BLINK_TRANSITION_MS);
+    }
   };
   btn.addEventListener('click', () => setOpen(menu.hidden));
   menu.addEventListener('click', (e) => { if (e.target === menu) setOpen(false); });
@@ -108,14 +140,14 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
           isLooking = false;
           idleTimer = undefined;
           centerPupil();
-        }, 3000 + Math.random() * 2000);
+        }, 1000);
       }
     });
   }
   let blinkTimer: ReturnType<typeof setTimeout> | undefined;
   const scheduleBlink = () => {
     blinkTimer = setTimeout(() => {
-      if (!menu.hidden && !reduceMotion && !isLooking) {
+      if (!menu.hidden && !reduceMotion && !isLooking && !transitioning) {
         eyeGroup.classList.add('is-blinking');
         setTimeout(() => eyeGroup.classList.remove('is-blinking'), 140);
       }
