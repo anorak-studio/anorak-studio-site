@@ -87,13 +87,29 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   let isLooking = false;
   let idleTimer: ReturnType<typeof setTimeout> | undefined;
   const cancelIdle = () => { if (idleTimer) { clearTimeout(idleTimer); idleTimer = undefined; } isLooking = false; };
+  // "Looking" activation radius: while the cursor is within this distance of the icon,
+  // the eye looks and no idle countdown runs. Past it, the eye keeps tracking the cursor
+  // (at any distance) but a single 3-5s countdown is armed; if it fires before the cursor
+  // comes back within range, the eye goes idle (centered, blinking resumes).
+  const ACTIVATION_RADIUS = 50;
   if (!reduceMotion) {
     document.addEventListener('mousemove', (e) => {
       if (menu.hidden) return;
       isLooking = true;
-      clearTimeout(idleTimer);
       lookAt(e.clientX, e.clientY);
-      idleTimer = setTimeout(() => { isLooking = false; centerPupil(); }, 3000 + Math.random() * 2000);
+      const r = micon.getBoundingClientRect();
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      const nearIcon = Math.hypot(e.clientX - cx, e.clientY - cy) <= ACTIVATION_RADIUS;
+      if (nearIcon) {
+        clearTimeout(idleTimer);
+        idleTimer = undefined;
+      } else if (!idleTimer) {
+        idleTimer = setTimeout(() => {
+          isLooking = false;
+          idleTimer = undefined;
+          centerPupil();
+        }, 3000 + Math.random() * 2000);
+      }
     });
   }
   let blinkTimer: ReturnType<typeof setTimeout> | undefined;
