@@ -35,6 +35,7 @@ collections:
         widget: "select"
         multiple: true
         default: []
+        required: false
         options: ["Réalisation", "Gamification", "Jeu vidéo", "Science", "Identité", "Web", "Imprimé", "Illustration", "Vidéo", "IA"]
       - { label: "Image de couverture", name: "cover", widget: "image", required: false, hint: "Photo principale : hero de la page projet. Idéalement une image en format paysage (pas verticale) pour une bonne bannière." }
       - { label: "Vignette (grille de projets)", name: "thumb", widget: "image", required: false, hint: "Optionnel. Si vide, la couverture est utilisée. Utile pour montrer une version horizontale de la couverture dans la grille." }
@@ -42,11 +43,13 @@ collections:
         name: "gallery"
         widget: "list"
         default: []
+        required: false
         field: { label: "Image", name: "image", widget: "image" }
       - label: "Vidéos"
         name: "videos"
         widget: "list"
         default: []
+        required: false
         fields:
           - { label: "ID YouTube", name: "id", widget: "string", hint: "Juste l'identifiant, ex. dQw4w9WgXcQ" }
           - label: "Format"
@@ -61,20 +64,22 @@ collections:
         name: "links"
         widget: "list"
         default: []
+        required: false
         fields:
           - { label: "Texte du bouton", name: "label", widget: "string" }
           - { label: "URL", name: "href", widget: "string" }
-      - { label: "Fait avec l'IA", name: "ai", widget: "boolean", default: false }
+      - { label: "Fait avec l'IA", name: "ai", widget: "boolean", default: false, required: false }
       - { label: "Note boutique", name: "shop", widget: "string", required: false }
       - label: "À compléter (rappels internes)"
         name: "todo"
         widget: "list"
         default: []
+        required: false
         field: { label: "Élément", name: "item", widget: "string" }
-      - { label: "Ordre d'affichage", name: "order", widget: "number", default: 100, hint: "1-99 = nouveaux projets, 100+ = anciens projets. Plus petit = plus haut dans la grille." }
+      - { label: "Ordre d'affichage", name: "order", widget: "number", default: 100, required: false, hint: "1-99 = nouveaux projets, 100+ = anciens projets. Plus petit = plus haut dans la grille." }
       - { label: "Date", name: "date", widget: "datetime", required: false }
-      - { label: "Brouillon (masqué du site)", name: "draft", widget: "boolean", default: false }
-      - { label: "Texte du projet", name: "body", widget: "markdown" }
+      - { label: "Brouillon (masqué du site)", name: "draft", widget: "boolean", default: false, required: false }
+      - { label: "Texte du projet", name: "body", widget: "markdown", required: false }
 
   - name: "pages"
     label: "Pages"
