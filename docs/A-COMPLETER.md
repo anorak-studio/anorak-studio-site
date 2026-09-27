@@ -119,10 +119,10 @@ Les pastilles « À compléter » restent visibles tant que `showTodo: true` dan
 - [ ] Média vedette de la Réalisation (vidéo) : `realisation.featured` dans `src/data/site.ts`
 - [ ] Média vedette de Gamification et Indie Game : `gamification.featured` (reprend pour l'instant l'image Doomed Raiders du carrousel — à remplacer si tu préfères autre chose)
 - [ ] Photo ou vidéo d'accueil en plus haute résolution (l'actuelle fait 1024 px de large) : `hero` dans `src/data/site.ts`
-- [ ] Image du service « Conseil stratégique » : `image` dans le service `conseil-strategique` de `src/data/site.ts`
+- [ ] Image du service « Design stratégique » : `image` dans le service `design-strategique` de `src/data/site.ts`
 - [ ] Visuel des 5 étapes du design thinking (l'espace est prêt sur la page Services, sous forme de pastilles en attendant)
 - [ ] 6e projet de « Projets récents » : j'ai choisi le Hub d'innovation en médecine rurale pour compléter la sélection (Urgences Rurales 360, The Unearthly Notes, Art Robots, Doomed Raiders, Datagotchi) — dis-moi si tu préfères un autre projet
 - [ ] Projets à identifier avec le tag IA : ajouter `ai: true` dans leur fichier
-- [ ] Relire tous les textes (accueil, services, réalisation, gamification, contact)
+- [x] Relire tous les textes (accueil, services, réalisation, gamification, contact)
 - [ ] Version anglaise
 - [ ] Boutique : voir docs/boutique-plan.md
