@@ -1,19 +1,32 @@
 ---
 title: "Défi Datagotchi"
-summary: "Le défi qui prédit votre vote aux élections québécoises à partir de vos habitudes de vie. Illustration, IA générative et pixel art."
-status: "Édition élections, Québec 2026"
-categories: ["Gamification", "Science", "Web", "Illustration", "IA"]
-gallery: []
+summary: "Le défi qui prédit votre vote à partir de vos habitudes de vie : avatar, salon et 30 questions, tout en illustration pixel art faite main."
+status: "Édition élections, Québec 2026 (aussi 2022 et États-Unis 2024)"
+categories: ["Gamification", "Science", "Web", "Illustration"]
+cover: "/images/projets/defi-datagotchi/defi-datagotchi-1.jpg"
+gallery:
+  - /images/projets/defi-datagotchi/defi-datagotchi-2.jpg
+  - /images/projets/defi-datagotchi/defi-datagotchi-3.jpg
+  - /images/projets/defi-datagotchi/defi-datagotchi-4.jpg
+  - /images/projets/defi-datagotchi/defi-datagotchi-5.png
+  - /images/projets/defi-datagotchi/defi-datagotchi-6.jpg
+  - /images/projets/defi-datagotchi/defi-datagotchi-7.png
+  - /images/projets/defi-datagotchi/defi-datagotchi-8.jpg
+  - /images/projets/defi-datagotchi/defi-datagotchi-9.png
+  - /images/projets/defi-datagotchi/defi-datagotchi-10.jpg
+  - /images/projets/defi-datagotchi/defi-datagotchi-11.png
+  - /images/projets/defi-datagotchi/defi-datagotchi-12.jpg
 videos: []
 order: 9
 links:
   - { label: "quebec.datagotchi.com", href: "https://quebec.datagotchi.com" }
   - { label: "Datagotchi (projet général)", href: "/projets/datagotchi/" }
-todo: ["Captures de l'application et des illustrations", "Préciser l'étendue du mandat Anorak Studio (illustration, IA, pixel art)"]
+  - { label: "CLESSN", href: "https://www.clessn.com/" }
+todo: []
 ---
 
-Le Défi Datagotchi est le volet électoral de [Datagotchi](/projets/datagotchi/) : un sondage ludique, à la manière d'un jeu de type Tamagotchi, qui pose des questions sur les habitudes de vie (le café, les lunettes, les films…) pour prédire l'intention de vote — ici pour les élections québécoises de 2026.
+Le Défi Datagotchi est le volet électoral de [Datagotchi](/projets/datagotchi/) : un sondage ludique, à la manière d'un jeu de type Tamagotchi, qui pose une trentaine de questions sur les habitudes de vie (le café, les lunettes, les films, la couleur des cheveux…) pour prédire l'intention de vote, en habillant chaque répondant d'un avatar et d'un salon qui lui ressemblent. Lancé pour l'élection provinciale de 2022, le Défi a depuis été adapté pour l'élection présidentielle américaine de 2024 et pour l'élection québécoise de 2026.
 
-**Anorak Studio : illustration, direction artistique, contenus générés par IA et pixel art**, au service d'un outil de vulgarisation scientifique développé par la CLESSN, la CAPP et l'IID de l'Université Laval.
+**Anorak Studio : illustration et direction artistique, entièrement en pixel art fait main** (avatars, salons, mascotte et interface) — contrairement au site général [datagotchi.com](/projets/datagotchi/), qui mêle illustrations IA et pixel art, le Défi est fait à 100% à la main. Un outil de vulgarisation scientifique développé par la [CLESSN](https://www.clessn.com/) de l'Université Laval, sous la direction de Yannick Dufresne, PhD et Catherine Ouellet, PhD.
 
 Voir aussi [Prof. Datagotchi](/projets/prof-datagotchi/), l'agent conversationnel qui l'accompagne.

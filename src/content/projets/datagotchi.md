@@ -1,20 +1,28 @@
 ---
 title: "Datagotchi"
-summary: "Plateforme scientifique de sondages illustrés : image de marque, logo, site web et direction visuelle, pour la CLESSN, Université Laval."
+summary: "Plateforme scientifique de sondages illustrés : image de marque, logo, site web (illustrations IA et pixel art) pour la CLESSN et la CRRSMAT, Université Laval."
 status: "Plateforme web, depuis 2021"
 categories: ["Gamification", "Science", "Web", "Identité"]
-gallery: []
+ai: true
+cover: "/images/projets/datagotchi/datagotchi-1.gif"
+gallery:
+  - /images/projets/datagotchi/datagotchi-2.png
+  - /images/projets/datagotchi/datagotchi-3.png
 videos: []
 order: 8
 links:
   - { label: "datagotchi.com", href: "https://www.datagotchi.com" }
+  - { label: "Le projet Datagotchi", href: "https://www.datagotchi.com/datagotchi" }
+  - { label: "La science derrière Datagotchi", href: "https://www.datagotchi.com/science" }
   - { label: "Défi Datagotchi (élections)", href: "https://quebec.datagotchi.com" }
   - { label: "Prof. Datagotchi", href: "https://prof-datagotchi.com" }
-todo: ["Captures de l'application, du logo et de l'image de marque", "Préciser l'étendue du mandat Anorak Studio"]
+  - { label: "CLESSN", href: "https://www.clessn.com/" }
+  - { label: "CRRSMAT", href: "https://crrsmat.ca/" }
+todo: []
 ---
 
-Datagotchi est une plateforme de sondages illustrés développée par la CAPP, l'IID et la Chaire de leadership en enseignement des sciences sociales numériques (CLESSN) de l'Université Laval. Sa mission : conscientiser les citoyens à la richesse et à la valeur prédictive de leurs propres données, dans un esprit de vulgarisation scientifique et de dépolarisation.
+Datagotchi est le tout premier sondage 100% illustré, un projet développé par l'équipe de la Chaire de leadership en enseignement des sciences sociales numériques ([CLESSN](https://www.clessn.com/)) et de la Chaire de recherche Relief en santé mentale, autogestion et travail ([CRRSMAT](https://crrsmat.ca/)) de l'Université Laval, sous la direction des chercheurs **Yannick Dufresne, PhD**, **Catherine Ouellet, PhD** et **Simon Coulombe, PhD**. Sa mission : conscientiser les citoyens à la richesse et à la valeur prédictive de leurs propres données, dans un esprit de vulgarisation scientifique et de dépolarisation.
 
-**Anorak Studio : image de marque, logo, direction visuelle et site web général** de la plateforme, ainsi que des services-conseils en gamification pour transformer une démarche scientifique en expérience ludique et accessible — illustration, direction artistique, pixel art.
+**Anorak Studio : image de marque, logo, direction visuelle et site web** ([datagotchi.com](https://www.datagotchi.com)) de la plateforme — un mandat mixte mêlant illustrations générées par IA et pixel art fait main — ainsi que des services-conseils en gamification pour transformer une démarche scientifique en expérience ludique et accessible.
 
-Le nom regroupe plusieurs volets, chacun avec ses propres questions et son propre habillage visuel : le [Défi Datagotchi](/projets/defi-datagotchi/) (élections), [Prof. Datagotchi](/projets/prof-datagotchi/) (agent conversationnel), ainsi que des éditions Santé et Littérature.
+Le nom regroupe plusieurs volets, chacun avec ses propres questions et son propre habillage visuel : le [Défi Datagotchi](/projets/defi-datagotchi/) (élections, en pixel art fait main), [Prof. Datagotchi](/projets/prof-datagotchi/) (agent conversationnel), ainsi que des éditions Santé et Littérature.
