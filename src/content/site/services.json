@@ -1,0 +1,123 @@
+{
+  "intro": {
+    "q": "Vous êtes sur le point de lancer un projet?",
+    "text": [
+      "Anorak Studio accompagne les projets dès leurs premières questions jusqu'à leur réalisation. Une identité à construire, une idée à mettre à l'épreuve, une recherche à partager ou une expérience à inventer : le travail commence par une discussion sur ce que le projet doit accomplir et sur les personnes qu'il souhaite rejoindre.",
+      "Le studio peut prendre en charge une réalisation précise ou développer une gamme complète d'outils de communication. Cette souplesse permet de réunir les bons talents et les bons formats autour de chaque mandat."
+    ]
+  },
+  "approche": {
+    "eyebrow": "Notre approche",
+    "title": "L'art au service du transfert de connaissances",
+    "text": [
+      "Les connaissances ne circulent pas toutes seules. Pour qu'une recherche, une donnée ou une idée puisse être comprise et discutée, sa forme compte autant que son contenu.",
+      "Anorak Studio explore ce que l'art peut apporter à cette rencontre : une image qui rend un phénomène visible, un film qui donne la parole aux personnes concernées, une expérience interactive qui permet d'essayer et de questionner. Ces approches peuvent faciliter le dialogue, nourrir une réflexion collective et contribuer à mobiliser les publics autour d'un enjeu.",
+      "Cette pratique traverse plusieurs projets du studio, sans limiter son travail au milieu de la recherche. Elle est également au cœur d'ABKT, un documentaire en production consacré au transfert de connaissances par l'art."
+    ]
+  },
+  "aiNote": "Les outils évoluent, y compris ceux fondés sur l'intelligence artificielle. Anorak Studio les utilise lorsqu'ils apportent quelque chose au projet, avec le regard acquis par des années de pratique en design, en image et en réalisation. Leur emploi doit soutenir la qualité du résultat et le travail des personnes qui y contribuent. Le savoir-faire, les expériences et les points de vue humains restent ce qui donne au projet son caractère singulier.",
+  "items": {
+    "identite": {
+      "title": "Image de marque",
+      "lead": "Une identité reconnaissable, pensée pour vivre sur plusieurs supports.",
+      "text": [
+        "Une marque ne s'arrête pas au logo. Elle prend forme dans les couleurs, la typographie, les images, les publications et chacun des points de contact avec son public.",
+        "Anorak Studio conçoit des identités visuelles et des gammes d'outils de communication pour les entreprises, les organismes et les projets de recherche. Le travail vise à donner au projet une expression cohérente, assez souple pour accompagner son évolution."
+      ]
+    },
+    "design-strategique": {
+      "title": "Design stratégique",
+      "lead": "Comprendre les besoins, définir le problème et imaginer des réponses adaptées.",
+      "text": [],
+      "sections": [
+        {
+          "heading": "Une réflexion qui commence avant la production",
+          "paragraphs": [
+            "Lorsqu'un projet démarre, sa forme n'est pas toujours la première chose à décider. À qui s'adresse-t-il? Quel besoin cherche-t-il à combler? Qu'est-ce qui empêche aujourd'hui son public de comprendre, d'utiliser ou d'adopter la solution proposée?",
+            "Le design stratégique permet de travailler sur ces questions avant de choisir un nom, une identité, un service, un site ou une campagne. Anorak Studio accompagne les équipes dans la définition de leur concept, de leur positionnement et de leur approche de communication."
+          ]
+        },
+        {
+          "heading": "Le design thinking en pratique",
+          "paragraphs": [
+            "Le design thinking emprunte au processus de création des designers pour aborder un problème de façon ouverte et centrée sur les personnes concernées. La démarche commence par l'écoute et l'observation. Elle se poursuit par la formulation du problème, la recherche de pistes, la création de prototypes et leur mise à l'essai.",
+            "Ces étapes ne forment pas un parcours rigide. Un test peut remettre en question une hypothèse; une conversation peut révéler un besoin qui n'avait pas été envisagé. Ce va-et-vient aide à orienter le projet à partir de ce qui est appris, plutôt que de s'attacher trop tôt à une seule idée."
+          ]
+        },
+        {
+          "heading": "De la réflexion à une direction concrète",
+          "paragraphs": [
+            "La démarche peut mener à un nouveau concept, à une identité de marque, à un parcours utilisateur, à un outil de communication ou à une autre façon de présenter un service. Son apport est à la fois créatif et pratique : elle aide à comparer des pistes, à prendre des décisions et à investir les efforts là où ils seront les plus utiles."
+          ]
+        }
+      ],
+      "designThinking": ["Empathie", "Définition", "Idéation", "Prototypage", "Test"],
+      "designThinkingNote": "Visuel des 5 étapes du design thinking à venir"
+    },
+    "realisation": {
+      "title": "Réalisation",
+      "lead": "Courts métrages, documentaires, capsules vidéo et films de vulgarisation.",
+      "text": [
+        "Le cinéma occupe une place importante dans la pratique du studio, entre courts métrages de fiction et documentaires — dont Art Robots, lauréat du prix du meilleur court métrage canadien au FIFA 42.",
+        "Anorak Studio réalise aussi des capsules vidéo et des films pour les organisations et les équipes de recherche. Selon le projet, la vidéo peut présenter une démarche, expliquer un sujet, documenter une expérience ou donner une place aux personnes qui la vivent. De l'écriture au montage, le choix du récit et des images se fait en fonction de ce que le film doit transmettre."
+      ]
+    },
+    "gamification": {
+      "title": "Gamification et Indie Game",
+      "lead": "Faire une place à l'exploration, aux choix et à la participation.",
+      "text": [],
+      "sections": [
+        {
+          "heading": "Qu'est-ce que la gamification?",
+          "paragraphs": [
+            "La gamification consiste à utiliser des principes du jeu dans une expérience qui n'est pas nécessairement un jeu vidéo. Proposer un défi, permettre des choix, montrer une progression ou réagir aux actions du public peut donner une autre forme à la découverte d'un sujet.",
+            "Le but n'est pas d'ajouter des points partout. Les mécaniques choisies doivent servir l'expérience et le contenu. Selon le mandat, elles peuvent aider à aborder une question complexe, soutenir l'apprentissage ou encourager la participation à une démarche."
+          ]
+        },
+        {
+          "heading": "Un service de conception et d'accompagnement",
+          "paragraphs": [
+            "Anorak Studio accompagne les équipes dès la recherche du concept : quel est le public, que souhaite-t-il découvrir, quelles actions pourra-t-il poser et qu'apprendra-t-il en retour? Le studio peut ensuite contribuer à la conception du parcours, à l'univers visuel, au prototype et à la réalisation avec les collaborateurs nécessaires.",
+            "Le résultat peut être un jeu, un défi participatif, une application, une expérience web ou une composante interactive intégrée à un projet plus vaste. La gamification peut aussi faire l'objet d'un mandat de conseil, lorsque l'équipe possède déjà ses propres outils de production."
+          ]
+        },
+        {
+          "heading": "Une pratique nourrie par le jeu indépendant",
+          "paragraphs": [
+            "Sous le nom Anorak Studio Games, le studio développe aussi ses propres jeux, dont Doomed Raiders. Cette création indépendante entretient une connaissance concrète du jeu : comment présenter une règle, éveiller la curiosité, offrir une liberté d'action et donner envie de poursuivre.",
+            "Les projets réalisés avec des partenaires, comme le Défi Datagotchi, puisent dans cette pratique pour mettre l'interaction au service d'un sujet et de son public."
+          ]
+        }
+      ]
+    },
+    "drone": {
+      "title": "Prises de vues par drone",
+      "lead": "Des images aériennes pour révéler un lieu et enrichir un récit.",
+      "text": [
+        "Le drone permet de situer une action, de montrer l'étendue d'un territoire ou d'observer un site sous un autre angle. Anorak Studio réalise des prises de vues aériennes pour ses propres films ainsi que pour les projets vidéo, de communication et de recherche de ses clients."
+      ]
+    },
+    "web": {
+      "title": "Web et applications",
+      "lead": "Des outils numériques adaptés à leurs contenus et à leurs utilisateurs.",
+      "text": [
+        "Anorak Studio conçoit des sites web, des applications et des boutiques en ligne. Certains projets demandent avant tout une présentation claire; d'autres invitent le public à explorer des données, à suivre un parcours ou à interagir avec un contenu.",
+        "Le design de l'interface, l'organisation de l'information et l'identité visuelle sont pensés ensemble, pour que l'outil soit agréable à parcourir et utile aux personnes auxquelles il s'adresse."
+      ]
+    },
+    "illustration": {
+      "title": "Illustration et pixel art",
+      "lead": "Des images pour expliquer, évoquer et donner vie à un univers.",
+      "text": [
+        "L'illustration peut rendre une idée plus accessible, représenter ce qu'une caméra ne peut pas montrer ou donner à un projet son caractère propre. Anorak Studio crée des images pour la communication, l'éducation et la narration, ainsi que des univers en pixel art pour ses jeux indépendants."
+      ]
+    },
+    "imprime": {
+      "title": "Imprimé et édition",
+      "lead": "Des outils tangibles qui prolongent le projet.",
+      "text": [
+        "Livres, revues, rapports, affiches, dépliants, emballages et expositions font partie des formats que peut prendre une idée. Anorak Studio conçoit ces supports dans la continuité de l'identité visuelle et accompagne leur préparation jusqu'à la production."
+      ]
+    }
+  }
+}

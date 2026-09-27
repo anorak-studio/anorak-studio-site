@@ -1,0 +1,19 @@
+{
+  "email": "allo@anorakstudio.ca",
+  "emailDirect": "m.fortin@anorakstudio.ca",
+  "phone": "418 524-2578",
+  "phoneHref": "tel:+14185242578",
+  "address": {
+    "street": "480 rue Victoria",
+    "city": "Québec (Québec)",
+    "country": "Canada",
+    "postal": "G1K 5C7"
+  },
+  "social": [
+    { "label": "Facebook", "icon": "facebook", "href": "https://www.facebook.com/AnorakStudio" },
+    { "label": "Instagram", "icon": "instagram", "href": "https://www.instagram.com/anorakstudio/" },
+    { "label": "LinkedIn", "icon": "linkedin", "href": "https://www.linkedin.com/feed/" },
+    { "label": "YouTube", "icon": "youtube", "href": "https://www.youtube.com/@AnorakStudioFilms" },
+    { "label": "Linktree", "icon": "linktree", "href": "https://linktr.ee/anorakstudio" }
+  ]
+}

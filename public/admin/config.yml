@@ -75,3 +75,178 @@ collections:
       - { label: "Date", name: "date", widget: "datetime", required: false }
       - { label: "Brouillon (masqué du site)", name: "draft", widget: "boolean", default: false }
       - { label: "Texte du projet", name: "body", widget: "markdown" }
+
+  - name: "pages"
+    label: "Pages"
+    label_singular: "Page"
+    files:
+      - name: "accueil"
+        label: "Accueil"
+        file: "src/content/site/accueil.json"
+        fields:
+          - label: "Introduction (paragraphes)"
+            name: "intro"
+            widget: "list"
+            hint: "Un item de liste = un paragraphe."
+          - { label: "Description (référencement / partage)", name: "description", widget: "text" }
+          - label: "Bande verte (« statement »)"
+            name: "statement"
+            widget: "object"
+            fields:
+              - { label: "Titre", name: "title", widget: "string" }
+              - { label: "Texte", name: "text", widget: "text" }
+          - label: "À propos (page Contact)"
+            name: "about"
+            widget: "list"
+
+      - name: "services"
+        label: "Services"
+        file: "src/content/site/services.json"
+        fields:
+          - label: "Introduction (« Vous êtes sur le point de lancer un projet? »)"
+            name: "intro"
+            widget: "object"
+            fields:
+              - { label: "Question", name: "q", widget: "string" }
+              - { label: "Texte (paragraphes)", name: "text", widget: "list" }
+          - label: "Bande « Notre approche »"
+            name: "approche"
+            widget: "object"
+            fields:
+              - { label: "Amorce (eyebrow)", name: "eyebrow", widget: "string" }
+              - { label: "Titre", name: "title", widget: "string" }
+              - { label: "Texte (paragraphes)", name: "text", widget: "list" }
+          - { label: "Note sur l'intelligence artificielle", name: "aiNote", widget: "text" }
+          - label: "Les 8 services"
+            name: "items"
+            widget: "object"
+            fields:
+              - label: "01 — Image de marque"
+                name: "identite"
+                widget: "object"
+                fields:
+                  - { label: "Titre", name: "title", widget: "string" }
+                  - { label: "Accroche", name: "lead", widget: "string" }
+                  - { label: "Texte (paragraphes)", name: "text", widget: "list", default: [] }
+              - label: "02 — Design stratégique"
+                name: "design-strategique"
+                widget: "object"
+                fields:
+                  - { label: "Titre", name: "title", widget: "string" }
+                  - { label: "Accroche", name: "lead", widget: "string" }
+                  - { label: "Texte (paragraphes)", name: "text", widget: "list", required: false, default: [] }
+                  - label: "Sections (sous-titres)"
+                    name: "sections"
+                    widget: "list"
+                    required: false
+                    default: []
+                    fields:
+                      - { label: "Sous-titre", name: "heading", widget: "string", required: false }
+                      - { label: "Paragraphes", name: "paragraphs", widget: "list" }
+                  - label: "Étapes du design thinking"
+                    name: "designThinking"
+                    widget: "list"
+                    required: false
+                    default: []
+                  - { label: "Note sous les étapes", name: "designThinkingNote", widget: "string", required: false }
+              - label: "03 — Réalisation"
+                name: "realisation"
+                widget: "object"
+                fields:
+                  - { label: "Titre", name: "title", widget: "string" }
+                  - { label: "Accroche", name: "lead", widget: "string" }
+                  - { label: "Texte (paragraphes)", name: "text", widget: "list", default: [] }
+              - label: "04 — Gamification et Indie Game"
+                name: "gamification"
+                widget: "object"
+                fields:
+                  - { label: "Titre", name: "title", widget: "string" }
+                  - { label: "Accroche", name: "lead", widget: "string" }
+                  - { label: "Texte (paragraphes)", name: "text", widget: "list", required: false, default: [] }
+                  - label: "Sections (sous-titres)"
+                    name: "sections"
+                    widget: "list"
+                    required: false
+                    default: []
+                    fields:
+                      - { label: "Sous-titre", name: "heading", widget: "string", required: false }
+                      - { label: "Paragraphes", name: "paragraphs", widget: "list" }
+              - label: "05 — Prises de vues par drone"
+                name: "drone"
+                widget: "object"
+                fields:
+                  - { label: "Titre", name: "title", widget: "string" }
+                  - { label: "Accroche", name: "lead", widget: "string" }
+                  - { label: "Texte (paragraphes)", name: "text", widget: "list", default: [] }
+              - label: "06 — Web et applications"
+                name: "web"
+                widget: "object"
+                fields:
+                  - { label: "Titre", name: "title", widget: "string" }
+                  - { label: "Accroche", name: "lead", widget: "string" }
+                  - { label: "Texte (paragraphes)", name: "text", widget: "list", default: [] }
+              - label: "07 — Illustration et pixel art"
+                name: "illustration"
+                widget: "object"
+                fields:
+                  - { label: "Titre", name: "title", widget: "string" }
+                  - { label: "Accroche", name: "lead", widget: "string" }
+                  - { label: "Texte (paragraphes)", name: "text", widget: "list", default: [] }
+              - label: "08 — Imprimé et édition"
+                name: "imprime"
+                widget: "object"
+                fields:
+                  - { label: "Titre", name: "title", widget: "string" }
+                  - { label: "Accroche", name: "lead", widget: "string" }
+                  - { label: "Texte (paragraphes)", name: "text", widget: "list", default: [] }
+
+      - name: "realisation"
+        label: "Réalisation (introduction)"
+        file: "src/content/site/realisation.json"
+        fields:
+          - { label: "Introduction (paragraphes)", name: "intro", widget: "list" }
+
+      - name: "gamification"
+        label: "Gamification (introduction et réseaux)"
+        file: "src/content/site/gamification.json"
+        fields:
+          - { label: "Introduction (paragraphes)", name: "intro", widget: "list" }
+          - label: "Réseaux sociaux — Anorak Studio Games"
+            name: "gamesSocial"
+            widget: "list"
+            hint: "Comptes pixel art / jeux indépendants, affichés au bas de la page Gamification."
+            fields:
+              - { label: "Nom", name: "label", widget: "string" }
+              - label: "Icône"
+                name: "icon"
+                widget: "select"
+                options: ["facebook", "instagram", "tiktok", "youtube", "threads", "x", "linkedin", "linktree"]
+              - { label: "URL", name: "href", widget: "string" }
+
+      - name: "contact"
+        label: "Contact et réseaux sociaux"
+        file: "src/content/site/contact.json"
+        fields:
+          - { label: "Courriel public", name: "email", widget: "string" }
+          - { label: "Courriel direct", name: "emailDirect", widget: "string" }
+          - { label: "Téléphone (affiché)", name: "phone", widget: "string" }
+          - { label: "Téléphone (lien « tel: »)", name: "phoneHref", widget: "string" }
+          - label: "Adresse"
+            name: "address"
+            widget: "object"
+            fields:
+              - { label: "Rue", name: "street", widget: "string" }
+              - { label: "Ville", name: "city", widget: "string" }
+              - { label: "Pays", name: "country", widget: "string" }
+              - { label: "Code postal", name: "postal", widget: "string" }
+          - label: "Réseaux sociaux (studio)"
+            name: "social"
+            widget: "list"
+            hint: "Comptes principaux du studio, affichés dans le menu, le pied de page et la page Contact."
+            fields:
+              - { label: "Nom", name: "label", widget: "string" }
+              - label: "Icône"
+                name: "icon"
+                widget: "select"
+                options: ["facebook", "instagram", "tiktok", "youtube", "threads", "x", "linkedin", "linktree"]
+              - { label: "URL", name: "href", widget: "string" }

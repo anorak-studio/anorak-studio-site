@@ -1,0 +1,14 @@
+{
+  "intro": [
+    "Le jeu est un formidable outil pour apprendre, comprendre et participer. Anorak Studio conçoit des expériences ludiques et offre des services-conseils en gamification, souvent pour des projets scientifiques et citoyens — comme le Défi Datagotchi et Prof. Datagotchi.",
+    "Sous le nom Anorak Studio Games, le studio développe aussi ses propres jeux indépendants : Fungus Forest, déjà livré et jouable en ligne, et Doomed Raiders, son projet coup de cœur, annoncé pour 2027."
+  ],
+  "gamesSocial": [
+    { "label": "Facebook", "icon": "facebook", "href": "https://www.facebook.com/wazak.illustration" },
+    { "label": "Instagram", "icon": "instagram", "href": "https://www.instagram.com/wazak.art/" },
+    { "label": "TikTok", "icon": "tiktok", "href": "https://www.tiktok.com/@anorakstudio" },
+    { "label": "YouTube", "icon": "youtube", "href": "https://www.youtube.com/@TheAnorakStudio" },
+    { "label": "Threads", "icon": "threads", "href": "https://www.threads.com/@wazak.art" },
+    { "label": "X", "icon": "x", "href": "https://x.com/_Wazak" }
+  ]
+}

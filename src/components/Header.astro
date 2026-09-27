@@ -21,6 +21,7 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   <button class="menu__close" aria-label="Fermer le menu">×</button>
   <div class="menu__in">
     <a href="/" class="menu__logo" aria-label="Anorak Studio, accueil" set:html={logoStudio} />
+    <hr class="menu__rule" />
     <nav aria-label="Principal">
       <ul>
         {nav.map((item) => (
@@ -28,6 +29,7 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
         ))}
       </ul>
     </nav>
+    <hr class="menu__rule" />
     <Social size={26} class="menu__social" />
   </div>
 </div>
@@ -91,13 +93,14 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   }
   .menu__close { position: fixed; top: 8px; right: calc(var(--gutter) - 6px); background: none; border: 0; color: #fff; font-size: 3rem; line-height: 1; cursor: pointer; padding: 4px 12px; transition: color .2s; }
   .menu__close:hover { color: var(--c-neon); }
-  .menu__logo { width: clamp(130px, 16vw, 220px); color: #fff; flex: none; }
+  .menu__logo { width: clamp(90px, 11vw, 140px); color: #fff; flex: none; }
   .menu__logo:hover { color: var(--c-neon); }
   .menu__logo :global(svg) { width: 100%; height: auto; display: block; }
+  .menu__rule { width: min(220px, 60%); border: 0; border-top: 1px solid rgba(255, 255, 255, .35); margin: 0; }
   .menu nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(2px, 1svh, 12px); }
   .menu nav a {
     display: inline-block; text-decoration: none; text-transform: uppercase; letter-spacing: .04em;
-    font: 800 clamp(1.65rem, 5.8svh, 3.4rem)/1.08 var(--f-display); transition: color .2s;
+    font: 800 clamp(1.4rem, 4.8svh, 2.8rem)/1.08 var(--f-display); transition: color .2s;
   }
   .menu nav a:hover, .menu nav a:focus-visible { color: var(--c-neon); }
   .menu nav a[aria-current] { color: color-mix(in srgb, #fff 55%, transparent); }

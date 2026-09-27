@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageTitle from '../components/PageTitle.astro';
 import ProjectTiles from '../components/ProjectTiles.astro';
+import Icon from '../components/Icon.astro';
 import { gamification } from '../data/site';
 import { pickProjets } from '../lib/projets';
 const jeux = await pickProjets(gamification.projects);
@@ -32,6 +33,17 @@ const steps = [
       <a class="btn" href="/contact/">Parlons-en</a>
     </div>
   </section>
+
+  {gamification.social?.length > 0 && (
+    <section class="section wrap games-social">
+      <span class="eyebrow">Suivez Anorak Studio Games</span>
+      <ul class="games-social__list">
+        {gamification.social.map((s) => (
+          <li><a href={s.href} target="_blank" rel="noopener" aria-label={s.label} title={s.label}><Icon name={s.icon} size={22} /></a></li>
+        ))}
+      </ul>
+    </section>
+  )}
 </Base>
 
 <style>
@@ -45,4 +57,10 @@ const steps = [
   .cta__t { font: 800 clamp(1.6rem, 3.6vw, 2.6rem)/1.1 var(--f-display); max-width: 26ch; }
   .cta .btn { background: var(--c-brand-ink); color: var(--c-brand); }
   .cta .btn:hover { background: var(--c-neon); color: #000; }
+
+  .games-social { text-align: center; padding-block: clamp(40px, 6vw, 72px); }
+  .games-social .eyebrow { display: block; margin-bottom: 1rem; }
+  .games-social__list { list-style: none; margin: 0; padding: 0; display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
+  .games-social__list a { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--c-grey); color: var(--c-ink); transition: color .2s, background .2s; }
+  .games-social__list a:hover { color: #000; background: var(--c-neon); }
 </style>
