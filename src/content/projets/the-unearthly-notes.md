@@ -6,7 +6,7 @@ categories: ["Réalisation", "Identité"]
 cover: "/images/projets/the-unearthly-notes-poster.jpg"
 gallery:
   - /images/projets/the-unearthly-notes-poster.jpg
-videos: []
+videos: ["pyPA46oIRZ0"]
 order: 2
 links:
   - { label: "Regarder sur Bell TV1", href: "https://tv1.bell.ca/fibetv1/shows/the-unearthly-notes" }

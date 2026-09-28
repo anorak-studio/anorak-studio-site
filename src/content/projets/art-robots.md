@@ -5,7 +5,7 @@ status: "Court métrage, 2023"
 categories: ["Réalisation"]
 cover: /images/site/carrousel-2.jpg
 gallery: []
-videos: []
+videos: ["p8KJVNJACYs"]
 order: 4
 links:
   - { label: "Fiche du film au FIFA", href: "https://lefifa.com/catalogue/art-robots" }
