@@ -7,12 +7,21 @@ cover: /images/site/carrousel-4.jpg
 gallery:
   - /images/projets/urgences-rurales-360-1.jpg
   - /images/projets/urgences-rurales-360-2.jpg
+  - /images/projets/urgences-rurales-360-3.jpg
+  - /images/projets/urgences-rurales-360-4.jpg
+  - /images/projets/urgences-rurales-360-5.jpg
+  - /images/projets/urgences-rurales-360-6.jpg
+  - /images/projets/urgences-rurales-360-7.jpg
+  - /images/projets/urgences-rurales-360-8.jpg
+  - /images/projets/urgences-rurales-360-9.jpg
+  - /images/projets/urgences-rurales-360-10.jpg
+  - /images/projets/urgences-rurales-360-11.jpg
 videos: ["Fj1gfmXJtEQ"]
 order: 1
 links:
   - { label: "Le spectacle chez Les 7 Doigts", href: "https://7doigts.com/spectacles/creations/urgences-rurales-360" }
   - { label: "Le projet de recherche", href: "https://www.medecineurgence.ca/initiatives/ur360" }
-todo: ["Reprendre les photos (signées Mathieu Fortin) et les textes de medecineurgence.ca/ur360 : le site bloque les robots, envoie-les-moi", "Extraits vidéo"]
+todo: ["Reprendre les textes de medecineurgence.ca/ur360 : le site bloque les robots, envoie-les-moi"]
 ---
 
 Urgences Rurales 360 est un spectacle de docu-cirque qui réunit recherche scientifique, arts vivants et participation citoyenne. Un narrateur excentrique et trois artistes de cirque y racontent la réalité des urgences en région à travers des cas réels, des témoignages et des projections visuelles, en rendant hommage à la résilience du personnel soignant hors des grands centres.
