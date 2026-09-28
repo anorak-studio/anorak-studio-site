@@ -131,7 +131,7 @@ export const services = SERVICE_ORDER.map(({ id, image }) => ({
 }));
 
 export const realisation = {
-  title: 'La réalisation',
+  title: 'Réalisation',
   // Big 16:9 media before the films grid. Swap for { type: 'youtube', id: '...' } or a video file.
   featured: { type: 'image', src: '/images/site/carrousel-3.jpg', alt: 'La Mue' } as Media,
   featuredCaption: 'Bande-démo à venir',
