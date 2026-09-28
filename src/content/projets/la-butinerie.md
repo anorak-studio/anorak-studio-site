@@ -1,16 +1,18 @@
 ---
-title: La Butinerie
+title: La Butinnerie
 summary: Logo et emballage.
 categories:
   - Identité
   - Imprimé
 cover: /images/projets/la-butinerie-logo.jpg
-gallery: []
+gallery:
+  - /images/projets/la-butinerie-2.jpg
+  - /images/projets/la-butinerie-3.jpg
+  - /images/projets/la-butinerie-4.jpg
 videos: []
 ai: false
 todo:
   - Texte du projet
-  - Images de l'emballage
 order: 13
 draft: true
 ---

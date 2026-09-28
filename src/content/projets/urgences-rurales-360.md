@@ -3,7 +3,7 @@ title: "Urgences Rurales 360"
 summary: "Un spectacle de docu-cirque comme outil de transfert de connaissances en santé. Conception vidéo : Anorak Studio."
 status: "Spectacle en tournée"
 categories: ["Réalisation", "Science", "Vidéo", "Illustration"]
-cover: /images/site/carrousel-4.jpg
+cover: /images/projets/urgences-rurales-360-12.jpg
 gallery:
   - /images/projets/urgences-rurales-360-1.jpg
   - /images/projets/urgences-rurales-360-2.jpg
@@ -16,6 +16,8 @@ gallery:
   - /images/projets/urgences-rurales-360-9.jpg
   - /images/projets/urgences-rurales-360-10.jpg
   - /images/projets/urgences-rurales-360-11.jpg
+  - /images/projets/urgences-rurales-360-12.jpg
+  - /images/projets/urgences-rurales-360-13.jpg
 videos: ["Fj1gfmXJtEQ"]
 order: 1
 links:
