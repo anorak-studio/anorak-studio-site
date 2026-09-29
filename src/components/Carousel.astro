@@ -56,15 +56,18 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => !paused && go(cur() + 1), 6000);
 
     // Mouse drag-to-swipe: touch already scrolls the track natively, so this only kicks in
-    // for mouse (and pen) input — the open-hand cursor is the visual cue that it's draggable.
+    // for mouse (and pen) input — the grab-hand cursor is the visual cue that it's draggable.
     // Images and links are natively draggable in the browser (ghost-image drag-and-drop), which
     // hijacks the gesture before our pointermove handler ever sees it — kill that first.
     track.addEventListener('dragstart', (e) => e.preventDefault());
-    let dragging = false, dragMoved = false, startX = 0, startLeft = 0;
+    // A short, fixed distance is enough to commit to the next/previous slide — dragging further
+    // doesn't skip extra slides, it just tracks the finger/cursor until release.
+    const SWIPE_THRESHOLD = 60;
+    let dragging = false, dragMoved = false, startX = 0, startLeft = 0, startIndex = 0;
     track.addEventListener('pointerdown', (e) => {
       if (e.pointerType === 'touch' || e.button !== 0) return;
       dragging = true; dragMoved = false;
-      startX = e.clientX; startLeft = track.scrollLeft;
+      startX = e.clientX; startLeft = track.scrollLeft; startIndex = cur();
       track.classList.add('is-dragging');
       track.setPointerCapture(e.pointerId);
     });
@@ -74,11 +77,16 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
       if (Math.abs(dx) > 4) dragMoved = true;
       track.scrollLeft = startLeft - dx;
     });
-    const endDrag = () => {
+    const endDrag = (e: PointerEvent) => {
       if (!dragging) return;
       dragging = false;
       track.classList.remove('is-dragging');
-      go(cur()); // settle on the nearest slide once released
+      const dx = e.clientX - startX;
+      // Past the threshold, always commit exactly one slide forward/back regardless of how
+      // far it was dragged; short of it, spring back to where it started — both animated
+      // smoothly by go(), so it always reads as one clean slide-to-slide transition.
+      const target = dx <= -SWIPE_THRESHOLD ? startIndex + 1 : dx >= SWIPE_THRESHOLD ? startIndex - 1 : startIndex;
+      go(target);
     };
     track.addEventListener('pointerup', endDrag);
     track.addEventListener('pointercancel', endDrag);
@@ -92,16 +100,18 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
   .car__track {
     display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
   }
-  /* Base state: the whole strip is "grab to swipe". A slide that's actually a link overrides
-     this — including its own caption text — to the pointing-finger, since clicking anywhere
-     on it navigates; a decorative (non-link) slide's caption reads as plain text instead. */
+  /* Base state: the whole strip is "grab to swipe" (image/background). Caption text reads as
+     text; the "→ en savoir plus" cue acts like a button. Whichever cursor wins by specificity
+     (grabbing while actually dragging beats both, below — see the comment there). */
   .car__track, .car__track :global(*) { cursor: var(--cursor-grab); }
-  a.car__slide, a.car__slide :global(*) { cursor: var(--cursor-point); }
-  div.car__slide .car__cap, div.car__slide .car__cap * { cursor: var(--cursor-text); }
+  .car__cap, .car__cap * { cursor: var(--cursor-text); }
+  .car__cap em { cursor: var(--cursor-point); }
   .car__track::-webkit-scrollbar { display: none; }
   .car__slide > :global(img), .car__slide > :global(video) { -webkit-user-drag: none; user-drag: none; }
-  /* While actively dragging: no snap-fighting-the-drag jank, and no accidental text
-     selection as the pointer sweeps over captions. */
+  /* While actively dragging: the closed-hand cursor overrides everything else in the track
+     (text, the CTA) — two classes' worth of specificity beats every rule above — no snap
+     fighting the drag, and no accidental text selection as the pointer sweeps over captions. */
+  .car__track.is-dragging, .car__track.is-dragging :global(*) { cursor: var(--cursor-grabbing); }
   .car__track.is-dragging { scroll-snap-type: none; user-select: none; }
   .car__track.is-dragging :global(*) { user-select: none; }
   .car__slide {

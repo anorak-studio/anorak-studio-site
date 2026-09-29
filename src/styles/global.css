@@ -34,6 +34,7 @@
   --cursor-text: url('/cursors/text.png') 24 24, text;
   --cursor-perfect: url('/cursors/perfect.png') 20 10, pointer;
   --cursor-grab: url('/cursors/hand.png') 20 10, grab;
+  --cursor-grabbing: url('/cursors/grabbing.png') 20 10, grabbing;
   --cursor-heart: url('/cursors/heart.png') 20 20, pointer;
 }
 
