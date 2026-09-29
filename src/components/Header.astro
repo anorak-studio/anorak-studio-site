@@ -174,12 +174,17 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   .hdr__logo :global(svg) { width: 100%; height: auto; display: block; }
 
   .burger {
-    position: fixed; top: 15px; right: calc(var(--gutter) - 15px); z-index: 55;
+    position: fixed; top: -6px; right: calc(var(--gutter) - 15px); z-index: 55;
     width: 81px; height: 66px; padding: 15px; border: 0; border-radius: 6px; cursor: pointer;
     background: transparent; color: #fff; transition: color .2s;
     filter: drop-shadow(0 1px 6px rgba(0, 0, 0, .35));
+    outline: none; -webkit-tap-highlight-color: transparent;
   }
   .burger:hover, .burger:focus-visible { color: var(--c-neon); }
+  /* No focus ring box, ever (mobile browsers otherwise leave one stuck around the icon
+     after the button is programmatically refocused on menu close) — the color change above
+     already signals keyboard focus. */
+  .burger:focus, .burger:focus-visible { outline: none; }
 
   /* Burger <-> eye icon */
   .micon { display: block; width: 100%; height: auto; overflow: visible; }
