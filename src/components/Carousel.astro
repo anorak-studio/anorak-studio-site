@@ -63,14 +63,10 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
     // A short, fixed distance is enough to commit to the next/previous slide — dragging further
     // doesn't skip extra slides, it just tracks the finger/cursor until release.
     const SWIPE_THRESHOLD = 60;
-    // How far the pointer has to travel before we call it a drag rather than a click — has to
-    // clear ordinary hand tremor on a real click/tap (a few px), or a plain click on "voir le
-    // projet" gets its navigation cancelled below (dragMoved) even though nothing was dragged.
-    const CLICK_SLOP = 10;
-    let dragging = false, dragMoved = false, startX = 0, startLeft = 0, startIndex = 0;
+    let dragging = false, swiped = false, startX = 0, startLeft = 0, startIndex = 0;
     track.addEventListener('pointerdown', (e) => {
       if (e.pointerType === 'touch' || e.button !== 0) return;
-      dragging = true; dragMoved = false;
+      dragging = true;
       startX = e.clientX; startLeft = track.scrollLeft; startIndex = cur();
       // is-dragging: cursor + no text selection, dropped the instant the button is released.
       // is-settling: keeps scroll-snap disabled through the release animation too — re-enabling
@@ -83,7 +79,6 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
     track.addEventListener('pointermove', (e) => {
       if (!dragging) return;
       const dx = e.clientX - startX;
-      if (Math.abs(dx) > CLICK_SLOP) dragMoved = true;
       track.scrollLeft = startLeft - dx;
     });
     const endDrag = (e: PointerEvent) => {
@@ -95,6 +90,13 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
       // far it was dragged; short of it, spring back to where it started — both animated
       // smoothly by go(), continuing from the exact spot the drag left off.
       const target = dx <= -SWIPE_THRESHOLD ? startIndex + 1 : dx >= SWIPE_THRESHOLD ? startIndex - 1 : startIndex;
+      // Only an actual committed swipe (past the threshold, landing on a different slide)
+      // should cancel the click below — a plain press-and-release with a bit of jitter (mouse
+      // wobble, a trackpad tap) always springs back to the same slide, and must still open
+      // "voir le projet" like a normal click. A fixed pixel "click vs. drag" threshold isn't
+      // reliable enough (some trackpads move several px on a simple tap), so we key off the
+      // real outcome instead.
+      swiped = target !== startIndex;
       go(target);
       const stopSettling = () => { track.classList.remove('is-settling'); track.removeEventListener('scrollend', stopSettling); };
       track.addEventListener('scrollend', stopSettling);
@@ -102,8 +104,8 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
     };
     track.addEventListener('pointerup', endDrag);
     track.addEventListener('pointercancel', endDrag);
-    // A drag that actually moved the track shouldn't also fire the slide's link navigation.
-    track.addEventListener('click', (e) => { if (dragMoved) { e.preventDefault(); dragMoved = false; } }, true);
+    // A drag that actually changed slide shouldn't also fire the slide's link navigation.
+    track.addEventListener('click', (e) => { if (swiped) { e.preventDefault(); swiped = false; } }, true);
   });
 </script>
 
