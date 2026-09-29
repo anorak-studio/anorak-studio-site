@@ -63,26 +63,44 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
     // A short, fixed distance is enough to commit to the next/previous slide — dragging further
     // doesn't skip extra slides, it just tracks the finger/cursor until release.
     const SWIPE_THRESHOLD = 60;
-    let dragging = false, swiped = false, startX = 0, startLeft = 0, startIndex = 0;
+    // How far the pointer has to move before a press turns into a drag. This is the actual fix
+    // for "voir le projet" not opening: setPointerCapture() retargets every later event of that
+    // pointer — including the click — to the element it was called on (the track, a <div>). A
+    // click retargeted that way can no longer reach the <a> it was visually inside (the anchor
+    // is a descendant of the track, not an ancestor of the retargeted target), so the browser
+    // never runs its default navigation — the link looked broken even though the href was fine.
+    // Capturing the pointer immediately on every press (as before) meant EVERY click, including
+    // a plain unmoved one, got retargeted this way. Now we only capture once real dragging is
+    // confirmed (past DRAG_CONFIRM px), so a plain click never captures the pointer at all and
+    // reaches the anchor exactly like a normal click.
+    const DRAG_CONFIRM = 6;
+    let pointerDown = false, dragging = false, startX = 0, startLeft = 0, startIndex = 0, pointerId = -1;
     track.addEventListener('pointerdown', (e) => {
       if (e.pointerType === 'touch' || e.button !== 0) return;
-      dragging = true;
+      pointerDown = true; dragging = false;
       startX = e.clientX; startLeft = track.scrollLeft; startIndex = cur();
-      // is-dragging: cursor + no text selection, dropped the instant the button is released.
-      // is-settling: keeps scroll-snap disabled through the release animation too — re-enabling
-      // it right away would make the browser instantly re-snap to the nearest slide (usually
-      // still the start one) before our smooth scrollTo below even runs, so it visibly jumped
-      // back to the start first instead of continuing on from wherever the drag left off.
-      track.classList.add('is-dragging', 'is-settling');
-      track.setPointerCapture(e.pointerId);
+      pointerId = e.pointerId;
     });
     track.addEventListener('pointermove', (e) => {
-      if (!dragging) return;
+      if (!pointerDown) return;
       const dx = e.clientX - startX;
+      if (!dragging) {
+        if (Math.abs(dx) < DRAG_CONFIRM) return;
+        dragging = true;
+        // is-dragging: cursor + no text selection, dropped the instant the button is released.
+        // is-settling: keeps scroll-snap disabled through the release animation too — re-enabling
+        // it right away would make the browser instantly re-snap to the nearest slide (usually
+        // still the start one) before our smooth scrollTo below even runs, so it visibly jumped
+        // back to the start first instead of continuing on from wherever the drag left off.
+        track.classList.add('is-dragging', 'is-settling');
+        track.setPointerCapture(pointerId);
+      }
       track.scrollLeft = startLeft - dx;
     });
     const endDrag = (e: PointerEvent) => {
-      if (!dragging) return;
+      if (!pointerDown) return;
+      pointerDown = false;
+      if (!dragging) return; // a plain click/tap: nothing to settle, let the browser handle it
       dragging = false;
       track.classList.remove('is-dragging');
       const dx = e.clientX - startX;
@@ -90,13 +108,6 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
       // far it was dragged; short of it, spring back to where it started — both animated
       // smoothly by go(), continuing from the exact spot the drag left off.
       const target = dx <= -SWIPE_THRESHOLD ? startIndex + 1 : dx >= SWIPE_THRESHOLD ? startIndex - 1 : startIndex;
-      // Only an actual committed swipe (past the threshold, landing on a different slide)
-      // should cancel the click below — a plain press-and-release with a bit of jitter (mouse
-      // wobble, a trackpad tap) always springs back to the same slide, and must still open
-      // "voir le projet" like a normal click. A fixed pixel "click vs. drag" threshold isn't
-      // reliable enough (some trackpads move several px on a simple tap), so we key off the
-      // real outcome instead.
-      swiped = target !== startIndex;
       go(target);
       const stopSettling = () => { track.classList.remove('is-settling'); track.removeEventListener('scrollend', stopSettling); };
       track.addEventListener('scrollend', stopSettling);
@@ -104,8 +115,6 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
     };
     track.addEventListener('pointerup', endDrag);
     track.addEventListener('pointercancel', endDrag);
-    // A drag that actually changed slide shouldn't also fire the slide's link navigation.
-    track.addEventListener('click', (e) => { if (swiped) { e.preventDefault(); swiped = false; } }, true);
   });
 </script>
 
