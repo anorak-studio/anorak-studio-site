@@ -24,7 +24,12 @@ const h = site.hero;
   .hero-bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: #000; }
   .hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,.25), transparent 22%, transparent 60%, rgba(0,0,0,.35)); pointer-events: none; }
   .hero { position: relative; height: min(100svh, 62vw); min-height: 420px; max-height: 980px; }
-  .hero__t { position: absolute; z-index: 1; margin: 0; color: #fff; font: 700 clamp(1.9rem, 4.6vw, 4rem)/1.05 var(--f-display); text-shadow: 0 2px 24px rgba(0, 0, 0, .45); max-width: 16ch; padding: 0 var(--gutter); }
+  /* Decorative caption over the photo, not real body copy: shouldn't hijack the hover state
+     from the image behind it. `--center` in particular stretches to `inset: 0` to center the
+     text, so without pointer-events:none that invisible full-bleed box was catching every
+     hover over the whole hero and forcing the text cursor across the photo, not just the
+     words themselves. */
+  .hero__t { position: absolute; z-index: 1; margin: 0; color: #fff; font: 700 clamp(1.9rem, 4.6vw, 4rem)/1.05 var(--f-display); text-shadow: 0 2px 24px rgba(0, 0, 0, .45); max-width: 16ch; padding: 0 var(--gutter); pointer-events: none; cursor: var(--cursor-default); }
   .hero__t--center { inset: 0; display: grid; place-items: center; text-align: center; max-width: none; }
   .hero__t--bottom-left { left: 0; bottom: clamp(28px, 6vw, 80px); }
   .hero__t--bottom-center { left: 0; right: 0; bottom: clamp(28px, 6vw, 80px); text-align: center; max-width: none; }

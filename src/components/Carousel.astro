@@ -11,21 +11,23 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
 ---
 <div class="car" aria-roledescription="carrousel" aria-label="À la une">
   <div class="car__track" tabindex="0">
-    {slides.map((s, i) => {
-      const Tag = s.href ? 'a' : 'div';
-      return (
-        <Tag class="car__slide" href={s.href} aria-roledescription="diapositive" aria-label={`${s.title} (${i + 1} / ${slides.length})`}>
-          <Media media={s.media} alt={s.title} fill eager={i === 0} />
-          {s.showText && (
-            <span class={`car__cap car__cap--${s.position ?? 'bottom-left'}`}>
-              <strong>{s.title}</strong>
-              {s.text && <span class="car__txt">{s.text}</span>}
-              {s.href && s.cta && <em>{s.cta} →</em>}
-            </span>
-          )}
-        </Tag>
-      );
-    })}
+    {slides.map((s, i) => (
+      // Always a <div>, never a link: the image/video is for dragging the carousel only (the
+      // grab/grabbing hand cursor), it doesn't navigate on click and doesn't turn into the
+      // pointing finger. The one real link per slide is the "voir le projet →" text below.
+      <div class="car__slide" aria-roledescription="diapositive" aria-label={`${s.title} (${i + 1} / ${slides.length})`}>
+        <Media media={s.media} alt={s.title} fill eager={i === 0} />
+        {s.showText && (
+          <span class={`car__cap car__cap--${s.position ?? 'bottom-left'}`}>
+            <strong>{s.title}</strong>
+            {s.text && <span class="car__txt">{s.text}</span>}
+            {s.href && s.cta && (
+              <a class="car__cta" href={s.href} aria-label={`${s.cta} : ${s.title}`}>{s.cta} →</a>
+            )}
+          </span>
+        )}
+      </div>
+    ))}
   </div>
   <button class="car__arrow car__prev" aria-label="Précédent"><svg viewBox="0 0 1000 1000" aria-hidden="true"><path d={chevronL} /></svg></button>
   <button class="car__arrow car__next" aria-label="Suivant"><svg viewBox="0 0 1000 1000" aria-hidden="true"><path d={chevronR} /></svg></button>
@@ -123,16 +125,17 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
   .car__track {
     display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
   }
-  /* Base state: the whole strip is "grab to swipe" (image/background). Caption text reads as
-     text; the "→ en savoir plus" cue acts like a button. Whichever cursor wins by specificity
-     (grabbing while actually dragging beats both, below — see the comment there). */
+  /* Base state: the whole strip is "grab to swipe" (image/background) — the slide itself is
+     never a link (see the template), so the image only ever offers the drag cursor, never the
+     pointing finger. Caption text reads as text; the "voir le projet →" link is the one real
+     clickable thing here and gets its own pointer/click cursor below, at higher specificity. */
   .car__track, .car__track :global(*) { cursor: var(--cursor-grab); }
   .car__cap, .car__cap * { cursor: var(--cursor-text); }
-  .car__cap em { cursor: var(--cursor-point); }
+  .car__cap .car__cta { cursor: var(--cursor-point); }
   /* The carousel's own cursor rules above outrank the sitewide :active "clic" rule (same or
      higher specificity from Astro's scoping), so without this the click/press state never
      showed on the CTA link, the arrows or the dots here. Restated locally so it wins. */
-  .car__cap em:active { cursor: var(--cursor-click); }
+  .car__cap .car__cta:active { cursor: var(--cursor-click); }
   .car__track::-webkit-scrollbar { display: none; }
   .car__slide > :global(img), .car__slide > :global(video) { -webkit-user-drag: none; user-drag: none; }
   /* While actively dragging: the closed-hand cursor overrides everything else in the track
@@ -155,8 +158,11 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
   .car__cap--top-left { left: 0; top: 0; padding-top: calc(var(--hdr-h) + 24px); }
   .car__cap strong { font: 800 clamp(1.8rem, 4.6vw, 4rem)/1.02 var(--f-display); text-shadow: 0 2px 20px rgba(0, 0, 0, .4); }
   .car__txt { font-size: clamp(1rem, 1.6vw, 1.3rem); opacity: .9; }
-  .car__cap em { font-style: normal; font-weight: 600; margin-top: 10px; color: #fff; border-bottom: 2px solid var(--c-neon); padding-bottom: 2px; transition: color .2s; }
-  .car__slide:hover .car__cap em { color: var(--c-neon); }
+  .car__cta {
+    display: inline-block; font-style: normal; font-weight: 600; margin-top: 10px; color: #fff;
+    text-decoration: none; border-bottom: 2px solid var(--c-neon); padding-bottom: 2px; transition: color .2s;
+  }
+  .car__cta:hover, .car__cta:focus-visible { color: var(--c-neon); }
 
   .car__arrow {
     position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
@@ -177,7 +183,7 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
   .car__dots button:active { cursor: var(--cursor-click); }
   @media (max-width: 700px) {
     /* Keep the same true 16:9 ratio on mobile — just crop, never stretch. */
-    .car__cap em { display: none; }
+    .car__cta { display: none; }
     .car__dots { bottom: 8px; }
   }
 </style>
