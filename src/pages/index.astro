@@ -157,7 +157,7 @@ const taglineWords = site.tagline.split(' ');
      its neighbours — not the whole word at once. Driven by JS (.is-vanished, below) rather
      than :hover, so a fade that has started always finishes and holds briefly once the
      cursor leaves, instead of reversing immediately. */
-  .intro__logo :global(.alogo__word > *) { transition: opacity .35s ease; cursor: default; }
+  .intro__logo :global(.alogo__word > *) { transition: opacity .35s ease; cursor: var(--cursor-default); }
   .intro__logo :global(.alogo__word > *.is-vanished) { opacity: 0; }
   .intro__cols { display: grid; grid-template-columns: 1fr 1.6fr; gap: clamp(20px, 5vw, 80px); align-items: start; }
   .intro__tag { font: 800 clamp(1.6rem, 3vw, 2.4rem)/1.1 var(--f-display); margin: 0; }

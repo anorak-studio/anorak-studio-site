@@ -54,6 +54,33 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
     car.addEventListener('mouseleave', () => (paused = false));
     car.addEventListener('focusin', () => (paused = true));
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => !paused && go(cur() + 1), 6000);
+
+    // Mouse drag-to-swipe: touch already scrolls the track natively, so this only kicks in
+    // for mouse (and pen) input — the open-hand cursor is the visual cue that it's draggable.
+    let dragging = false, dragMoved = false, startX = 0, startLeft = 0;
+    track.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch') return;
+      dragging = true; dragMoved = false;
+      startX = e.clientX; startLeft = track.scrollLeft;
+      track.classList.add('is-dragging');
+      track.setPointerCapture(e.pointerId);
+    });
+    track.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 4) dragMoved = true;
+      track.scrollLeft = startLeft - dx;
+    });
+    const endDrag = () => {
+      if (!dragging) return;
+      dragging = false;
+      track.classList.remove('is-dragging');
+      go(cur()); // settle on the nearest slide once released
+    };
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+    // A drag that actually moved the track shouldn't also fire the slide's link navigation.
+    track.addEventListener('click', (e) => { if (dragMoved) { e.preventDefault(); dragMoved = false; } }, true);
   });
 </script>
 
@@ -65,6 +92,10 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
   }
   .car__track, .car__track :global(*) { cursor: var(--cursor-grab); }
   .car__track::-webkit-scrollbar { display: none; }
+  /* While actively dragging: no snap-fighting-the-drag jank, and no accidental text
+     selection as the pointer sweeps over captions. */
+  .car__track.is-dragging { scroll-snap-type: none; user-select: none; }
+  .car__track.is-dragging :global(*) { user-select: none; }
   .car__slide {
     flex: 0 0 100%; scroll-snap-align: start; position: relative; display: block; overflow: hidden;
     aspect-ratio: 16 / 9; max-height: 100vh; min-height: 220px; width: 100%; color: #fff; text-decoration: none;
