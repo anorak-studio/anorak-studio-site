@@ -63,6 +63,10 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
     // A short, fixed distance is enough to commit to the next/previous slide — dragging further
     // doesn't skip extra slides, it just tracks the finger/cursor until release.
     const SWIPE_THRESHOLD = 60;
+    // How far the pointer has to travel before we call it a drag rather than a click — has to
+    // clear ordinary hand tremor on a real click/tap (a few px), or a plain click on "voir le
+    // projet" gets its navigation cancelled below (dragMoved) even though nothing was dragged.
+    const CLICK_SLOP = 10;
     let dragging = false, dragMoved = false, startX = 0, startLeft = 0, startIndex = 0;
     track.addEventListener('pointerdown', (e) => {
       if (e.pointerType === 'touch' || e.button !== 0) return;
@@ -79,7 +83,7 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
     track.addEventListener('pointermove', (e) => {
       if (!dragging) return;
       const dx = e.clientX - startX;
-      if (Math.abs(dx) > 4) dragMoved = true;
+      if (Math.abs(dx) > CLICK_SLOP) dragMoved = true;
       track.scrollLeft = startLeft - dx;
     });
     const endDrag = (e: PointerEvent) => {
@@ -114,6 +118,10 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
   .car__track, .car__track :global(*) { cursor: var(--cursor-grab); }
   .car__cap, .car__cap * { cursor: var(--cursor-text); }
   .car__cap em { cursor: var(--cursor-point); }
+  /* The carousel's own cursor rules above outrank the sitewide :active "clic" rule (same or
+     higher specificity from Astro's scoping), so without this the click/press state never
+     showed on the CTA link, the arrows or the dots here. Restated locally so it wins. */
+  .car__cap em:active { cursor: var(--cursor-click); }
   .car__track::-webkit-scrollbar { display: none; }
   .car__slide > :global(img), .car__slide > :global(video) { -webkit-user-drag: none; user-drag: none; }
   /* While actively dragging: the closed-hand cursor overrides everything else in the track
@@ -147,6 +155,7 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
   }
   .car__arrow svg { width: 70%; height: 70%; fill: currentColor; }
   .car__arrow:hover, .car__arrow:focus-visible { color: var(--c-neon); }
+  .car__arrow:active { cursor: var(--cursor-click); }
   .car__prev { left: clamp(4px, 1.5vw, 24px); }
   .car__next { right: clamp(4px, 1.5vw, 24px); }
   .car__prev:hover { transform: translateY(-50%) translateX(-3px); }
@@ -154,6 +163,7 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
   .car__dots { position: absolute; left: 0; right: 0; bottom: 14px; display: flex; justify-content: center; gap: 10px; z-index: 2; pointer-events: none; }
   .car__dots button { pointer-events: auto; width: 9px; height: 9px; padding: 0; border-radius: 50%; border: 0; background: rgba(255, 255, 255, .45); cursor: var(--cursor-point); }
   .car__dots button[aria-current='true'] { background: var(--c-neon); }
+  .car__dots button:active { cursor: var(--cursor-click); }
   @media (max-width: 700px) {
     /* Keep the same true 16:9 ratio on mobile — just crop, never stretch. */
     .car__cap em { display: none; }
