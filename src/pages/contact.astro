@@ -44,6 +44,6 @@ const mapQuery = encodeURIComponent(`${site.address.street}, ${site.address.city
   label { display: grid; gap: .35rem; font-weight: 500; font-size: .95rem; }
   input, textarea { font: inherit; padding: .75em .9em; border: 1px solid var(--c-line); border-radius: var(--radius); background: var(--c-surface); color: var(--c-ink); width: 100%; }
   input:focus, textarea:focus { outline: 2px solid var(--c-brand); outline-offset: 0; }
-  .form .btn { justify-self: start; }
+  .form .btn { justify-self: start; cursor: var(--cursor-perfect); }
   @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } }
 </style>

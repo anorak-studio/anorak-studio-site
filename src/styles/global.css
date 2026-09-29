@@ -32,6 +32,9 @@
   --cursor-point: url('/cursors/point.png') 6 4, pointer;
   --cursor-social: url('/cursors/peace.png') 8 4, pointer;
   --cursor-text: url('/cursors/text.png') 9 22, text;
+  --cursor-perfect: url('/cursors/perfect.png') 18 4, pointer;
+  --cursor-grab: url('/cursors/hand.png') 19 4, grab;
+  --cursor-heart: url('/cursors/heart.png') 17 15, pointer;
 }
 
 *, *::before, *::after { box-sizing: border-box; }

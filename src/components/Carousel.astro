@@ -59,7 +59,11 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
 
 <style>
   .car { position: relative; background: #000; }
-  .car__track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .car__track {
+    display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    cursor: var(--cursor-grab);
+  }
+  .car__track, .car__track :global(*) { cursor: var(--cursor-grab); }
   .car__track::-webkit-scrollbar { display: none; }
   .car__slide {
     flex: 0 0 100%; scroll-snap-align: start; position: relative; display: block; overflow: hidden;

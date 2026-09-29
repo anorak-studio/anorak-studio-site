@@ -7,7 +7,7 @@ import { boutique } from '../data/site';
 ---
 <Base title="Boutique" description={boutique.text}>
   <PageTitle title="Boutique" />
-  <section class="section wrap center">
+  <section class="section wrap center boutique-page">
     <p class="big">Bientôt.</p>
     <p class="muted">
       Les gilets et vêtements <a href={boutique.href} target="_blank" rel="noopener">Wooders</a>, et le livre
@@ -21,6 +21,7 @@ import { boutique } from '../data/site';
 </Base>
 
 <style>
+  .boutique-page, .boutique-page * { cursor: var(--cursor-heart); }
   .big { font: 800 clamp(2rem, 5vw, 3rem)/1 var(--f-display); color: var(--c-brand); }
   .muted { color: var(--c-muted); max-width: 56ch; margin: 0 auto 2rem; }
   .muted a { color: var(--c-brand); }
