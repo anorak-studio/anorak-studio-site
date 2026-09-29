@@ -175,7 +175,7 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
 
   .burger {
     position: fixed; top: -6px; right: calc(var(--gutter) - 15px); z-index: 55;
-    width: 81px; height: 66px; padding: 15px; border: 0; border-radius: 6px; cursor: pointer;
+    width: 81px; height: 66px; padding: 15px; border: 0; border-radius: 6px; cursor: var(--cursor-point);
     background: transparent; color: #fff; transition: color .2s;
     filter: drop-shadow(0 1px 6px rgba(0, 0, 0, .35));
     outline: none; -webkit-tap-highlight-color: transparent;

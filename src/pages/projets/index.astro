@@ -39,7 +39,7 @@ const used = categories.filter((c) => projets.some((p) => p.data.categories.incl
 
 <style>
   .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0 0 3rem; }
-  .filters button { font: inherit; font-size: .92rem; padding: .5em 1.1em; border-radius: 999px; border: 1px solid var(--c-line); background: transparent; color: var(--c-ink); cursor: pointer; }
+  .filters button { font: inherit; font-size: .92rem; padding: .5em 1.1em; border-radius: 999px; border: 1px solid var(--c-line); background: transparent; color: var(--c-ink); cursor: var(--cursor-point); }
   .filters button:hover { border-color: var(--c-neon); box-shadow: inset 0 0 0 1px var(--c-neon); }
   .filters button.is-on { background: var(--c-brand); border-color: var(--c-brand); color: var(--c-brand-ink); }
 </style>
