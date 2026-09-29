@@ -57,9 +57,12 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
 
     // Mouse drag-to-swipe: touch already scrolls the track natively, so this only kicks in
     // for mouse (and pen) input — the open-hand cursor is the visual cue that it's draggable.
+    // Images and links are natively draggable in the browser (ghost-image drag-and-drop), which
+    // hijacks the gesture before our pointermove handler ever sees it — kill that first.
+    track.addEventListener('dragstart', (e) => e.preventDefault());
     let dragging = false, dragMoved = false, startX = 0, startLeft = 0;
     track.addEventListener('pointerdown', (e) => {
-      if (e.pointerType === 'touch') return;
+      if (e.pointerType === 'touch' || e.button !== 0) return;
       dragging = true; dragMoved = false;
       startX = e.clientX; startLeft = track.scrollLeft;
       track.classList.add('is-dragging');
@@ -88,10 +91,15 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
   .car { position: relative; background: #000; }
   .car__track {
     display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
-    cursor: var(--cursor-grab);
   }
+  /* Base state: the whole strip is "grab to swipe". A slide that's actually a link overrides
+     this — including its own caption text — to the pointing-finger, since clicking anywhere
+     on it navigates; a decorative (non-link) slide's caption reads as plain text instead. */
   .car__track, .car__track :global(*) { cursor: var(--cursor-grab); }
+  a.car__slide, a.car__slide :global(*) { cursor: var(--cursor-point); }
+  div.car__slide .car__cap, div.car__slide .car__cap * { cursor: var(--cursor-text); }
   .car__track::-webkit-scrollbar { display: none; }
+  .car__slide > :global(img), .car__slide > :global(video) { -webkit-user-drag: none; user-drag: none; }
   /* While actively dragging: no snap-fighting-the-drag jank, and no accidental text
      selection as the pointer sweeps over captions. */
   .car__track.is-dragging { scroll-snap-type: none; user-select: none; }
