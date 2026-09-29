@@ -4,8 +4,15 @@ import PageTitle from '../components/PageTitle.astro';
 ---
 <Base title="Page introuvable">
   <PageTitle title="Hors sentier." />
-  <section class="section wrap center">
+  <section class="section wrap center section--404">
     <p>Cette page n'existe pas (ou plus). On vous ramène au camp de base?</p>
     <p><a class="btn" href="/">Retour à l'accueil</a> &nbsp; <a class="btn" href="/projets/">Voir les projets</a></p>
   </section>
 </Base>
+
+<style>
+  /* A little payback for the broken link: the whole 404 reads with the "annoyed" cursor —
+     except the two buttons, which stay perfectly usable with the normal pointing-finger. */
+  .section--404, .section--404 * { cursor: var(--cursor-fck); }
+  .section--404 a.btn, .section--404 a.btn * { cursor: var(--cursor-point); }
+</style>

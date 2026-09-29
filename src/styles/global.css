@@ -36,6 +36,8 @@
   --cursor-grab: url('/cursors/hand.png') 20 10, grab;
   --cursor-grabbing: url('/cursors/grabbing.png') 20 10, grabbing;
   --cursor-heart: url('/cursors/heart.png') 20 20, pointer;
+  --cursor-click: url('/cursors/click.png') 20 6, pointer;
+  --cursor-fck: url('/cursors/fck.png') 20 4, default;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -76,6 +78,14 @@ button, button *,
 [role="button"], [role="button"] *,
 input[type="submit"], input[type="button"], label[for], select {
   cursor: var(--cursor-point);
+}
+/* The instant something is actually being pressed, not just hovered — same reach as the
+   pointing-finger rule above, so it wins on press without needing extra specificity. */
+a[href]:active, a[href]:active *,
+button:active, button:active *,
+[role="button"]:active, [role="button"]:active *,
+input[type="submit"]:active, input[type="button"]:active {
+  cursor: var(--cursor-click);
 }
 
 .wrap { max-width: var(--w-max); margin-inline: auto; padding-inline: var(--gutter); }
