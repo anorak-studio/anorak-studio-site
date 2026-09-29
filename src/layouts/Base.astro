@@ -35,6 +35,41 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <script is:inline>
+      // Custom CSS cursors are only repainted on an actual pointer event, so every full
+      // page navigation (e.g. clicking the ANORAK logo back to "/") starts a beat with the
+      // browser's own system arrow until the mouse next moves, however tiny that move is.
+      // We remember the last pointer position across navigations (sessionStorage survives
+      // a real page load, unlike JS state) and replay it as a synthetic pointer move the
+      // instant this page can respond, so it's our own arrow from the very first frame —
+      // no waiting on the visitor to actually move the mouse.
+      (function () {
+        var KEY = 'anorak:cursorPos';
+        var raf = null;
+        addEventListener('pointermove', function (e) {
+          if (e.pointerType !== 'mouse' || raf) return;
+          raf = requestAnimationFrame(function () {
+            raf = null;
+            try { sessionStorage.setItem(KEY, e.clientX + ',' + e.clientY); } catch (err) {}
+          });
+        }, { passive: true });
+
+        var saved;
+        try { saved = sessionStorage.getItem(KEY); } catch (err) {}
+        if (!saved) return;
+        var parts = saved.split(',');
+        var x = Number(parts[0]), y = Number(parts[1]);
+        if (!isFinite(x) || !isFinite(y)) return;
+
+        var replay = function () {
+          var el = document.elementFromPoint(x, y) || document.body;
+          el.dispatchEvent(new PointerEvent('pointermove', { clientX: x, clientY: y, bubbles: true, cancelable: true }));
+        };
+        replay();
+        addEventListener('DOMContentLoaded', replay);
+        addEventListener('load', replay);
+      })();
+    </script>
     <Header />
     <main><slot /></main>
     <Footer />
