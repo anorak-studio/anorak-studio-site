@@ -233,4 +233,12 @@ const isCurrent = (href: string) => (href === '/' ? current === '/' : current.st
   .menu nav a[aria-current] { color: color-mix(in srgb, #fff 55%, transparent); }
   .menu nav a[aria-current]:hover { color: var(--c-neon); }
   .menu :global(.menu__social a:hover) { color: var(--c-neon); background: transparent; }
+  /* Same fix as the burger: no focus-ring box, ever, inside the mobile menu — mobile browsers
+     otherwise leave one stuck around a link (e.g. ACCUEIL) after it's tapped. The color change
+     above already signals keyboard focus. */
+  .menu__logo:focus, .menu__logo:focus-visible,
+  .menu nav a:focus, .menu nav a:focus-visible,
+  .menu :global(.menu__social a:focus), .menu :global(.menu__social a:focus-visible) {
+    outline: none;
+  }
 </style>
