@@ -28,13 +28,13 @@
 
   /* Custom pixel-art cursors (public/cursors/). Each falls back to the matching native
      cursor keyword if the image ever fails to load. */
-  --cursor-default: url('/cursors/arrow.png') 3 3, auto;
-  --cursor-point: url('/cursors/point.png') 6 4, pointer;
-  --cursor-social: url('/cursors/peace.png') 8 4, pointer;
-  --cursor-text: url('/cursors/text.png') 9 22, text;
-  --cursor-perfect: url('/cursors/perfect.png') 18 4, pointer;
-  --cursor-grab: url('/cursors/hand.png') 19 4, grab;
-  --cursor-heart: url('/cursors/heart.png') 17 15, pointer;
+  --cursor-default: url('/cursors/arrow.png') 6 4, auto;
+  --cursor-point: url('/cursors/point.png') 20 6, pointer;
+  --cursor-social: url('/cursors/peace.png') 20 10, pointer;
+  --cursor-text: url('/cursors/text.png') 24 24, text;
+  --cursor-perfect: url('/cursors/perfect.png') 20 10, pointer;
+  --cursor-grab: url('/cursors/hand.png') 20 10, grab;
+  --cursor-heart: url('/cursors/heart.png') 20 20, pointer;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
