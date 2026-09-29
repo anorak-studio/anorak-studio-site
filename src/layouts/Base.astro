@@ -18,6 +18,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {/* Preload every custom cursor image. Without this, the very first hover/press that needs
+        a given cursor (e.g. the hand on the homepage carousel) can show the browser's own
+        fallback cursor (an arrow, a pointing hand) for a beat while that PNG downloads — only
+        switching to our art once it finishes loading. Preloading gets them all into cache
+        before any interaction is possible, so it's always ours, never the system one. */}
+    {['arrow', 'point', 'peace', 'text', 'perfect', 'hand', 'grabbing', 'heart', 'click', 'fck'].map((name) => (
+      <link rel="preload" as="image" href={`/cursors/${name}.png`} />
+    ))}
     <script is:inline>
       // Always start a newly-loaded page at the top (some browsers/embeds restore the
       // previous page's scroll position on navigation, which looks like a broken link).
