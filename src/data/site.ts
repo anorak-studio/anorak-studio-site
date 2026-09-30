@@ -11,6 +11,7 @@ import servicesData from '../content/site/services.json';
 import realisationData from '../content/site/realisation.json';
 import gamificationData from '../content/site/gamification.json';
 import contact from '../content/site/contact.json';
+import carouselData from '../content/site/carousel.json';
 
 export type Media =
   | { type: 'image'; src: string; alt?: string }
@@ -77,13 +78,19 @@ export const nav = [
 export type Slide = {
   media: Media; title: string; text?: string; showText: boolean; position?: TextPosition; href?: string; cta?: string;
 };
-export const carousel: Slide[] = [
-  { media: { type: 'image', src: '/images/site/carrousel-4.jpg' }, title: 'Urgences Rurales 360', text: 'Docu-spectacle de cirque et transfert de connaissances', showText: true, href: '/projets/urgences-rurales-360/', cta: 'Voir le projet' },
-  { media: { type: 'image', src: '/images/site/carrousel-2.jpg' }, title: 'Art Robots', text: 'Prix du meilleur court métrage canadien, FIFA 42', showText: true, href: '/projets/art-robots/', cta: 'Voir le projet' },
-  { media: { type: 'image', src: '/images/projets/the-plant-hplff-2026.jpg' }, title: 'The Plant', text: 'Sélection officielle, H. P. Lovecraft Film Festival 2026', showText: true, href: '/projets/the-plant/', cta: 'Voir le projet' },
-  { media: { type: 'image', src: '/images/site/carrousel-1.jpg' }, title: 'Doomed Raiders', text: 'Anorak Studio Games, annoncé pour 2027', showText: true, href: '/projets/doomed-raiders/', cta: 'Voir le projet' },
-  { media: { type: 'image', src: '/images/site/carrousel-5.jpg' }, title: 'Prises de vues par drone', text: 'Un de nos services', showText: true, href: '/services/#drone', cta: 'Voir le service' },
-];
+// Editable from the CMS at /admin/ (collection "Pages" > "Carrousel (accueil)"), which writes
+// to src/content/site/carousel.json. Each slide there is just an image path + text/link — this
+// maps it to the richer Slide/Media shape the templates expect.
+export const carousel: Slide[] = (carouselData.slides as Array<{
+  image: string; title: string; text?: string; showText?: boolean; href?: string; cta?: string;
+}>).map((s) => ({
+  media: { type: 'image', src: s.image } as Media,
+  title: s.title,
+  text: s.text,
+  showText: s.showText ?? true,
+  href: s.href,
+  cta: s.cta,
+}));
 
 export const categories = [
   'Réalisation',
@@ -109,24 +116,23 @@ export type ServiceItem = {
   designThinkingNote?: string;
 };
 
-// Order, id and image live here in code (asset paths + anchors like /services/#drone are
-// referenced elsewhere); the title/lead/text/sections come from services.json (editable via the CMS).
-const SERVICE_ORDER: { id: string; image: string }[] = [
-  { id: 'identite', image: '/images/projets/la-butinerie-logo.jpg' },
-  { id: 'design-strategique', image: '/images/old-site/2024/02/SShot-255.jpg' },
-  { id: 'realisation', image: '/images/site/carrousel-3.jpg' },
-  { id: 'gamification', image: '/images/projets/doomed-raiders-11.jpg' },
-  { id: 'drone', image: '/images/site/carrousel-5.jpg' },
-  { id: 'web', image: '/images/old-site/2024/02/sqn-2.jpg' },
-  { id: 'illustration', image: '/images/projets/fungus-forest-1.jpg' },
-  { id: 'imprime', image: '/images/site/unikaangit-book.png' },
+// Order and id live here in code (anchors like /services/#drone are referenced elsewhere);
+// each item's image/title/lead/text/sections come from services.json, editable via the CMS.
+const SERVICE_ORDER: string[] = [
+  'identite',
+  'design-strategique',
+  'realisation',
+  'gamification',
+  'drone',
+  'web',
+  'illustration',
+  'imprime',
 ];
 
-const serviceItems = servicesData.items as unknown as Record<string, ServiceItem>;
+const serviceItems = servicesData.items as unknown as Record<string, ServiceItem & { image: string }>;
 
-export const services = SERVICE_ORDER.map(({ id, image }) => ({
+export const services = SERVICE_ORDER.map((id) => ({
   id,
-  image,
   ...serviceItems[id],
 }));
 

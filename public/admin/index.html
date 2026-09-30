@@ -7,7 +7,13 @@
   </head>
   <body>
     <!-- Decap CMS: a free, git-based admin panel. It edits the same markdown files
-         in src/content/projets/ that the site reads — no separate database. -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+         in src/content/projets/ that the site reads — no separate database.
+         Pinned to an exact version (not a floating "^3.0.0" range): with a floating
+         range, unpkg can silently serve a newer build on any page load, with no
+         deploy on our side and no way to know which build is running — including one
+         with an unfixed regression in the editor (e.g. list/image widgets misbehaving
+         when the last item is removed, blocking Publish). Pinning keeps the admin
+         panel on a known, tested build until we deliberately bump this version. -->
+    <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
   </body>
 </html>

@@ -18,6 +18,7 @@
   "aiNote": "Les outils évoluent, y compris ceux fondés sur l'intelligence artificielle. Anorak Studio les utilise lorsqu'ils apportent quelque chose au projet, avec le regard acquis par des années de pratique en design, en image et en réalisation. Leur emploi doit soutenir la qualité du résultat et le travail des personnes qui y contribuent. Le savoir-faire, les expériences et les points de vue humains restent ce qui donne au projet son caractère singulier.",
   "items": {
     "identite": {
+      "image": "/images/projets/la-butinerie-logo.jpg",
       "title": "Image de marque",
       "lead": "Une identité reconnaissable, pensée pour vivre sur plusieurs supports.",
       "text": [
@@ -26,6 +27,7 @@
       ]
     },
     "design-strategique": {
+      "image": "/images/old-site/2024/02/SShot-255.jpg",
       "title": "Conseils stratégiques",
       "lead": "Positionnement, choix technologiques, design thinking : comprendre les besoins avant de choisir une forme.",
       "text": [],
@@ -56,6 +58,7 @@
       "designThinkingNote": "Visuel des 5 étapes du design thinking à venir"
     },
     "realisation": {
+      "image": "/images/site/carrousel-3.jpg",
       "title": "Réalisation",
       "lead": "Courts métrages, documentaires, capsules vidéo et films de vulgarisation.",
       "text": [
@@ -64,6 +67,7 @@
       ]
     },
     "gamification": {
+      "image": "/images/projets/doomed-raiders-11.jpg",
       "title": "Gamification et Indie Game",
       "lead": "Faire une place à l'exploration, aux choix et à la participation.",
       "text": [],
@@ -92,6 +96,7 @@
       ]
     },
     "drone": {
+      "image": "/images/site/carrousel-5.jpg",
       "title": "Prises de vues par drone",
       "lead": "Des images aériennes pour révéler un lieu et enrichir un récit.",
       "text": [
@@ -99,6 +104,7 @@
       ]
     },
     "web": {
+      "image": "/images/old-site/2024/02/sqn-2.jpg",
       "title": "Web et applications",
       "lead": "Des outils numériques adaptés à leurs contenus et à leurs utilisateurs.",
       "text": [
@@ -107,6 +113,7 @@
       ]
     },
     "illustration": {
+      "image": "/images/projets/fungus-forest-1.jpg",
       "title": "Illustration et pixel art",
       "lead": "Des images pour expliquer, évoquer et donner vie à un univers.",
       "text": [
@@ -114,6 +121,7 @@
       ]
     },
     "imprime": {
+      "image": "/images/site/unikaangit-book.png",
       "title": "Imprimé et édition",
       "lead": "Des outils tangibles qui prolongent le projet.",
       "text": [

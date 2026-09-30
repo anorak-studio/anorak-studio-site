@@ -104,6 +104,22 @@ collections:
             name: "about"
             widget: "list"
 
+      - name: "carousel"
+        label: "Carrousel (accueil)"
+        file: "src/content/site/carousel.json"
+        fields:
+          - label: "Diapositives"
+            name: "slides"
+            widget: "list"
+            hint: "L'ordre ici est l'ordre d'affichage dans le carrousel."
+            fields:
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Titre", name: "title", widget: "string" }
+              - { label: "Texte", name: "text", widget: "string", required: false }
+              - { label: "Afficher le texte", name: "showText", widget: "boolean", default: true, required: false }
+              - { label: "Lien (clic sur la diapo)", name: "href", widget: "string", required: false, hint: "Ex. /projets/mon-projet/ ou /services/#drone" }
+              - { label: "Texte du bouton", name: "cta", widget: "string", required: false }
+
       - name: "services"
         label: "Services"
         file: "src/content/site/services.json"
@@ -130,6 +146,7 @@ collections:
                 name: "identite"
                 widget: "object"
                 fields:
+                  - { label: "Image", name: "image", widget: "image" }
                   - { label: "Titre", name: "title", widget: "string" }
                   - { label: "Accroche", name: "lead", widget: "string" }
                   - { label: "Texte (paragraphes)", name: "text", widget: "list", default: [] }
@@ -137,6 +154,7 @@ collections:
                 name: "design-strategique"
                 widget: "object"
                 fields:
+                  - { label: "Image", name: "image", widget: "image" }
                   - { label: "Titre", name: "title", widget: "string" }
                   - { label: "Accroche", name: "lead", widget: "string" }
                   - { label: "Texte (paragraphes)", name: "text", widget: "list", required: false, default: [] }
@@ -158,6 +176,7 @@ collections:
                 name: "realisation"
                 widget: "object"
                 fields:
+                  - { label: "Image", name: "image", widget: "image" }
                   - { label: "Titre", name: "title", widget: "string" }
                   - { label: "Accroche", name: "lead", widget: "string" }
                   - { label: "Texte (paragraphes)", name: "text", widget: "list", default: [] }
@@ -165,6 +184,7 @@ collections:
                 name: "gamification"
                 widget: "object"
                 fields:
+                  - { label: "Image", name: "image", widget: "image" }
                   - { label: "Titre", name: "title", widget: "string" }
                   - { label: "Accroche", name: "lead", widget: "string" }
                   - { label: "Texte (paragraphes)", name: "text", widget: "list", required: false, default: [] }
@@ -180,6 +200,7 @@ collections:
                 name: "drone"
                 widget: "object"
                 fields:
+                  - { label: "Image", name: "image", widget: "image" }
                   - { label: "Titre", name: "title", widget: "string" }
                   - { label: "Accroche", name: "lead", widget: "string" }
                   - { label: "Texte (paragraphes)", name: "text", widget: "list", default: [] }
@@ -187,6 +208,7 @@ collections:
                 name: "web"
                 widget: "object"
                 fields:
+                  - { label: "Image", name: "image", widget: "image" }
                   - { label: "Titre", name: "title", widget: "string" }
                   - { label: "Accroche", name: "lead", widget: "string" }
                   - { label: "Texte (paragraphes)", name: "text", widget: "list", default: [] }
@@ -194,6 +216,7 @@ collections:
                 name: "illustration"
                 widget: "object"
                 fields:
+                  - { label: "Image", name: "image", widget: "image" }
                   - { label: "Titre", name: "title", widget: "string" }
                   - { label: "Accroche", name: "lead", widget: "string" }
                   - { label: "Texte (paragraphes)", name: "text", widget: "list", default: [] }
@@ -201,6 +224,7 @@ collections:
                 name: "imprime"
                 widget: "object"
                 fields:
+                  - { label: "Image", name: "image", widget: "image" }
                   - { label: "Titre", name: "title", widget: "string" }
                   - { label: "Accroche", name: "lead", widget: "string" }
                   - { label: "Texte (paragraphes)", name: "text", widget: "list", default: [] }
