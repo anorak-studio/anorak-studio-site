@@ -271,6 +271,42 @@ const seriesVideos =
       };
       wrap.querySelector('.vrow-nav--prev')?.addEventListener('click', () => scrollByOne(-1));
       wrap.querySelector('.vrow-nav--next')?.addEventListener('click', () => scrollByOne(1));
+
+      // Mouse drag-to-scroll, same grab/grabbing hand as the homepage carousel (see Carousel.astro)
+      // — touch already scrolls the row natively, so this only kicks in for mouse/pen input.
+      row.addEventListener('dragstart', (e) => e.preventDefault());
+      const DRAG_CONFIRM = 6; // px of movement before a press counts as a drag rather than a click
+      let pointerDown = false, dragging = false, startX = 0, startScroll = 0;
+      row.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'touch' || e.button !== 0) return;
+        pointerDown = true; dragging = false;
+        startX = e.clientX; startScroll = row.scrollLeft;
+        // Closes the hand immediately on press, before we know if this will become a drag — a
+        // plain click still shows a quick "grab" flash and then plays the video normally, exactly
+        // like the homepage carousel's own click-vs-drag handling.
+        row.classList.add('is-pressed');
+      });
+      row.addEventListener('pointermove', (e) => {
+        if (!pointerDown) return;
+        const dx = e.clientX - startX;
+        if (!dragging) {
+          if (Math.abs(dx) < DRAG_CONFIRM) return;
+          dragging = true;
+          row.classList.add('is-dragging');
+          // Only captured once a real drag is confirmed — see Carousel.astro's comment on why
+          // capturing on every press would break plain clicks (they'd stop reaching the facade).
+          row.setPointerCapture(e.pointerId);
+        }
+        row.scrollLeft = startScroll - dx;
+      });
+      const endDrag = () => {
+        if (!pointerDown) return;
+        pointerDown = false;
+        row.classList.remove('is-pressed');
+        if (dragging) { dragging = false; row.classList.remove('is-dragging'); }
+      };
+      row.addEventListener('pointerup', endDrag);
+      row.addEventListener('pointercancel', endDrag);
     });
   </script>
 
@@ -387,6 +423,19 @@ const seriesVideos =
     scrollbar-width: none; -ms-overflow-style: none; /* the arrows (or a swipe on mobile) are the UI, not a visible scrollbar */
   }
   .vrow::-webkit-scrollbar { display: none; }
+  /* Same drag language as the homepage carousel: the row itself is "grab to scroll" (the base
+     cursor here), and the facade's own play button is the one thing that reads as clickable (its
+     own cursor rule, in YouTubeFacade.astro, wins locally). While actually dragging, the closed
+     hand overrides everything underneath it, including the play button — !important because that
+     override has to beat the facade's own more specific, differently-scoped rule regardless of
+     stylesheet order. */
+  .vrow, .vrow :global(*) { cursor: var(--cursor-grab); }
+  .vrow.is-pressed, .vrow.is-pressed :global(*) { cursor: var(--cursor-grabbing) !important; }
+  .vrow.is-pressed { user-select: none; }
+  .vrow.is-pressed :global(*) { user-select: none; }
+  /* Disabled only while a real drag is in progress (see the JS) so scroll-snap isn't fighting the
+     manual scrollLeft updates; a plain click never reaches this state at all. */
+  .vrow.is-dragging { scroll-snap-type: none; }
   .vrow__item { position: relative; flex: none; background: #000; scroll-snap-align: start; }
   .vrow__item iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   .vrow--portrait .vrow__item { height: clamp(340px, 62vh, 620px); aspect-ratio: 9 / 16; }
