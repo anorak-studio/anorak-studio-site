@@ -1,0 +1,62 @@
+---
+// A click-to-load stand-in for a YouTube embed: shows the video's own thumbnail with a play
+// button instead of loading the iframe up front. Two reasons to do this rather than embed
+// directly:
+//   1. A cross-origin iframe (YouTube's own page) can never show our custom cursor — the browser
+//      always falls back to the system cursor the moment the pointer is over it. This facade is
+//      plain markup on our own page, so our cursor works right up until the click that swaps it
+//      for the real player (at which point it's YouTube's page, and there's nothing more we can
+//      do about the cursor — same limitation every site with a custom cursor runs into).
+//   2. It also means a page with several trailers doesn't load several YouTube iframes (and
+//      everything they pull in) before anyone has asked to watch one.
+interface Props {
+  id: string;
+  title: string;
+}
+const { id, title } = Astro.props;
+---
+<div class="ytfacade" data-yt-id={id} data-yt-title={title} role="button" tabindex="0" aria-label={`Lire : ${title}`}>
+  <img class="ytfacade__thumb" src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" />
+  <span class="ytfacade__play" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="26" height="26"><path d="M8 5v14l11-7z" fill="currentColor" /></svg>
+  </span>
+</div>
+
+<style>
+  .ytfacade {
+    position: absolute; inset: 0; cursor: var(--cursor-point); background: #000; overflow: hidden;
+  }
+  .ytfacade:active { cursor: var(--cursor-click); }
+  .ytfacade__thumb { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .82; }
+  .ytfacade__play {
+    position: absolute; top: 50%; left: 50%; translate: -50% -50%;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(0, 0, 0, .6); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    transition: background-color .15s, color .15s;
+  }
+  .ytfacade:hover .ytfacade__play { background: var(--c-neon); color: #000; }
+</style>
+
+<script>
+  // Runs once for the page: finds every facade still unclicked and wires it up. Astro dedupes
+  // this identical inline script across every use of the component, so it's included once no
+  // matter how many trailers are on the page.
+  document.querySelectorAll<HTMLElement>('.ytfacade').forEach((el) => {
+    const play = () => {
+      const id = el.dataset.ytId;
+      const title = el.dataset.ytTitle || 'Vidéo';
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&autoplay=1`;
+      iframe.title = title;
+      iframe.loading = 'eager';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      el.replaceWith(iframe);
+    };
+    el.addEventListener('click', play, { once: true });
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); }
+    }, { once: true });
+  });
+</script>
