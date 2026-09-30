@@ -12,9 +12,9 @@ gallery:
   - /images/projets/havrio-7.jpg
 videos: []
 order: 12
-todo: ["Confirmer l'étendue exacte du mandat Anorak Studio (identité seulement, ou aussi le web/les visuels du balado ?)"]
+todo: []
 ---
 
-Image de marque d'Havrio, pour un leadership conscient et engagé, incluant le logo et les visuels de son balado *La Discussion*.
+**Anorak Studio : naming et conception de l'identité visuelle d'Havrio**, dédié au leadership conscient et engagé — ainsi que le naming et le logo de son balado *La Discussion*.
 
-Texte à venir.
+Le mandat ne s'est pas limité à l'exécution graphique : Mathieu Fortin a créé le nom Havrio, son identité visuelle, puis le nom et le logo de *La Discussion*. Le D du logo forme une sorte de phylactère (bulle de bande dessinée), une idée qui évoque directement l'échange et la discussion.

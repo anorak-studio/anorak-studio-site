@@ -1,7 +1,7 @@
 ---
-title: "Vivre en Ville"
-summary: "Série de capsules d'animation vulgarisant les enjeux des systèmes alimentaires durables et de la démarche nourricière municipale."
-status: "Série de capsules d'animation"
+title: "Systèmes alimentaires durables"
+summary: "Campagne vidéo et illustration pour Vivre en Ville, vulgarisant les enjeux des systèmes alimentaires durables."
+status: "Campagne de capsules d'animation"
 categories: ["Vidéo", "Illustration"]
 cover: "/images/projets/vivre-en-ville-1.jpg"
 gallery:
@@ -15,13 +15,14 @@ gallery:
   - /images/projets/vivre-en-ville-8.jpg
   - /images/projets/vivre-en-ville-9.jpg
   - /images/projets/vivre-en-ville-10.jpg
-videos: ["80EFGuY4wUk", "3kawBFXQ_XQ", "5TJXkrlWl1Q"]
+videos: ["80EFGuY4wUk", "3kawBFXQ_XQ"]
+videoFirst: true
 order: 15
 links: []
-todo: ["Confirmer le lien vers l'organisme Vivre en Ville (site officiel)", "Titre exact et mandat précis de chaque capsule (1, 2 et 3)"]
+todo: []
 ---
 
-Une série de capsules d'animation réalisées pour Vivre en Ville, vulgarisant les enjeux des systèmes alimentaires durables : la définition d'un système alimentaire durable, les impacts des changements climatiques et de la perte de biodiversité sur l'agriculture, et les étapes d'une démarche nourricière municipale (rassembler une diversité d'acteurs, réaliser un état de la situation, inclure l'alimentation dans la planification municipale).
+Une campagne vidéo et illustration réalisée pour Vivre en Ville, vulgarisant les enjeux des systèmes alimentaires durables à travers deux capsules d'animation : l'une expliquant ce que sont les systèmes alimentaires durables, l'autre présentant les étapes d'une démarche nourricière municipale (rassembler une diversité d'acteurs, réaliser un état de la situation, inclure l'alimentation dans la planification municipale).
 
 **Mathieu Fortin : scénarisation (adaptée avec le client), illustration, réalisation et storyboard.**
 
