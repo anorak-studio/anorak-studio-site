@@ -24,7 +24,7 @@ todo: []
 order: 4
 videoFirst: true
 ---
-Un court métrage de Mathieu Fortin qui questionne la place de l'intelligence artificielle dans la création artistique. Canada, 2023, 5 min, sans dialogue!
+Un court métrage de Mathieu Fortin qui questionne la place de l'intelligence artificielle dans la création artistique. Canada, 2023, 5 min, sans dialogue.
 
 **Prix du meilleur court métrage canadien**, 42e Festival International du Film sur l'Art (FIFA), Montréal, 2024.
 
