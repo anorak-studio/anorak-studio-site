@@ -4,6 +4,7 @@ summary: "Identité visuelle, photo, vidéo et site web du Hub d'innovation en m
 status: "Identité visuelle et site web"
 categories: ["Identité", "Web", "Vidéo", "Science"]
 cover: "/images/projets/hub-innovation-1.jpg"
+thumb: "/images/projets/hub-innovation-1.jpg"
 gallery:
   - /images/projets/hub-innovation-1.jpg
   - /images/projets/hub-logo.png
