@@ -5,8 +5,14 @@ status: "Série, 3 épisodes, sur Bell TV1"
 categories: ["Réalisation", "Identité"]
 cover: "/images/projets/the-unearthly-notes-poster.jpg"
 gallery:
-  - /images/projets/the-unearthly-notes-poster.jpg
+  - /images/projets/the-parrot-3.jpg
+  - /images/projets/the-parrot-9.jpg
+  - /images/projets/the-plant-3.jpg
+  - /images/projets/the-plant-10.jpg
+  - /images/projets/the-writer-3.jpg
+  - /images/projets/the-writer-9.jpg
 videos: ["pyPA46oIRZ0"]
+episodes: ["the-parrot", "the-plant", "the-writer"]
 order: 2
 links:
   - { label: "Regarder sur Bell TV1", href: "https://tv1.bell.ca/fibetv1/shows/the-unearthly-notes" }

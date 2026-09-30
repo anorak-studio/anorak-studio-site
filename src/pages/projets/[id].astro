@@ -12,32 +12,38 @@ export async function getStaticPaths() {
   const projets = await getProjets();
   return projets.map((entry, i) => {
     const others = [1, 2, 3, 4].map((k) => projets[(i + k) % projets.length]);
-    return { params: { id: entry.id }, props: { entry, others } };
+    // Resolve a series' `episodes` (project ids) to the actual entries, so the page can read
+    // each episode's own title/videos without a second content-collection call per render.
+    const episodes = entry.data.episodes
+      .map((id) => projets.find((p) => p.id === id))
+      .filter((p) => p !== undefined);
+    return { params: { id: entry.id }, props: { entry, others, episodes } };
   });
 }
 
-const { entry, others } = Astro.props;
+const { entry, others, episodes } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
 // Prefer a landscape photo for the wide hero band when the project has one (see heroImageFor);
 // `d.cover` itself is untouched, so it still drives the grid thumbnail and the OG image below.
 const heroSrc = heroImageFor(d);
-// Split the gallery into chunks around each "statement" (a big one-liner dropped between
-// photos): each chunk becomes its own photo grid, with the statement full-width in between.
-// Keeps the masonry script (below) simple — it just lays out every `.media` grid it finds,
-// however many there are.
-type GallerySegment = { kind: 'images'; items: string[] } | { kind: 'statement'; text: string };
-const gallerySegments: GallerySegment[] = [];
+// One flat list of grid items for the photo masonry: gallery images with each "statement" (a
+// big one-liner) inserted at its `after` position as its own tile, alternating which column it
+// sits in on wide screens (see .media__quote--left/--right below) instead of breaking the grid
+// into separate chunks.
+type MediaItem = { kind: 'image'; src: string } | { kind: 'quote'; text: string; side: 'left' | 'right' };
+const mediaItems: MediaItem[] = [];
 {
   const sorted = [...d.statements].sort((a, b) => a.after - b.after);
   let cursor = 0;
+  let quoteCount = 0;
   for (const s of sorted) {
     const upTo = Math.max(cursor, Math.min(s.after, d.gallery.length));
-    if (upTo > cursor) gallerySegments.push({ kind: 'images', items: d.gallery.slice(cursor, upTo) });
-    gallerySegments.push({ kind: 'statement', text: s.text });
-    cursor = upTo;
+    for (; cursor < upTo; cursor++) mediaItems.push({ kind: 'image', src: d.gallery[cursor] });
+    mediaItems.push({ kind: 'quote', text: s.text, side: quoteCount % 2 === 0 ? 'left' : 'right' });
+    quoteCount++;
   }
-  if (cursor < d.gallery.length) gallerySegments.push({ kind: 'images', items: d.gallery.slice(cursor) });
+  for (; cursor < d.gallery.length; cursor++) mediaItems.push({ kind: 'image', src: d.gallery[cursor] });
 }
 
 // Portrait videos (e.g. YouTube Shorts) get their own full-width, side-by-side carousel sized
@@ -96,19 +102,119 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
       </aside>
     )}
 
-    {gallerySegments.map((seg) =>
-      seg.kind === 'images' ? (
-        seg.items.length > 0 && (
-          <div class="media wrap">
-            {seg.items.map((src, i) => <Img src={src} alt={`${d.title}, image ${i + 1}`} />)}
+    {episodes.length > 0 && d.videos.length > 0 && (
+      // Series trailer, big, left; each episode's own trailer in a small carousel to the right —
+      // right after the cover and the project's presentation (the header above), before anything
+      // else on the page.
+      <div class="series-trailer wrap">
+        <div class="series-trailer__main">
+          <p class="series-trailer__label">Bande-annonce de la série</p>
+          <div class="series-trailer__frame">
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${d.videos[0].id}?${videoParams}`}
+              title={`${d.title} (bande-annonce)`}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
           </div>
-        )
-      ) : (
-        <p class="pullquote">{seg.text}</p>
-      ),
+        </div>
+        <div class="vrow-wrap series-trailer__eps">
+          <p class="series-trailer__label">Les épisodes</p>
+          <div class="vrow vrow--episodes" role="list" aria-label="Bandes-annonces des épisodes">
+            {episodes.map((ep) => ep.data.videos.length > 0 && (
+              <div class="ep-card" role="listitem">
+                <div class="ep-card__frame">
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${ep.data.videos[0].id}?${videoParams}`}
+                    title={`${ep.data.title} (bande-annonce)`}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <a class="ep-card__title" href={`/projets/${ep.id}/`}>{ep.data.title}</a>
+              </div>
+            ))}
+          </div>
+          {episodes.length > 1 && (
+            <>
+              <button class="vrow-nav vrow-nav--prev" type="button" aria-label="Épisode précédent">‹</button>
+              <button class="vrow-nav vrow-nav--next" type="button" aria-label="Épisode suivant">›</button>
+            </>
+          )}
+        </div>
+      </div>
     )}
 
-    {portraitVideos.length > 0 && (
+    {/* Trailer(s) up top, before the photos — only for projects that ask for it (`videoFirst`
+        in the frontmatter), so every other project page keeps its current order (photos, then
+        video) and only opts in explicitly. Skipped entirely for a series (`episodes` above
+        already shows this project's own trailer). */}
+    {d.videoFirst && episodes.length === 0 && (
+      <>
+        {portraitVideos.length > 0 && (
+          <div class="vrow-wrap">
+            <div class="vrow vrow--portrait" role="list" aria-label={`Vidéos verticales, ${d.title}`}>
+              {portraitVideos.map((v) => (
+                <div class="vrow__item" role="listitem">
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${v.id}?${videoParams}`}
+                    title={`${d.title} (vidéo)`}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              ))}
+            </div>
+            {portraitVideos.length > 1 && (
+              <>
+                <button class="vrow-nav vrow-nav--prev" type="button" aria-label="Vidéo précédente">‹</button>
+                <button class="vrow-nav vrow-nav--next" type="button" aria-label="Vidéo suivante">›</button>
+              </>
+            )}
+          </div>
+        )}
+        {otherVideos.length > 0 && (
+          <div class="vrow-wrap">
+            <div class="vrow vrow--wide" role="list" aria-label={`Vidéos, ${d.title}`}>
+              {otherVideos.map((v) => (
+                <div class={`vrow__item vrow__item--${v.ratio}`} role="listitem">
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${v.id}?${videoParams}`}
+                    title={`${d.title} (vidéo)`}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              ))}
+            </div>
+            {otherVideos.length > 1 && (
+              <>
+                <button class="vrow-nav vrow-nav--prev" type="button" aria-label="Vidéo précédente">‹</button>
+                <button class="vrow-nav vrow-nav--next" type="button" aria-label="Vidéo suivante">›</button>
+              </>
+            )}
+          </div>
+        )}
+      </>
+    )}
+
+    {mediaItems.length > 0 && (
+      <div class="media wrap">
+        {mediaItems.map((item, i) =>
+          item.kind === 'image' ? (
+            <Img src={item.src} alt={`${d.title}, image ${i + 1}`} />
+          ) : (
+            <p class={`media__quote media__quote--${item.side}`}>{item.text}</p>
+          ),
+        )}
+      </div>
+    )}
+
+    {!d.videoFirst && episodes.length === 0 && portraitVideos.length > 0 && (
       <div class="vrow-wrap">
         <div class="vrow vrow--portrait" role="list" aria-label={`Vidéos verticales, ${d.title}`}>
           {portraitVideos.map((v) => (
@@ -132,7 +238,7 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
       </div>
     )}
 
-    {otherVideos.length > 0 && (
+    {!d.videoFirst && episodes.length === 0 && otherVideos.length > 0 && (
       <div class="vrow-wrap">
         <div class="vrow vrow--wide" role="list" aria-label={`Vidéos, ${d.title}`}>
           {otherVideos.map((v) => (
@@ -240,13 +346,15 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
     max-width: 1900px; justify-items: center; align-items: start;
   }
   .media > :global(img) { width: auto !important; max-width: 100%; }
-  /* A big one-liner dropped between photo grids (see gallerySegments above) — gives the page
-     rhythm without another paragraph of body text. */
-  .pullquote {
-    margin: 0 auto; max-width: 30ch; text-align: center;
-    padding: clamp(40px, 8vw, 96px) var(--gutter);
-    font: 800 clamp(1.7rem, 4.2vw, 3rem)/1.18 var(--f-display);
-    color: var(--c-brand); letter-spacing: -0.01em;
+  /* A big one-liner dropped right into the photo grid as its own tile (see mediaItems above) —
+     gives the page rhythm without another paragraph of body text. Sized/positioned like a photo
+     so the masonry script (below) measures and slots it in exactly the same way. */
+  .media__quote {
+    margin: 0; width: 100%; max-width: 640px; box-sizing: border-box;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    min-height: 220px; padding: clamp(28px, 4vw, 48px);
+    background: var(--c-brand); color: var(--c-brand-ink); border-radius: var(--radius);
+    font: 800 clamp(1.3rem, 2.6vw, 2rem)/1.25 var(--f-display); letter-spacing: -0.01em;
   }
   /* Masonry (see the script above): once JS has measured each image, rows become a fine 4px
      grid with each image spanning just what it needs, so a short image doesn't get held down
@@ -256,6 +364,11 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
     /* Two columns from ~18" monitors up — smaller/laptop screens keep one big full-width photo. */
     .media { grid-template-columns: repeat(2, 1fr); }
     .media > :global(img) { width: 100% !important; }
+    .media__quote { max-width: none; }
+    /* Alternates which column a quote tile lands in — set explicitly (rather than relying on
+       auto-placement) so consecutive quotes don't both happen to fall in the same column. */
+    .media__quote--left { grid-column: 1; }
+    .media__quote--right { grid-column: 2; }
   }
 
   /* Videos: a horizontally-scrolling, full-width row (not boxed into `.media`'s max-width), so
@@ -298,6 +411,34 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
     .vrow--portrait .vrow__item { flex: 0 0 100%; height: auto; aspect-ratio: 9 / 16; scroll-snap-align: center; }
     .vrow--wide .vrow__item { flex: 0 0 100%; height: auto; }
   }
+
+  /* Series trailer (big, left) + a small carousel of each episode's own trailer (right). Reuses
+     the .vrow-wrap/.vrow/.vrow-nav classes above — same generic scroll/arrow script — sized down
+     via .vrow--episodes so each card fills its narrow column instead of the full-width rows. */
+  .series-trailer {
+    display: grid; gap: clamp(20px, 3vw, 32px);
+    padding-block: clamp(24px, 4vw, 48px);
+  }
+  @media (min-width: 900px) {
+    .series-trailer { grid-template-columns: 1.7fr 1fr; align-items: start; }
+  }
+  .series-trailer__label {
+    font: 700 .8rem/1 var(--f-body); text-transform: uppercase; letter-spacing: .1em;
+    color: var(--c-muted); margin: 0 0 .7rem;
+  }
+  .series-trailer__frame { position: relative; aspect-ratio: 16 / 9; background: #000; border-radius: var(--radius); overflow: hidden; }
+  .series-trailer__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .series-trailer__eps .vrow--episodes { padding-inline: 0; }
+  .vrow--episodes .ep-card { flex: 0 0 84%; scroll-snap-align: start; }
+  @media (min-width: 900px) {
+    /* One at a time, filling the whole narrow column — the arrows cycle through episodes. */
+    .vrow--episodes .ep-card { flex: 0 0 100%; }
+  }
+  .ep-card { display: flex; flex-direction: column; gap: 8px; }
+  .ep-card__frame { position: relative; aspect-ratio: 16 / 9; background: #000; border-radius: var(--radius); overflow: hidden; }
+  .ep-card__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .ep-card__title { font: 600 .95rem/1.3 var(--f-body); color: var(--c-ink); text-decoration: none; }
+  .ep-card__title:hover { color: var(--c-brand); }
 
   .others { background: var(--c-grey); margin-top: clamp(32px, 5vw, 64px); }
   .others h2 { margin-bottom: 1.2em; }

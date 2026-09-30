@@ -16,10 +16,15 @@ const projets = defineCollection({
     // vertical poster that wouldn't crop well as a small tile. Falls back to `cover` if unset.
     thumb: z.string().optional(),
     gallery: z.array(z.string()).default([]),
-    // Big, punchy one-liners dropped between the gallery images to give the page rhythm
-    // without adding long paragraphs. `after` is how many gallery images come before it
-    // (0 = shown before the very first image); each one starts its own fresh photo grid.
+    // Big, punchy one-liners dropped right into the photo grid (as their own tile, alternating
+    // left/right column on wide screens) to give the page rhythm without adding long paragraphs.
+    // `after` is how many gallery images come before it (0 = shown before the very first image).
     statements: z.array(z.object({ after: z.number(), text: z.string() })).default([]),
+    // Project ids (other entries in this same collection) of a series' episodes — e.g. the
+    // three short films inside "The Unearthly Notes". When set, the project's own first video
+    // is shown as the big series trailer at the very top of the page (after the cover and the
+    // text), with the listed episodes' own trailers in a small carousel beside it.
+    episodes: z.array(z.string()).default([]),
     // YouTube video IDs. Accepts a plain string (old shape, defaults to "landscape" — every
     // project that already has videos is a normal 16:9 trailer) or an object with an explicit
     // `ratio`, used to size and group the video on the project page (see [id].astro): a portrait
@@ -35,6 +40,9 @@ const projets = defineCollection({
           .transform((v) => (typeof v === 'string' ? { id: v, ratio: 'landscape' as const } : v)),
       )
       .default([]),
+    // Shows the trailer(s) right at the top of the page (before any photos) instead of the
+    // usual spot below the gallery — for a project page that's meant to lead with the video.
+    videoFirst: z.boolean().default(false),
     links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
     ai: z.boolean().default(false), // shows an "IA" tag (project made with AI tools)
     shop: z.string().optional(), // note shown with a "Boutique" button
