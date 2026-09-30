@@ -32,13 +32,10 @@ const { id, title } = Astro.props;
        button below is the one part that reads as clickable. */
     position: absolute; inset: 0; cursor: var(--cursor-grab); background: #000; overflow: hidden;
   }
+  /* The thumbnail shows exactly as YouTube serves it — no dark overlay on top — so it never looks
+     muddier than the actual custom thumbnail on the video. The play button's own translucent
+     circle (below) is what keeps it legible against a bright shot, not a full-image dimming. */
   .ytfacade__thumb { width: 100%; height: 100%; object-fit: cover; display: block; }
-  /* A soft bottom-up shade instead of dimming the whole thumbnail (which was making an already
-     low-res image look worse) — just enough for the play button to read clearly on a bright shot. */
-  .ytfacade::after {
-    content: ''; position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(circle at center, rgba(0, 0, 0, .35), rgba(0, 0, 0, .12) 55%, transparent 75%);
-  }
   .ytfacade__play {
     position: absolute; top: 50%; left: 50%; translate: -50% -50%;
     width: 56px; height: 56px; border-radius: 50%;
