@@ -22,6 +22,24 @@ const d = entry.data;
 // Prefer a landscape photo for the wide hero band when the project has one (see heroImageFor);
 // `d.cover` itself is untouched, so it still drives the grid thumbnail and the OG image below.
 const heroSrc = heroImageFor(d);
+// Split the gallery into chunks around each "statement" (a big one-liner dropped between
+// photos): each chunk becomes its own photo grid, with the statement full-width in between.
+// Keeps the masonry script (below) simple — it just lays out every `.media` grid it finds,
+// however many there are.
+type GallerySegment = { kind: 'images'; items: string[] } | { kind: 'statement'; text: string };
+const gallerySegments: GallerySegment[] = [];
+{
+  const sorted = [...d.statements].sort((a, b) => a.after - b.after);
+  let cursor = 0;
+  for (const s of sorted) {
+    const upTo = Math.max(cursor, Math.min(s.after, d.gallery.length));
+    if (upTo > cursor) gallerySegments.push({ kind: 'images', items: d.gallery.slice(cursor, upTo) });
+    gallerySegments.push({ kind: 'statement', text: s.text });
+    cursor = upTo;
+  }
+  if (cursor < d.gallery.length) gallerySegments.push({ kind: 'images', items: d.gallery.slice(cursor) });
+}
+
 // Portrait videos (e.g. YouTube Shorts) get their own full-width, side-by-side carousel sized
 // to their own 9:16 box; landscape/square videos get a separate carousel below, each box sized
 // to its own ratio. Keeps a vertical clip from being squeezed into (or a widescreen one from
@@ -78,10 +96,16 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
       </aside>
     )}
 
-    {d.gallery.length > 0 && (
-      <div class="media wrap">
-        {d.gallery.map((src, i) => <Img src={src} alt={`${d.title}, image ${i + 1}`} />)}
-      </div>
+    {gallerySegments.map((seg) =>
+      seg.kind === 'images' ? (
+        seg.items.length > 0 && (
+          <div class="media wrap">
+            {seg.items.map((src, i) => <Img src={src} alt={`${d.title}, image ${i + 1}`} />)}
+          </div>
+        )
+      ) : (
+        <p class="pullquote">{seg.text}</p>
+      ),
     )}
 
     {portraitVideos.length > 0 && (
@@ -216,6 +240,14 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
     max-width: 1900px; justify-items: center; align-items: start;
   }
   .media > :global(img) { width: auto !important; max-width: 100%; }
+  /* A big one-liner dropped between photo grids (see gallerySegments above) — gives the page
+     rhythm without another paragraph of body text. */
+  .pullquote {
+    margin: 0 auto; max-width: 30ch; text-align: center;
+    padding: clamp(40px, 8vw, 96px) var(--gutter);
+    font: 800 clamp(1.7rem, 4.2vw, 3rem)/1.18 var(--f-display);
+    color: var(--c-brand); letter-spacing: -0.01em;
+  }
   /* Masonry (see the script above): once JS has measured each image, rows become a fine 4px
      grid with each image spanning just what it needs, so a short image doesn't get held down
      to a tall neighbour's height — several shorter images stack and condense upward instead. */

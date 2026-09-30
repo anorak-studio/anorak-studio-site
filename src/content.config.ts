@@ -16,6 +16,10 @@ const projets = defineCollection({
     // vertical poster that wouldn't crop well as a small tile. Falls back to `cover` if unset.
     thumb: z.string().optional(),
     gallery: z.array(z.string()).default([]),
+    // Big, punchy one-liners dropped between the gallery images to give the page rhythm
+    // without adding long paragraphs. `after` is how many gallery images come before it
+    // (0 = shown before the very first image); each one starts its own fresh photo grid.
+    statements: z.array(z.object({ after: z.number(), text: z.string() })).default([]),
     // YouTube video IDs. Accepts a plain string (old shape, defaults to "landscape" — every
     // project that already has videos is a normal 16:9 trailer) or an object with an explicit
     // `ratio`, used to size and group the video on the project page (see [id].astro): a portrait
