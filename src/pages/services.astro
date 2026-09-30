@@ -22,34 +22,36 @@ import { services, site } from '../data/site';
     </div>
   </section>
 
-  <section class="section wrap list">
+  <div class="list">
     {services.map((s, i) => (
-      <article id={s.id} class:list={['svc', { 'svc--rev': i % 2 === 1 }]}>
-        <div class="svc__img"><Img src={s.image} alt={s.title} ratio="4 / 3" /></div>
-        <div>
-          <span class="eyebrow">{String(i + 1).padStart(2, '0')}</span>
-          <h2>{s.title}</h2>
-          <p class="svc__lead">{s.lead}</p>
-          {s.text.map((p) => <p>{p}</p>)}
-          {s.sections && s.sections.map((sec) => (
-            <div class="svc__section">
-              {sec.heading && <h3>{sec.heading}</h3>}
-              {sec.paragraphs.map((p) => <p>{p}</p>)}
-            </div>
-          ))}
-          {s.id === 'drone' && site.droneReel && <p><a class="btn" href={site.droneReel} target="_blank" rel="noopener">Voir la bande-démo drone ↗</a></p>}
-          {'designThinking' in s && s.designThinking && (
-            <div class="dt">
-              <ol class="dt__steps">
-                {s.designThinking.map((step) => <li>{step}</li>)}
-              </ol>
-              <p class="dt__note">{s.designThinkingNote}</p>
-            </div>
-          )}
-        </div>
-      </article>
+      <section id={s.id} class:list={['svcband', i % 2 === 0 ? 'svcband--paper' : 'svcband--brand']}>
+        <article class:list={['svc wrap', { 'svc--rev': i % 2 === 1 }]}>
+          <div class="svc__img"><Img src={s.image} alt={s.title} ratio="4 / 3" /></div>
+          <div>
+            <span class="eyebrow">{String(i + 1).padStart(2, '0')}</span>
+            <h2>{s.title}</h2>
+            <p class="svc__lead">{s.lead}</p>
+            {s.text.map((p) => <p>{p}</p>)}
+            {s.sections && s.sections.map((sec) => (
+              <div class="svc__section">
+                {sec.heading && <h3>{sec.heading}</h3>}
+                {sec.paragraphs.map((p) => <p>{p}</p>)}
+              </div>
+            ))}
+            {s.id === 'drone' && site.droneReel && <p><a class="btn btn--light" href={site.droneReel} target="_blank" rel="noopener">Voir la bande-démo drone ↗</a></p>}
+            {'designThinking' in s && s.designThinking && (
+              <div class="dt">
+                <ol class="dt__steps">
+                  {s.designThinking.map((step) => <li>{step}</li>)}
+                </ol>
+                <p class="dt__note">{s.designThinkingNote}</p>
+              </div>
+            )}
+          </div>
+        </article>
+      </section>
     ))}
-  </section>
+  </div>
 
   <section class="section wrap ai-note">
     <p>{site.aiNote}</p>
@@ -68,22 +70,45 @@ import { services, site } from '../data/site';
   .science__t { font: 800 clamp(1.9rem, 4.5vw, 3.2rem)/1.05 var(--f-display); max-width: 18ch; }
   .science p:last-child { max-width: 60ch; font-size: 1.12rem; color: color-mix(in srgb, var(--c-on-dark) 82%, transparent); margin: 0; }
 
-  .list { display: grid; gap: clamp(48px, 8vw, 100px); }
+  .list { display: block; }
+
+  /* Each service is its own full-bleed band, alternating the site's off-white/beige
+     background with the brand forest green — the same rhythm as the homepage's big
+     bands — instead of one long uniform list. */
+  .svcband { padding-block: clamp(48px, 8vw, 100px); }
+  .svcband--paper { background: var(--c-bg); }
+  .svcband--brand { background: var(--c-brand); color: var(--c-brand-ink); }
+
   .svc { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 5vw, 64px); align-items: center; scroll-margin-top: calc(var(--hdr-h) + 16px); }
   .svc--rev .svc__img { order: 2; }
   .svc__img { border-radius: var(--radius); overflow: hidden; }
   .svc h2 { margin-bottom: .3em; }
+  .svc .eyebrow { color: var(--c-brand); }
   .svc__lead { font-weight: 600; color: var(--c-brand); }
   .svc p { max-width: 50ch; }
   .svc p:not(.svc__lead) { color: var(--c-muted); }
   @media (max-width: 760px) { .svc { grid-template-columns: 1fr; } .svc--rev .svc__img { order: 0; } }
 
+  /* On a green band, swap the brand-green accents for the light on-dark palette so
+     everything stays legible — same content, just re-tinted for the background. */
+  .svcband--brand .svc .eyebrow,
+  .svcband--brand .svc__lead { color: var(--c-brand-light); }
+  .svcband--brand .svc p:not(.svc__lead) { color: color-mix(in srgb, var(--c-brand-ink) 82%, transparent); }
+  .svcband--brand .svc__section h3 { color: var(--c-brand-ink); }
+  .svcband--brand .dt { border-top-color: color-mix(in srgb, var(--c-brand-ink) 30%, transparent); }
+  .svcband--brand .dt__steps li { background: color-mix(in srgb, var(--c-brand-ink) 16%, transparent); color: var(--c-brand-ink); }
+  .svcband--brand .dt__steps li::before { color: var(--c-brand-light); }
+  .svcband--brand .dt__note { color: color-mix(in srgb, var(--c-brand-ink) 70%, transparent); }
+  .svcband--brand .btn { background: var(--c-neon); color: #000; }
+  .btn--light { background: var(--c-on-dark); color: var(--c-dark); }
+  .btn--light:hover { background: var(--c-neon); color: #000; }
+
   .svc__section { margin-top: 1.2rem; }
   .svc__section h3 { font: 700 1.05rem/1.3 var(--f-display); margin-bottom: .4em; }
   .svc__section p { max-width: 50ch; color: var(--c-muted); }
 
-  .ai-note { max-width: 700px; text-align: center; }
-  .ai-note p { color: var(--c-muted); font-size: .95rem; }
+  .ai-note { max-width: 900px; text-align: center; padding-block: clamp(56px, 9vw, 110px); }
+  .ai-note p { color: var(--c-brand); font: 800 clamp(1.4rem, 3.2vw, 2.3rem)/1.35 var(--f-display); margin: 0; }
 
   /* Design Thinking: 5-stage placeholder, ready to receive a real visual later. */
   .dt { margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px dashed var(--c-line); }

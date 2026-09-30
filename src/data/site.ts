@@ -112,14 +112,14 @@ export type ServiceItem = {
 // Order, id and image live here in code (asset paths + anchors like /services/#drone are
 // referenced elsewhere); the title/lead/text/sections come from services.json (editable via the CMS).
 const SERVICE_ORDER: { id: string; image: string }[] = [
-  { id: 'identite', image: '/images/old-site/2024/02/1-identification.jpg' },
-  { id: 'design-strategique', image: '' },
+  { id: 'identite', image: '/images/projets/la-butinerie-logo.jpg' },
+  { id: 'design-strategique', image: '/images/old-site/2024/02/SShot-255.jpg' },
   { id: 'realisation', image: '/images/site/carrousel-3.jpg' },
-  { id: 'gamification', image: '/images/site/carrousel-1.jpg' },
+  { id: 'gamification', image: '/images/projets/doomed-raiders-11.jpg' },
   { id: 'drone', image: '/images/site/carrousel-5.jpg' },
-  { id: 'web', image: '/images/old-site/2024/02/2-web.jpg' },
-  { id: 'illustration', image: '/images/old-site/2024/02/4-illustration.jpg' },
-  { id: 'imprime', image: '/images/old-site/2024/02/3-edition-2.jpg' },
+  { id: 'web', image: '/images/old-site/2024/02/sqn-2.jpg' },
+  { id: 'illustration', image: '/images/projets/fungus-forest-1.jpg' },
+  { id: 'imprime', image: '/images/site/unikaangit-book.png' },
 ];
 
 const serviceItems = servicesData.items as unknown as Record<string, ServiceItem>;

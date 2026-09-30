@@ -4,6 +4,7 @@ summary: "Un docu-spectacle de cirque comme outil de transfert de connaissances 
 status: "Spectacle en tournée, 2h30 avec entracte"
 categories: ["Réalisation", "Science", "Vidéo", "Illustration"]
 cover: /images/projets/urgences-rurales-360-12.jpg
+thumb: /images/projets/urgences-rurales-360-12.jpg
 gallery:
   - /images/projets/urgences-rurales-360-1.jpg
   - /images/projets/urgences-rurales-360-2.jpg
@@ -13,11 +14,9 @@ gallery:
   - /images/projets/urgences-rurales-360-6.jpg
   - /images/projets/urgences-rurales-360-7.jpg
   - /images/projets/urgences-rurales-360-8.jpg
-  - /images/projets/urgences-rurales-360-9.jpg
   - /images/projets/urgences-rurales-360-10.jpg
   - /images/projets/urgences-rurales-360-11.jpg
   - /images/projets/urgences-rurales-360-12.jpg
-  - /images/projets/urgences-rurales-360-13.jpg
 videos: ["Fj1gfmXJtEQ"]
 order: 1
 links:
@@ -25,7 +24,7 @@ links:
 statements:
   - { after: 3, text: "Un narrateur excentrique. Trois artistes de cirque. Des urgences bien réelles." }
   - { after: 7, text: "La réalité des urgences, racontée en piste." }
-  - { after: 10, text: "Loin des grands centres, une résilience qu'on célèbre." }
+  - { after: 9, text: "Loin des grands centres, une résilience qu'on célèbre." }
 ---
 
 Urgences Rurales 360 est un docu-spectacle de cirque qui réunit recherche scientifique, arts vivants et participation citoyenne. À travers des acrobaties, des témoignages et des projections, il expose la réalité de l'accès aux soins en région, en rendant hommage à la résilience du personnel soignant hors des grands centres. C'est le premier spectacle de cirque conçu au Québec comme outil de transfert de connaissances.
