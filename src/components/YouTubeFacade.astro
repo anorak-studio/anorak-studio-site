@@ -47,6 +47,11 @@ const { id, title } = Astro.props;
       const id = el.dataset.ytId;
       const title = el.dataset.ytTitle || 'Vidéo';
       const iframe = document.createElement('iframe');
+      // Set explicitly rather than relying on the page's own `.vrow__item iframe` rule: Astro
+      // scopes that rule to elements present at build time, and this iframe is created at
+      // runtime, so the scoped selector never matches it — without this it was falling back to
+      // the browser's default 300x150 box (tiny, top-left corner) instead of filling its slot.
+      iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0';
       iframe.src = `https://www.youtube-nocookie.com/embed/${id}?modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&autoplay=1`;
       iframe.title = title;
       iframe.loading = 'eager';

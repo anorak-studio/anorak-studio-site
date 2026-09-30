@@ -394,16 +394,22 @@ const seriesVideos =
   .vrow--wide .vrow__item--landscape { aspect-ratio: 16 / 9; }
   .vrow--wide .vrow__item--square { aspect-ratio: 1 / 1; }
   /* A series' combined video slider (see seriesVideos above): noticeably bigger than the
-     standard video row, since for a series the videos are a main way the project presents
-     itself. Sized to match .vrow--lead below (same look for a series slider and a single lead
-     trailer). */
-  .vrow--series .vrow__item { height: clamp(320px, 58vw, 1010px); }
-  /* A single trailer leading a (non-series) project's page: centered and sized well past the
-     standard video row's own 16:9 item (clamp(200px,34vw,440px) tall) — see the videoFirst block
-     above. This is the "big centered trailer" look (first used on Art Robots); apply it whenever
-     a page leads with one video, and keep this one definition as the single place to resize it. */
-  .vrow--lead { max-width: clamp(700px, 85vw, 1800px); margin-inline: auto; }
+     standard video row on a large screen, since for a series the videos are a main way the
+     project presents itself. Left to the row's own vw scaling below ~900px so it's never
+     shrunk on a tablet or phone — full-size there is exactly what "big" should mean. */
+  @media (min-width: 900px) {
+    .vrow--series .vrow__item { height: clamp(320px, 46vw, 760px); }
+  }
+  /* A single trailer leading a (non-series) project's page: centered and bigger than the
+     standard video row's own 16:9 item — see the videoFirst block above. This is the "big
+     centered trailer" look (first used on Art Robots); apply it whenever a page leads with one
+     video, and keep this one definition as the single place to resize it. Only caps the width
+     from ~900px up — a tablet or phone gets the full-width row instead, never a version shrunk
+     to fit an artificial cap. */
   .vrow--lead .vrow__item { flex: 1 1 auto; width: 100%; height: auto; }
+  @media (min-width: 900px) {
+    .vrow--lead { max-width: clamp(700px, 62vw, 1320px); margin-inline: auto; }
+  }
 
   /* Prev/next arrows, like a classic carousel — desktop/pointer only (see the media query
      below); the row itself is still a native scroller underneath for trackpad/touch. */
