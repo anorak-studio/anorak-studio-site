@@ -5,7 +5,8 @@ status: "Court métrage, 2024"
 categories: ["Réalisation", "Identité"]
 cover: /images/site/carrousel-3.jpg
 gallery: []
-videos: ["4h0r-mGPlSY"]
+videos:
+  - { id: "4h0r-mGPlSY", ratio: "landscape" }
 videoFirst: true
 order: 5
 todo: []

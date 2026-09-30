@@ -7,7 +7,8 @@ cover: "/images/projets/fungus-forest-poster.jpg"
 thumb: "/images/projets/fungus-forest-1.jpg"
 gallery:
   - /images/projets/fungus-forest-1.jpg
-videos: ["rDnTc8gzyCA"]
+videos:
+  - { id: "rDnTc8gzyCA", ratio: "landscape" }
 order: 11
 links:
   - { label: "Jouer sur itch.io", href: "https://mooonbit.itch.io/fungus-forest" }

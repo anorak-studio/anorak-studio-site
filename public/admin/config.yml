@@ -60,6 +60,29 @@ collections:
               - { label: "Horizontal (16:9, bande-annonce classique)", value: "landscape" }
               - { label: "Vertical (9:16, ex. YouTube Shorts)", value: "portrait" }
               - { label: "Carré (1:1)", value: "square" }
+      - label: "Carrousels vidéo supplémentaires"
+        name: "videoGroups"
+        widget: "list"
+        default: []
+        required: false
+        hint: "Pour un projet avec plus d'un groupe de vidéos distinct (ex. Living Lab Charlevoix : sa vidéo d'intro ci-dessus, puis sa série « Les Grands Entretiens » ici). Chaque groupe a son propre titre et sa propre liste de vidéos, affichés plus bas sur la page."
+        fields:
+          - { label: "Titre du carrousel", name: "title", widget: "string" }
+          - label: "Vidéos"
+            name: "videos"
+            widget: "list"
+            default: []
+            required: false
+            fields:
+              - { label: "ID YouTube", name: "id", widget: "string", hint: "Juste l'identifiant, ex. dQw4w9WgXcQ" }
+              - label: "Format"
+                name: "ratio"
+                widget: "select"
+                default: "landscape"
+                options:
+                  - { label: "Horizontal (16:9, bande-annonce classique)", value: "landscape" }
+                  - { label: "Vertical (9:16, ex. YouTube Shorts)", value: "portrait" }
+                  - { label: "Carré (1:1)", value: "square" }
       - label: "Liens"
         name: "links"
         widget: "list"

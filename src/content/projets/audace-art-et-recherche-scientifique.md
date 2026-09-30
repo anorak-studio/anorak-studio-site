@@ -8,7 +8,8 @@ gallery:
   - /images/old-site/2024/02/Audace-capsule-video-371.jpg
   - /images/old-site/2024/02/Audace-capsule-video-368-369.jpg
   - /images/old-site/2024/02/Audace-capsule-video-387.jpg
-videos: ["HF_vLn5Drcw"]
+videos:
+  - { id: "HF_vLn5Drcw", ratio: "landscape" }
 videoFirst: true
 order: 111
 date: 2024-02-08

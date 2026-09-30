@@ -7,7 +7,9 @@ gallery:
   - /images/old-site/2023/12/RIAPA-site-web-photo-depliants-reseaux-sociaux-logo-identite-93.jpg
   - /images/old-site/2023/12/RIAPA-site-web-photo-depliants-reseaux-sociaux-logo-identite-97.jpg
   - /images/old-site/2023/12/SShot-349.jpg
-videos: ["4I9V97G6RRk", "qaqMqKnSWBs"]
+videos:
+  - { id: "4I9V97G6RRk", ratio: "landscape" }
+  - { id: "qaqMqKnSWBs", ratio: "landscape" }
 videoFirst: true
 order: 100
 date: 2023-12-31

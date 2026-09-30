@@ -15,7 +15,8 @@ gallery:
   - /images/projets/art-robots-8.jpg
   - /images/projets/art-robots-9.jpg
   - /images/projets/art-robots-10.jpg
-videos: ["p8KJVNJACYs"]
+videos:
+  - { id: "p8KJVNJACYs", ratio: "landscape" }
 aDecouvrir: true
 order: 4
 todo: []

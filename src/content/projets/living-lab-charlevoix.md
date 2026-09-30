@@ -8,17 +8,20 @@ thumb: "/images/projets/living-lab-charlevoix-2.jpg"
 gallery:
   - /images/projets/living-lab-charlevoix-1.jpg
   - /images/projets/living-lab-charlevoix-2.jpg
-videos: ["Pu4OAoKknZo", "TnSPlbvoZdE", "eNLVHFZ92rY"]
+videos:
+  - { id: "Pu4OAoKknZo", ratio: "landscape" }
+  - { id: "TnSPlbvoZdE", ratio: "landscape" }
+  - { id: "eNLVHFZ92rY", ratio: "landscape" }
 videoGroups:
   - title: "Les Grands Entretiens"
     videos:
-      - WEr9rolI8sY
-      - IwAMHpcJPz0
-      - WWIfpbqF10k
-      - SDare8qEQTo
-      - errkUv_Rzm0
-      - 6bMk8F5N-oA
-      - 1lB6LdCpBe0
+      - { id: "WEr9rolI8sY", ratio: "landscape" }
+      - { id: "IwAMHpcJPz0", ratio: "landscape" }
+      - { id: "WWIfpbqF10k", ratio: "landscape" }
+      - { id: "SDare8qEQTo", ratio: "landscape" }
+      - { id: "errkUv_Rzm0", ratio: "landscape" }
+      - { id: "6bMk8F5N-oA", ratio: "landscape" }
+      - { id: "1lB6LdCpBe0", ratio: "landscape" }
 order: 8
 links:
   - { label: "Voir le Living Lab", href: "https://www.medecineurgence.ca/lab" }

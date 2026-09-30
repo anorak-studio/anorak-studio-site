@@ -21,7 +21,8 @@ gallery:
   - /images/projets/the-writer-14.jpg
   - /images/projets/the-writer-15.jpg
 thumb: "/images/projets/the-writer-15.jpg"
-videos: ["EdsdRQN1OdE"]
+videos:
+  - { id: "EdsdRQN1OdE", ratio: "landscape" }
 duration: "9:59"
 synopsis: "Errant dans les vieilles rues brumeuses de Québec, un écrivain devient fasciné par l'architecture et l'atmosphère de la ville. Alors qu'il s'enfonce davantage dans ses rues labyrinthiques, la ville devient de plus en plus étrange, et il commence à soupçonner qu'elle abrite de lugubres habitants."
 order: 2.3

@@ -12,7 +12,8 @@ gallery:
   - /images/old-site/2023/12/RIAPA-Video-tambour-322.jpg
   - /images/old-site/2023/12/RIAPA-Video-tambour-301-scaled.jpg
   - /images/old-site/2023/12/RIAPA-Video-tambour-304-1.jpg
-videos: ["8btCWpd4RtU"]
+videos:
+  - { id: "8btCWpd4RtU", ratio: "landscape" }
 order: 118
 date: 2024-01-01
 draft: false

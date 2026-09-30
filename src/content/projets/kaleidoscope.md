@@ -7,7 +7,8 @@ gallery:
   - /images/old-site/2024/02/kalei-livre-new.jpg
   - /images/old-site/2024/02/kalei-6.jpg
   - /images/old-site/2024/02/kalei-5.jpg
-videos: ["4MQe-A-O_T4"]
+videos:
+  - { id: "4MQe-A-O_T4", ratio: "landscape" }
 videoFirst: true
 order: 108
 date: 2024-02-05

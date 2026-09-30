@@ -9,7 +9,8 @@ gallery:
   - /images/projets/hub-innovation-1.jpg
   - /images/projets/hub-logo.png
   - /images/projets/hub-banner.jpg
-videos: ["WEr9rolI8sY"]
+videos:
+  - { id: "WEr9rolI8sY", ratio: "landscape" }
 ai: true
 aDecouvrir: true
 order: 7

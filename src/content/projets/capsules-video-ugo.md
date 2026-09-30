@@ -15,7 +15,8 @@ gallery:
   - /images/old-site/2024/02/UGO-12.jpg
   - /images/old-site/2024/02/UGO-13.jpg
   - /images/old-site/2024/02/UGO-BG-flou-1.jpg
-videos: ["y7_Ghybvl2s"]
+videos:
+  - { id: "y7_Ghybvl2s", ratio: "landscape" }
 videoFirst: true
 order: 104
 date: 2024-02-01

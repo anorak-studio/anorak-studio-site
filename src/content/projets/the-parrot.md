@@ -16,7 +16,8 @@ gallery:
   - /images/projets/the-parrot-8.jpg
   - /images/projets/the-parrot-10.jpg
   - /images/projets/the-parrot-11.jpg
-videos: ["gEVRwL99NXw"]
+videos:
+  - { id: "gEVRwL99NXw", ratio: "landscape" }
 duration: "14:50"
 synopsis: "Après le décès de sa grand-mère, Lauren hérite d'une maison dans le Vieux-Québec. À leur arrivée, Lauren et son petit ami Lucas sont stupéfaits de découvrir qu'un très vieil oiseau parlant s'y trouve, parmi la poussière et les objets mystérieux. Tandis que le couple s'interroge sur les origines de l'oiseau, les phrases qu'il répète deviennent de plus en plus sinistres et énigmatiques."
 order: 2.1

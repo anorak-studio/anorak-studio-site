@@ -7,7 +7,8 @@ cover: "/images/projets/abkt-2.jpg"
 gallery:
   - /images/projets/abkt-2.jpg
   - /images/projets/abkt-1.jpg
-videos: ["77Zuz2RxmQg"]
+videos:
+  - { id: "77Zuz2RxmQg", ratio: "landscape" }
 order: 3
 todo: ["Date de sortie prévue"]
 ---

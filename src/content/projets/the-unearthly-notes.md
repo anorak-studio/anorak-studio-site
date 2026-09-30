@@ -10,7 +10,8 @@ cover: "/images/projets/the-unearthly-notes-poster.jpg"
 gallery:
   - /images/projets/the-parrot-6.jpg
   - /images/projets/the-plant-4.jpg
-videos: ["pyPA46oIRZ0"]
+videos:
+  - { id: "pyPA46oIRZ0", ratio: "landscape" }
 episodes: ["the-parrot", "the-plant", "the-writer"]
 editorial: true
 aDecouvrir: true

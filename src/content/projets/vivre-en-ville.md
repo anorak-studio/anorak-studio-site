@@ -15,7 +15,9 @@ gallery:
   - /images/projets/vivre-en-ville-8.jpg
   - /images/projets/vivre-en-ville-9.jpg
   - /images/projets/vivre-en-ville-10.jpg
-videos: ["80EFGuY4wUk", "3kawBFXQ_XQ"]
+videos:
+  - { id: "80EFGuY4wUk", ratio: "landscape" }
+  - { id: "3kawBFXQ_XQ", ratio: "landscape" }
 videoFirst: true
 order: 15
 links: []

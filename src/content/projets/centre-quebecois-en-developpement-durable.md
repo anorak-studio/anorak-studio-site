@@ -5,7 +5,11 @@ categories: ["Vidéo"]
 cover: "/images/old-site/2024/02/Ambiance_PME.jpg"
 gallery:
   - /images/old-site/2024/02/PME_1.jpg
-videos: ["gC-kPTgEjyk", "1FTxwh96Pek", "OHeG6i37tJg", "KAVi4KM9X1c"]
+videos:
+  - { id: "gC-kPTgEjyk", ratio: "landscape" }
+  - { id: "1FTxwh96Pek", ratio: "landscape" }
+  - { id: "OHeG6i37tJg", ratio: "landscape" }
+  - { id: "KAVi4KM9X1c", ratio: "landscape" }
 videoFirst: true
 order: 112
 date: 2024-02-14
