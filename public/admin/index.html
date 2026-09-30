@@ -70,5 +70,58 @@
          minor/patch releases have shipped since. Bumped to 3.16.3, the latest
          stable release as of this writing (3.17.0 is still a beta). -->
     <script src="https://unpkg.com/decap-cms@3.16.3/dist/decap-cms.js"></script>
+
+    <!-- Reset button: clears everything the CMS keeps in this browser (local backups/drafts in
+         IndexedDB, the saved GitHub login in localStorage, any cached requests) and reloads.
+         A page can't drive the browser's own "Clear site data" dialog (no JS access to that),
+         but this clears the actual data that dialog would clear for this site, which is what
+         fixes a stuck local backup or a stale login — no need to dig through browser settings. -->
+    <button
+      id="cms-reset-btn"
+      type="button"
+      style="position:fixed;bottom:14px;left:14px;z-index:999998;background:#1f4d3a;color:#fff;
+             border:none;border-radius:6px;padding:9px 14px;font:13px/1.2 sans-serif;
+             cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:.85;"
+      onmouseover="this.style.opacity='1'"
+      onmouseout="this.style.opacity='.85'"
+    >Réinitialiser le CMS (efface les données locales)</button>
+    <script>
+      document.getElementById('cms-reset-btn').addEventListener('click', async function () {
+        var ok = confirm(
+          'Ceci efface les brouillons/sauvegardes locales et ta connexion GitHub enregistrée ' +
+          'dans ce navigateur (tu devras te reconnecter). Aucun projet publié n\'est touché. Continuer ?'
+        );
+        if (!ok) return;
+        try { localStorage.clear(); } catch (e) {}
+        try { sessionStorage.clear(); } catch (e) {}
+        try {
+          if (window.indexedDB && indexedDB.databases) {
+            var dbs = await indexedDB.databases();
+            await Promise.all(
+              dbs.map(function (db) {
+                return new Promise(function (resolve) {
+                  var req = indexedDB.deleteDatabase(db.name);
+                  req.onsuccess = req.onerror = req.onblocked = function () { resolve(); };
+                });
+              })
+            );
+          } else {
+            // Older browsers without indexedDB.databases(): delete the names Decap/localForage
+            // actually use, as a fallback.
+            ['localforage', 'keyvaluepairs', 'backend-storage', 'netlify-cms-backend', 'decap-cms-backend'].forEach(
+              function (name) { indexedDB.deleteDatabase(name); }
+            );
+          }
+        } catch (e) {}
+        try {
+          if (window.caches) {
+            var keys = await caches.keys();
+            await Promise.all(keys.map(function (k) { return caches.delete(k); }));
+          }
+        } catch (e) {}
+        alert('Données locales effacées. La page va se recharger.');
+        location.reload();
+      });
+    </script>
   </body>
 </html>
