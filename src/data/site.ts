@@ -55,9 +55,12 @@ export const site = {
   phoneHref: contact.phoneHref,
   address: contact.address,
   social: contact.social as SocialLink[],
-  // Contact form: paste a Formspree (or similar) endpoint here to activate the form.
-  // Left empty, the form opens the visitor's email app instead.
-  formEndpoint: '',
+  // Contact form: paste a Web3Forms access key here (web3forms.com, free, instant — no
+  // account needed, just an email to receive the key) to send submissions straight to
+  // `email` below via a secure background request. Left empty, the form falls back to
+  // opening the visitor's email app (mailto:), which is what triggers the browser's
+  // "this form is not secure" warning.
+  formAccessKey: '',
   // Shows the "À compléter" reminders on projects. Set to false before launch.
   showTodo: true,
 };

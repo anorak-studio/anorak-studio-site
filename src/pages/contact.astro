@@ -22,13 +22,30 @@ const mapQuery = encodeURIComponent(`${site.address.street}, ${site.address.city
         <Social />
       </div>
 
-      <form class="form" method="POST" action={site.formEndpoint || `mailto:${site.email}`} enctype={site.formEndpoint ? undefined : 'text/plain'}>
-        <label>Nom<input name="nom" required autocomplete="name" /></label>
-        <label>Courriel<input name="courriel" type="email" required autocomplete="email" /></label>
-        <label>Sujet<input name="sujet" /></label>
-        <label>Message<textarea name="message" rows="6" required></textarea></label>
-        <button class="btn" type="submit">Soumettre</button>
-      </form>
+      {site.formAccessKey ? (
+        <form class="form" id="contact-form">
+          <input type="hidden" name="access_key" value={site.formAccessKey} />
+          <input type="hidden" name="subject" value={`Nouveau message — ${site.name}`} />
+          <input type="hidden" name="from_name" value={site.name} />
+          {/* Honeypot: real visitors never see or fill this field; bots that fill every
+              field do, and Web3Forms silently drops the submission. */}
+          <input type="checkbox" name="botcheck" class="hp" tabindex={-1} autocomplete="off" />
+          <label>Nom<input name="name" required autocomplete="name" /></label>
+          <label>Courriel<input name="email" type="email" required autocomplete="email" /></label>
+          <label>Sujet<input name="sujet" /></label>
+          <label>Message<textarea name="message" rows="6" required></textarea></label>
+          <button class="btn" type="submit">Soumettre</button>
+          <p class="form__status" aria-live="polite"></p>
+        </form>
+      ) : (
+        <form class="form" method="POST" action={`mailto:${site.email}`} enctype="text/plain">
+          <label>Nom<input name="nom" required autocomplete="name" /></label>
+          <label>Courriel<input name="courriel" type="email" required autocomplete="email" /></label>
+          <label>Sujet<input name="sujet" /></label>
+          <label>Message<textarea name="message" rows="6" required></textarea></label>
+          <button class="btn" type="submit">Soumettre</button>
+        </form>
+      )}
     </div>
   </section>
 </Base>
@@ -45,5 +62,40 @@ const mapQuery = encodeURIComponent(`${site.address.street}, ${site.address.city
   input, textarea { font: inherit; padding: .75em .9em; border: 1px solid var(--c-line); border-radius: var(--radius); background: var(--c-surface); color: var(--c-ink); width: 100%; }
   input:focus, textarea:focus { outline: 2px solid var(--c-brand); outline-offset: 0; }
   .form .btn { justify-self: start; cursor: var(--cursor-perfect); }
+  .form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .form__status { font-size: .9rem; min-height: 1.2em; margin: 0; }
+  .form__status[data-state="ok"] { color: var(--c-brand); }
+  .form__status[data-state="error"] { color: #b3261e; }
   @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } }
 </style>
+
+{site.formAccessKey && (
+  <script>
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const status = form?.querySelector<HTMLParagraphElement>('.form__status');
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (btn) btn.disabled = true;
+      if (status) { status.dataset.state = ''; status.textContent = 'Envoi en cours…'; }
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const data = await res.json();
+        if (data.success) {
+          form.reset();
+          if (status) { status.dataset.state = 'ok'; status.textContent = 'Message envoyé — merci! On vous répond bientôt.'; }
+        } else {
+          throw new Error(data.message || 'Échec de l’envoi');
+        }
+      } catch {
+        if (status) { status.dataset.state = 'error'; status.textContent = "Une erreur est survenue. Réessayez, ou écrivez-nous directement par courriel."; }
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    });
+  </script>
+)}
