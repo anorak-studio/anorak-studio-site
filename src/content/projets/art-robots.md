@@ -5,6 +5,8 @@ summary: Court métrage sur la création à l'ère de l'intelligence artificiell
 status: Court métrage, 2023
 categories:
   - Réalisation
+  - IA
+  - Vidéo
 cover: /images/projets/art-robots-poster.jpg
 gallery:
   - /images/projets/art-robots-2.jpg
