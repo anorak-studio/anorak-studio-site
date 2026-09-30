@@ -6,6 +6,8 @@ categories: ["Identité", "Web", "Vidéo", "Science"]
 cover: "/images/projets/hub-innovation-1.jpg"
 gallery:
   - /images/projets/hub-innovation-1.jpg
+  - /images/projets/hub-logo.png
+  - /images/projets/hub-banner.jpg
 videos: ["WEr9rolI8sY"]
 ai: true
 order: 7
