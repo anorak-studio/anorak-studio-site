@@ -119,7 +119,7 @@ const seriesVideos =
       // above), before anything else on the page. Sized up a notch from the standard video row
       // (see .vrow--series below) since video is the main way this project presents itself.
       <div class="vrow-wrap">
-        <div class="vrow vrow--wide vrow--series" role="list" aria-label={`Vidéos, ${d.title}`}>
+        <div class={`vrow vrow--wide vrow--series ${seriesVideos.length > 1 ? 'vrow--single' : ''}`} role="list" aria-label={`Vidéos, ${d.title}`}>
           {seriesVideos.map((v) => (
             <div class="vrow__item vrow__item--landscape" role="listitem">
               <YouTubeFacade id={v.id} title={v.title} />
@@ -165,7 +165,7 @@ const seriesVideos =
           // presents itself. More than one video falls back to the normal full-width row, since
           // "centered and oversized" stops making sense once there's a set to scroll through.
           <div class="vrow-wrap">
-            <div class={`vrow vrow--wide ${otherVideos.length === 1 ? 'vrow--lead' : ''}`} role="list" aria-label={`Vidéos, ${d.title}`}>
+            <div class={`vrow vrow--wide ${otherVideos.length === 1 ? 'vrow--lead' : 'vrow--single'}`} role="list" aria-label={`Vidéos, ${d.title}`}>
               {otherVideos.map((v) => (
                 <div class={`vrow__item vrow__item--${v.ratio}`} role="listitem">
                   <YouTubeFacade id={v.id} title={`${d.title} (vidéo)`} />
@@ -240,7 +240,7 @@ const seriesVideos =
 
     {!d.videoFirst && seriesVideos.length === 0 && otherVideos.length > 0 && (
       <div class="vrow-wrap">
-        <div class="vrow vrow--wide" role="list" aria-label={`Vidéos, ${d.title}`}>
+        <div class={`vrow vrow--wide ${otherVideos.length > 1 ? 'vrow--single' : ''}`} role="list" aria-label={`Vidéos, ${d.title}`}>
           {otherVideos.map((v) => (
             <div class={`vrow__item vrow__item--${v.ratio}`} role="listitem">
               <YouTubeFacade id={v.id} title={`${d.title} (vidéo)`} />
@@ -303,7 +303,21 @@ const seriesVideos =
         if (!pointerDown) return;
         pointerDown = false;
         row.classList.remove('is-pressed');
-        if (dragging) { dragging = false; row.classList.remove('is-dragging'); }
+        if (!dragging) return;
+        dragging = false;
+        row.classList.remove('is-dragging');
+        // Native scroll-snap only settles at the end of a real scroll/momentum gesture — our
+        // manual scrollLeft writes during the drag don't count as one, so without this the row
+        // could be left sitting between two items once the pointer lifts. Settles to whichever
+        // item's start edge is closest to where the drag ended.
+        const items = Array.from(row.children) as HTMLElement[];
+        let nearest = items[0];
+        let best = Infinity;
+        for (const item of items) {
+          const d = Math.abs(item.offsetLeft - row.scrollLeft);
+          if (d < best) { best = d; nearest = item; }
+        }
+        if (nearest) row.scrollTo({ left: nearest.offsetLeft, behavior: 'smooth' });
       };
       row.addEventListener('pointerup', endDrag);
       row.addEventListener('pointercancel', endDrag);
@@ -456,8 +470,16 @@ const seriesVideos =
      from ~900px up — a tablet or phone gets the full-width row instead, never a version shrunk
      to fit an artificial cap. */
   .vrow--lead .vrow__item { flex: 1 1 auto; width: 100%; height: auto; }
+  /* A carousel of several 16:9 (or square) videos: one full-size video at a time, centered, with
+     the arrows either side doing the paging — the same slide-at-a-time technique as the homepage
+     carousel, rather than a free-scrolling row of several smaller boxes. Reuses `.vrow--lead`'s
+     own centered/capped box below so a "big single video" always looks the same across the site,
+     whether there's one video or several to page through. `mandatory` (vs. the row's default
+     `proximity`) is what makes it snap cleanly to exactly one slide per swipe/drag/arrow click. */
+  .vrow--single { scroll-snap-type: x mandatory; }
+  .vrow--wide.vrow--single .vrow__item { flex: 0 0 100%; width: 100%; height: auto; }
   @media (min-width: 900px) {
-    .vrow--lead { max-width: clamp(700px, 62vw, 1320px); margin-inline: auto; }
+    .vrow--lead, .vrow--single { max-width: clamp(700px, 62vw, 1320px); margin-inline: auto; }
   }
 
   /* Prev/next arrows, like a classic carousel — desktop/pointer only (see the media query

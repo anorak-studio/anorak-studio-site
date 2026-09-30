@@ -1,7 +1,7 @@
 ---
 title: "The Unearthly Notes"
-summary: "Série de trois épisodes inspirée de H.P. Lovecraft, diffusée sur Bell TV1. Scénario, réalisation, production exécutive et image de marque : Mathieu Fortin."
-status: "Série, 3 épisodes, sur Bell TV1"
+summary: "Trois histoires autonomes transforment Québec en porte d'entrée vers l'inconnu, où se croisent histoire, secrets familiaux et science étrange."
+status: "Série anthologique, 3 épisodes (38:44), sur Bell TV1"
 categories: ["Réalisation", "Identité"]
 cover: "/images/projets/the-unearthly-notes-poster.jpg"
 gallery:
@@ -12,9 +12,9 @@ gallery:
   - /images/projets/the-writer-1.jpg
   - /images/projets/the-writer-6.jpg
 statements:
-  - { after: 1, text: "The Parrot — un vieil oiseau parleur, des mots qui deviennent troublants." }
-  - { after: 3, text: "The Plant — une expérience qui dérape, un mystère qui grandit." }
-  - { after: 5, text: "The Writer — une ville qui abrite de sinistres habitants." }
+  - { after: 1, text: "The Parrot — Un héritage. Un très vieil oiseau. Des mots de plus en plus sinistres." }
+  - { after: 3, text: "The Plant — Un appartement transformé en laboratoire. Une plante qui n'aurait pas dû exister." }
+  - { after: 5, text: "The Writer — Une ville hantée par son passé. Un écrivain qui découvre ce qu'il n'aurait pas dû voir." }
 videos: ["pyPA46oIRZ0"]
 episodes: ["the-parrot", "the-plant", "the-writer"]
 order: 2
@@ -23,8 +23,12 @@ links:
 todo: ["Sélection en festival pour The Writer"]
 ---
 
-Inspirée de H.P. Lovecraft, **The Unearthly Notes** raconte trois histoires qui mêlent le magnifique et l'inquiétant, dans les rues de Québec. Une série de trois épisodes en anglais, diffusée sur Bell TV1.
+**The Unearthly Notes** est une anthologie d'horreur cosmique en trois parties tournée à Québec. À travers trois histoires originales et autonomes, la série explore différentes manifestations de la peur de l'inconnu.
 
-**Mathieu Fortin : scénariste, réalisateur, producteur exécutif et image de marque de la série.**
+Un écrivain erre dans la vieille ville, fasciné par son architecture et ses habitants lugubres. Une jeune femme hérite d'une maison habitée par un mystérieux perroquet parlant. Un spécialiste des sols transforme un appartement du Vieux-Québec en laboratoire, où ses expériences sur des plantes carnivores prennent une tournure inattendue.
 
-Avec Catherine Côté, Juan Arango, Lucette Beaumont, Rim El Kniez, Pedro Carbajal, Emmanuel Pelletier-Michaud, Luca Max, Kreg Weiss, Danielle Picard, Laurence Viel-Desbiens et Alice Pairault.
+Mêlant fiction historique, mystère psychologique, science étrange et horreur cosmique, l'anthologie révèle Québec sous un angle inhabituel, brumeux et inquiétant. Série de trois épisodes en anglais, diffusée sur Bell TV1.
+
+**Mathieu Fortin : scénariste, réalisateur, monteur, producteur exécutif et image de marque de la série.**
+
+Avec Choupette dans le rôle du perroquet, Catherine Côté, Juan Arango, Lucette Beaumont, Rim El Kniez, Pedro Carbajal, Emmanuel Pelletier-Michaud, Luca Max, Kreg Weiss, Danielle Picard, Laurence Viel-Desbiens et Alice Pairault.
