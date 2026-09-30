@@ -60,7 +60,7 @@ export const site = {
   // `email` below via a secure background request. Left empty, the form falls back to
   // opening the visitor's email app (mailto:), which is what triggers the browser's
   // "this form is not secure" warning.
-  formAccessKey: '',
+  formAccessKey: 'f3812c8e-8b9a-466e-b4a7-5091b2afb608',
   // Shows the "À compléter" reminders on projects. Set to false before launch.
   showTodo: true,
 };
