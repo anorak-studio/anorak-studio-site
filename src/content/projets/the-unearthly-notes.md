@@ -5,12 +5,16 @@ status: "Série, 3 épisodes, sur Bell TV1"
 categories: ["Réalisation", "Identité"]
 cover: "/images/projets/the-unearthly-notes-poster.jpg"
 gallery:
-  - /images/projets/the-parrot-3.jpg
-  - /images/projets/the-parrot-9.jpg
-  - /images/projets/the-plant-3.jpg
-  - /images/projets/the-plant-10.jpg
-  - /images/projets/the-writer-3.jpg
-  - /images/projets/the-writer-9.jpg
+  - /images/projets/the-parrot-6.jpg
+  - /images/projets/the-parrot-11.jpg
+  - /images/projets/the-plant-4.jpg
+  - /images/projets/the-plant-11.jpg
+  - /images/projets/the-writer-1.jpg
+  - /images/projets/the-writer-6.jpg
+statements:
+  - { after: 1, text: "The Parrot — un vieil oiseau parleur, des mots qui deviennent troublants." }
+  - { after: 3, text: "The Plant — une expérience qui dérape, un mystère qui grandit." }
+  - { after: 5, text: "The Writer — une ville qui abrite de sinistres habitants." }
 videos: ["pyPA46oIRZ0"]
 episodes: ["the-parrot", "the-plant", "the-writer"]
 order: 2
@@ -20,10 +24,6 @@ todo: ["Sélections en festivals"]
 ---
 
 Inspirée de H.P. Lovecraft, **The Unearthly Notes** raconte trois histoires qui mêlent le magnifique et l'inquiétant, dans les rues de Québec. Une série de trois épisodes en anglais, diffusée sur Bell TV1.
-
-- **The Parrot** : après avoir hérité d'une maison dans le Vieux-Québec, Lauren découvre un vieil oiseau parleur dont les mots deviennent troublants.
-- **The Plant** : les expériences d'un biologiste sur des plantes carnivores dérapent, et sa voisine Adeline se retrouve prise dans ce mystère grandissant.
-- **The Writer** : en 1930, un écrivain de passage à Québec soupçonne la ville d'abriter de sinistres habitants.
 
 **Mathieu Fortin : scénariste, réalisateur, producteur exécutif et image de marque de la série.**
 

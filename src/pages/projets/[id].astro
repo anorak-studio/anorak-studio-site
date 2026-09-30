@@ -55,6 +55,19 @@ const otherVideos = d.videos.filter((v) => v.ratio !== 'portrait');
 // Trims YouTube's own UI as much as it allows: no related-video suggestions, no annotations,
 // muted branding — the goal is to keep as little as possible on top of the video itself.
 const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
+
+// For a series (`episodes` set): one slider with the series' own trailer first, then each
+// episode's own trailer in order — instead of a separate "series trailer" block and a second
+// carousel of episode trailers. Replaces the normal video block(s) entirely for this page.
+const seriesVideos =
+  episodes.length > 0
+    ? [
+        ...(d.videos.length > 0 ? [{ id: d.videos[0].id, title: `${d.title} (bande-annonce)` }] : []),
+        ...episodes
+          .filter((ep) => ep.data.videos.length > 0)
+          .map((ep) => ({ id: ep.data.videos[0].id, title: `${ep.data.title} (bande-annonce)` })),
+      ]
+    : [];
 ---
 <Base title={d.title} description={d.summary} image={d.cover}>
   {/* Kept out of <article> on purpose: <article> below gets an opaque full-bleed background
@@ -102,48 +115,31 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
       </aside>
     )}
 
-    {episodes.length > 0 && d.videos.length > 0 && (
-      // Series trailer, big and alone, centered at the top; each episode's own trailer in a
-      // carousel below it — right after the cover and the project's presentation (the header
-      // above), before anything else on the page.
-      <div class="series-trailer wrap">
-        <div class="series-trailer__main">
-          <p class="series-trailer__label">Bande-annonce de la série</p>
-          <div class="series-trailer__frame">
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${d.videos[0].id}?${videoParams}`}
-              title={`${d.title} (bande-annonce)`}
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
+    {seriesVideos.length > 0 && (
+      // One slider for every video of the series: the series' own trailer first, then each
+      // episode's, in order — right after the cover and the project's presentation (the header
+      // above), before anything else on the page. Sized up a notch from the standard video row
+      // (see .vrow--series below) since video is the main way this project presents itself.
+      <div class="vrow-wrap">
+        <div class="vrow vrow--wide vrow--series" role="list" aria-label={`Vidéos, ${d.title}`}>
+          {seriesVideos.map((v) => (
+            <div class="vrow__item vrow__item--landscape" role="listitem">
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${v.id}?${videoParams}`}
+                title={v.title}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          ))}
         </div>
-        <div class="vrow-wrap series-trailer__eps">
-          <p class="series-trailer__label">Les épisodes</p>
-          <div class="vrow vrow--episodes" role="list" aria-label="Bandes-annonces des épisodes">
-            {episodes.map((ep) => ep.data.videos.length > 0 && (
-              <div class="ep-card" role="listitem">
-                <div class="ep-card__frame">
-                  <iframe
-                    src={`https://www.youtube-nocookie.com/embed/${ep.data.videos[0].id}?${videoParams}`}
-                    title={`${ep.data.title} (bande-annonce)`}
-                    loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-                <a class="ep-card__title" href={`/projets/${ep.id}/`}>{ep.data.title}</a>
-              </div>
-            ))}
-          </div>
-          {episodes.length > 1 && (
-            <>
-              <button class="vrow-nav vrow-nav--prev" type="button" aria-label="Épisode précédent">‹</button>
-              <button class="vrow-nav vrow-nav--next" type="button" aria-label="Épisode suivant">›</button>
-            </>
-          )}
-        </div>
+        {seriesVideos.length > 1 && (
+          <>
+            <button class="vrow-nav vrow-nav--prev" type="button" aria-label="Vidéo précédente">‹</button>
+            <button class="vrow-nav vrow-nav--next" type="button" aria-label="Vidéo suivante">›</button>
+          </>
+        )}
       </div>
     )}
 
@@ -151,7 +147,7 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
         in the frontmatter), so every other project page keeps its current order (photos, then
         video) and only opts in explicitly. Skipped entirely for a series (`episodes` above
         already shows this project's own trailer). */}
-    {d.videoFirst && episodes.length === 0 && (
+    {d.videoFirst && seriesVideos.length === 0 && (
       <>
         {portraitVideos.length > 0 && (
           <div class="vrow-wrap">
@@ -214,7 +210,32 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
       </div>
     )}
 
-    {!d.videoFirst && episodes.length === 0 && portraitVideos.length > 0 && (
+    {episodes.length > 0 && (
+      // One section per episode, in listed order — a title-card main image, a couple of stills,
+      // its own short pitch and (once set) its runtime. Each episode picks its own images via
+      // `thumb` (falls back to `cover`) for the main one and the first two `gallery` entries for
+      // the stills, so this needs no extra frontmatter of its own.
+      <div class="eplist wrap">
+        {episodes.map((ep, i) => (
+          <div class="epsec">
+            <div class="epsec__main">
+              <Img src={ep.data.thumb ?? ep.data.cover ?? ep.data.gallery[0]} alt={ep.data.title} />
+            </div>
+            <div class="epsec__stills">
+              {ep.data.gallery.slice(0, 2).map((src) => <Img src={src} alt={ep.data.title} ratio="4 / 3" />)}
+            </div>
+            <div class="epsec__info">
+              <p class="epsec__num">Épisode {i + 1}</p>
+              <h3 class="epsec__title"><a href={`/projets/${ep.id}/`}>{ep.data.title}</a></h3>
+              <p class="epsec__text">{ep.data.summary}</p>
+              {ep.data.duration && <p class="epsec__duration">{ep.data.duration}</p>}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {!d.videoFirst && seriesVideos.length === 0 && portraitVideos.length > 0 && (
       <div class="vrow-wrap">
         <div class="vrow vrow--portrait" role="list" aria-label={`Vidéos verticales, ${d.title}`}>
           {portraitVideos.map((v) => (
@@ -238,7 +259,7 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
       </div>
     )}
 
-    {!d.videoFirst && episodes.length === 0 && otherVideos.length > 0 && (
+    {!d.videoFirst && seriesVideos.length === 0 && otherVideos.length > 0 && (
       <div class="vrow-wrap">
         <div class="vrow vrow--wide" role="list" aria-label={`Vidéos, ${d.title}`}>
           {otherVideos.map((v) => (
@@ -399,6 +420,9 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
   .vrow--wide .vrow__item { height: clamp(200px, 34vw, 440px); }
   .vrow--wide .vrow__item--landscape { aspect-ratio: 16 / 9; }
   .vrow--wide .vrow__item--square { aspect-ratio: 1 / 1; }
+  /* A series' combined video slider (see seriesVideos above): slightly bigger than the standard
+     video row, since for a series the videos are a main way the project presents itself. */
+  .vrow--series .vrow__item { height: clamp(240px, 40vw, 520px); }
 
   /* Prev/next arrows, like a classic carousel — desktop/pointer only (see the media query
      below); the row itself is still a native scroller underneath for trackpad/touch. */
@@ -421,38 +445,38 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
     .vrow--wide .vrow__item { flex: 0 0 100%; height: auto; }
   }
 
-  /* Series trailer, big and alone at the top, centered — then a full-width carousel of each
-     episode's own trailer below it. Reuses the .vrow-wrap/.vrow/.vrow-nav classes above (same
-     generic scroll/arrow script), with .ep-card sized so a few episodes sit side by side. */
-  .series-trailer {
-    display: flex; flex-direction: column; align-items: center;
-    gap: clamp(24px, 4vw, 40px);
-    padding-block: clamp(24px, 4vw, 48px);
+  /* One section per episode of a series (see the `episodes` map above): a title-card main image
+     on one side, a couple of stills and the pitch/duration on the other, alternating sides down
+     the page so three episodes in a row don't all look identical. */
+  .eplist { display: flex; flex-direction: column; gap: clamp(40px, 6vw, 72px); padding-block: clamp(24px, 4vw, 56px); }
+  .epsec {
+    display: grid; gap: clamp(16px, 2.5vw, 28px);
+    grid-template-columns: 1fr;
   }
-  .series-trailer__main {
-    width: 100%;
-    /* 1.5x the width a single trailer gets elsewhere on the page (.vrow--wide's standard
-       16:9 item, clamp(200px,34vw,440px) tall) — big enough to lead the page on its own. */
-    max-width: clamp(534px, 51vw, 1173px);
+  .epsec__main { border-radius: var(--radius); overflow: hidden; }
+  .epsec__main :global(img) { width: 100%; display: block; }
+  .epsec__stills { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px, 1.5vw, 16px); }
+  .epsec__stills :global(img) { border-radius: var(--radius); display: block; }
+  .epsec__info { max-width: 60ch; }
+  @media (min-width: 1000px) {
+    /* The main title image alternates sides so three episodes in a row don't look identical;
+       the stills + pitch stack in the other column either way. */
+    .epsec {
+      grid-template-columns: 1.3fr 1fr;
+      grid-template-areas: "main stills" "main info";
+      align-items: start;
+    }
+    .epsec:nth-child(even) { grid-template-columns: 1fr 1.3fr; grid-template-areas: "stills main" "info main"; }
+    .epsec__main { grid-area: main; }
+    .epsec__stills { grid-area: stills; }
+    .epsec__info { grid-area: info; }
   }
-  .series-trailer__eps { width: 100%; }
-  .series-trailer__label {
-    font: 700 .8rem/1 var(--f-body); text-transform: uppercase; letter-spacing: .1em;
-    color: var(--c-muted); margin: 0 0 .7rem;
-  }
-  .series-trailer__frame { position: relative; aspect-ratio: 16 / 9; background: #000; border-radius: var(--radius); overflow: hidden; }
-  .series-trailer__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-  .series-trailer__eps .vrow--episodes { padding-inline: 0; }
-  .vrow--episodes .ep-card { flex: 0 0 84%; scroll-snap-align: start; }
-  @media (min-width: 640px) {
-    /* Several episodes side by side in the now full-width row, scrollable if there are more. */
-    .vrow--episodes .ep-card { flex: 0 0 320px; }
-  }
-  .ep-card { display: flex; flex-direction: column; gap: 8px; }
-  .ep-card__frame { position: relative; aspect-ratio: 16 / 9; background: #000; border-radius: var(--radius); overflow: hidden; }
-  .ep-card__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-  .ep-card__title { font: 600 .95rem/1.3 var(--f-body); color: var(--c-ink); text-decoration: none; }
-  .ep-card__title:hover { color: var(--c-brand); }
+  .epsec__num { font: 700 .8rem/1 var(--f-body); text-transform: uppercase; letter-spacing: .1em; color: var(--c-muted); margin: 0 0 .5rem; }
+  .epsec__title { margin: 0 0 .5rem; font-size: clamp(1.3rem, 2.4vw, 1.8rem); }
+  .epsec__title a { color: inherit; text-decoration: none; }
+  .epsec__title a:hover { color: var(--c-brand); }
+  .epsec__text { margin: 0; color: var(--c-ink); font-size: 1rem; line-height: 1.5; }
+  .epsec__duration { margin: .7rem 0 0; font-size: .85rem; color: var(--c-muted); }
 
   .others { background: var(--c-grey); margin-top: clamp(32px, 5vw, 64px); }
   .others h2 { margin-bottom: 1.2em; }

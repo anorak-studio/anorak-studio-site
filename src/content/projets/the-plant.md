@@ -6,17 +6,16 @@ categories: ["Réalisation"]
 cover: "/images/projets/the-plant-poster.jpg"
 thumb: "/images/projets/the-plant-3.jpg"
 gallery:
+  - /images/projets/the-plant-9.jpg
+  - /images/projets/the-plant-13.jpg
   - /images/projets/the-plant-2.jpg
-  - /images/projets/the-plant-3.jpg
   - /images/projets/the-plant-4.jpg
   - /images/projets/the-plant-5.jpg
   - /images/projets/the-plant-7.jpg
   - /images/projets/the-plant-8.jpg
-  - /images/projets/the-plant-9.jpg
   - /images/projets/the-plant-10.jpg
   - /images/projets/the-plant-11.jpg
   - /images/projets/the-plant-12.jpg
-  - /images/projets/the-plant-13.jpg
   - /images/projets/the-plant-14.jpg
   - /images/projets/the-plant-15.jpg
   - /images/projets/the-plant-16.jpg

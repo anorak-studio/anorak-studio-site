@@ -5,15 +5,15 @@ status: "Épisode 3 de la série The Unearthly Notes, sur Bell TV1"
 categories: ["Réalisation"]
 cover: "/images/projets/the-writer-poster.jpg"
 gallery:
+  - /images/projets/the-writer-3.jpg
+  - /images/projets/the-writer-9.jpg
   - /images/projets/the-writer-1.jpg
   - /images/projets/the-writer-2.jpg
-  - /images/projets/the-writer-3.jpg
   - /images/projets/the-writer-4.jpg
   - /images/projets/the-writer-5.jpg
   - /images/projets/the-writer-6.jpg
   - /images/projets/the-writer-7.jpg
   - /images/projets/the-writer-8.jpg
-  - /images/projets/the-writer-9.jpg
   - /images/projets/the-writer-10.jpg
   - /images/projets/the-writer-11.jpg
   - /images/projets/the-writer-12.jpg

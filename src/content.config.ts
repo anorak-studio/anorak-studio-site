@@ -21,9 +21,10 @@ const projets = defineCollection({
     // `after` is how many gallery images come before it (0 = shown before the very first image).
     statements: z.array(z.object({ after: z.number(), text: z.string() })).default([]),
     // Project ids (other entries in this same collection) of a series' episodes — e.g. the
-    // three short films inside "The Unearthly Notes". When set, the project's own first video
-    // is shown as the big series trailer at the very top of the page (after the cover and the
-    // text), with the listed episodes' own trailers in a small carousel beside it.
+    // three short films inside "The Unearthly Notes". When set, the project's own trailer and
+    // each episode's own trailer are combined into one video slider (project's first, then each
+    // episode in listed order), and each episode gets its own presentation section (main image,
+    // a couple of stills, its summary and duration) further down the page — see [id].astro.
     episodes: z.array(z.string()).default([]),
     // YouTube video IDs. Accepts a plain string (old shape, defaults to "landscape" — every
     // project that already has videos is a normal 16:9 trailer) or an object with an explicit
@@ -43,6 +44,9 @@ const projets = defineCollection({
     // Shows the trailer(s) right at the top of the page (before any photos) instead of the
     // usual spot below the gallery — for a project page that's meant to lead with the video.
     videoFirst: z.boolean().default(false),
+    // Runtime shown next to an episode's own description (e.g. on a series' detail page).
+    // Freeform text ("12 min") rather than a number, since it's just displayed, not computed with.
+    duration: z.string().optional(),
     links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
     ai: z.boolean().default(false), // shows an "IA" tag (project made with AI tools)
     shop: z.string().optional(), // note shown with a "Boutique" button

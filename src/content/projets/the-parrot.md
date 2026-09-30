@@ -6,14 +6,14 @@ categories: ["Réalisation"]
 cover: "/images/projets/the-parrot-poster.jpg"
 thumb: "/images/projets/the-parrot-3.jpg"
 gallery:
+  - /images/projets/the-parrot-7.jpg
+  - /images/projets/the-parrot-9.jpg
   - /images/projets/the-parrot-2.jpg
   - /images/projets/the-parrot-3.jpg
   - /images/projets/the-parrot-4.jpg
   - /images/projets/the-parrot-5.jpg
   - /images/projets/the-parrot-6.jpg
-  - /images/projets/the-parrot-7.jpg
   - /images/projets/the-parrot-8.jpg
-  - /images/projets/the-parrot-9.jpg
   - /images/projets/the-parrot-10.jpg
   - /images/projets/the-parrot-11.jpg
 videos: ["gEVRwL99NXw"]
