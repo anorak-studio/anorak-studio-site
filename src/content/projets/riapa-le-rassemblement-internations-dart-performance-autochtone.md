@@ -16,7 +16,7 @@ draft: false
 
 Client : Guy Sioui Durand, commissaire Wendat indépendant. Le RIAPA regroupe plusieurs disciplines autour d'événements d'art total autochtone : identité visuelle, site web, imprimé, illustration, photographie et vidéo.
 
-**Anorak Studio : création de l'image de marque du RIAPA** et d'un nombre important d'outils de communication graphique, gestion et production de contenu pour les réseaux sociaux, ainsi que la capture photo et vidéo des événements. Visiter le [site web](https://riapa.ca/).
+**Anorak Studio : création de l'image de marque du RIAPA** et d'un nombre important d'outils de communication graphique, conception du site web, gestion et production de contenu pour les réseaux sociaux, ainsi que la capture photo et vidéo des événements.
 
 **La Tortue Serpentine** (2022) est l'œuvre vidéo phare de YÄ'ATA, Art Total Autochtone, un grand rassemblement tenu sur le Ndakina (territoire ancestral de la Nation W8banaki) à l'Université de Sherbrooke, dans le cadre de la Semaine nationale de la vérité et de la réconciliation.
 
