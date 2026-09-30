@@ -20,7 +20,7 @@ episodes: ["the-parrot", "the-plant", "the-writer"]
 order: 2
 links:
   - { label: "Regarder sur Bell TV1", href: "https://tv1.bell.ca/fibetv1/shows/the-unearthly-notes" }
-todo: ["Sélections en festivals"]
+todo: ["Sélection en festival pour The Writer"]
 ---
 
 Inspirée de H.P. Lovecraft, **The Unearthly Notes** raconte trois histoires qui mêlent le magnifique et l'inquiétant, dans les rues de Québec. Une série de trois épisodes en anglais, diffusée sur Bell TV1.

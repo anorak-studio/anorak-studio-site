@@ -31,3 +31,5 @@ todo: []
 Deuxième épisode de la série [The Unearthly Notes](/projets/the-unearthly-notes/), inspirée de H.P. Lovecraft. Les expériences d'un biologiste sur des plantes carnivores dérapent, et sa voisine Adeline se retrouve prise dans ce mystère grandissant.
 
 **Mathieu Fortin : scénariste, réalisateur, producteur exécutif et image de marque de la série.**
+
+**Sélection officielle**, H. P. Lovecraft Film Festival — Cosmic Horror & Tales of the Supernatural, septembre 2026.

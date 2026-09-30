@@ -173,8 +173,13 @@ const seriesVideos =
           </div>
         )}
         {otherVideos.length > 0 && (
+          // A single trailer leading the page (the common case) is shown big and centered, at
+          // 1.5x the width of the standard video row (see .vrow--lead below) — the same
+          // treatment as a series' combined slider, since here too the video is the main way
+          // the project presents itself. More than one video falls back to the normal full-width
+          // row, since "centered and 1.5x" stops making sense once there's a set to scroll through.
           <div class="vrow-wrap">
-            <div class="vrow vrow--wide" role="list" aria-label={`Vidéos, ${d.title}`}>
+            <div class={`vrow vrow--wide ${otherVideos.length === 1 ? 'vrow--lead' : ''}`} role="list" aria-label={`Vidéos, ${d.title}`}>
               {otherVideos.map((v) => (
                 <div class={`vrow__item vrow__item--${v.ratio}`} role="listitem">
                   <iframe
@@ -423,6 +428,12 @@ const seriesVideos =
   /* A series' combined video slider (see seriesVideos above): slightly bigger than the standard
      video row, since for a series the videos are a main way the project presents itself. */
   .vrow--series .vrow__item { height: clamp(240px, 40vw, 520px); }
+  /* A single trailer leading a (non-series) project's page: centered, at 1.5x the width of the
+     standard video row's own 16:9 item (clamp(200px,34vw,440px) tall) — see the videoFirst block
+     above. Same sizing formula as .vrow--series so a series and a single lead trailer read the
+     same size on the page. */
+  .vrow--lead { max-width: clamp(534px, 51vw, 1173px); margin-inline: auto; }
+  .vrow--lead .vrow__item { flex: 1 1 auto; width: 100%; height: auto; }
 
   /* Prev/next arrows, like a classic carousel — desktop/pointer only (see the media query
      below); the row itself is still a native scroller underneath for trackpad/touch. */

@@ -26,3 +26,5 @@ todo: []
 Premier épisode de la série [The Unearthly Notes](/projets/the-unearthly-notes/), inspirée de H.P. Lovecraft. Après avoir hérité d'une maison dans le Vieux-Québec, Lauren découvre un vieil oiseau parleur dont les mots deviennent troublants.
 
 **Mathieu Fortin : scénariste, réalisateur, producteur exécutif et image de marque de la série.**
+
+**Sélection officielle**, Fantasia International Film Festival, mai 2026.
