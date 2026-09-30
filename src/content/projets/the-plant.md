@@ -6,7 +6,6 @@ categories: ["Réalisation"]
 cover: "/images/projets/the-plant-poster.jpg"
 thumb: "/images/projets/the-plant-3.jpg"
 gallery:
-  - /images/projets/the-plant-hplff-2026.jpg
   - /images/projets/the-plant-9.jpg
   - /images/projets/the-plant-13.jpg
   - /images/projets/the-plant-2.jpg
