@@ -32,4 +32,4 @@ Urgences Rurales 360 est un docu-spectacle de cirque qui réunit recherche scien
 
 Le spectacle est né du projet de recherche de la Chaire de recherche en médecine d'urgence de l'Université Laval (Dr Richard Fleet). Il est coproduit par l'École nationale de cirque (HUPR), l'Université Laval et Les 7 Doigts de la main, et les réactions du public sont recueillies pour mesurer son effet sur la perception des soins en milieu rural.
 
-**Anorak Studio : conception vidéo.** Mathieu Fortin (direction, illustrations, design) et François Mercier (animations). Mathieu Fortin y est aussi professionnel de recherche, responsable de la production multimédia.
+**Anorak Studio : conception vidéo.** Mathieu Fortin (direction, illustrations, design) et François Mercier (animations), avec la collaboration de Julie Théberge et Patrick Léonard. Mathieu Fortin y est aussi professionnel de recherche, responsable de la production multimédia.
