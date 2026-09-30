@@ -6,6 +6,7 @@ categories: ["Réalisation"]
 cover: "/images/projets/the-plant-poster.jpg"
 thumb: "/images/projets/the-plant-3.jpg"
 gallery:
+  - /images/projets/the-plant-hplff-2026.jpg
   - /images/projets/the-plant-9.jpg
   - /images/projets/the-plant-13.jpg
   - /images/projets/the-plant-2.jpg
@@ -36,4 +37,4 @@ Deuxième épisode de la série [The Unearthly Notes](/projets/the-unearthly-not
 
 Avec Emmanuel Pelletier-Michaud et Luca Max.
 
-**Sélection officielle**, H. P. Lovecraft Film Festival — Cosmic Horror & Tales of the Supernatural, septembre 2026.
+**Sélection officielle**, H. P. Lovecraft Film Festival — Cosmic Horror & Tales of the Supernatural, dans le programme Streaming Exclusives, présenté du 4 au 6 décembre 2026.
