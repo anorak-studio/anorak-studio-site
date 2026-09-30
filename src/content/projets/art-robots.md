@@ -1,5 +1,5 @@
 ---
-title: Art Robots 2
+title: Art Robots
 summary: Court métrage sur la création à l'ère de l'intelligence artificielle.
   Prix du meilleur court métrage canadien, FIFA 42.
 status: Court métrage, 2023
