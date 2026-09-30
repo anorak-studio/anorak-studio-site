@@ -16,6 +16,7 @@ gallery:
   - /images/old-site/2024/02/UGO-13.jpg
   - /images/old-site/2024/02/UGO-BG-flou-1.jpg
 videos: ["y7_Ghybvl2s"]
+videoFirst: true
 order: 104
 date: 2024-02-01
 draft: false
