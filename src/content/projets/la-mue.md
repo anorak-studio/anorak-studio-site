@@ -8,7 +8,7 @@ gallery: []
 videos: ["4h0r-mGPlSY"]
 videoFirst: true
 order: 5
-todo: ["Durée du film", "Images du film"]
+todo: []
 ---
 
 Après s'être engagé à créer un court métrage, un réalisateur se questionne sur l'origine des idées et le cycle de vie des projets.

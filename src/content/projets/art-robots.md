@@ -17,8 +17,6 @@ gallery:
   - /images/projets/art-robots-10.jpg
 videos: ["p8KJVNJACYs"]
 order: 4
-links:
-  - { label: "Fiche du film au FIFA", href: "https://lefifa.com/catalogue/art-robots" }
 todo: []
 ---
 

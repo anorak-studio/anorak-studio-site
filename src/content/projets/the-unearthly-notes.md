@@ -14,7 +14,7 @@ videos: ["pyPA46oIRZ0"]
 episodes: ["the-parrot", "the-plant", "the-writer"]
 editorial: true
 order: 2
-todo: ["Sélection en festival pour The Writer"]
+todo: []
 ---
 
 **The Unearthly Notes** est une anthologie d'horreur cosmique en trois parties tournée à Québec. À travers trois histoires originales et autonomes, la série explore différentes manifestations de la peur de l'inconnu, entre fiction historique, mystère psychologique et science étrange. Série de trois épisodes en anglais, diffusée sur Bell TV1.
