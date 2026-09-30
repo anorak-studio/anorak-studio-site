@@ -3,6 +3,13 @@ import Base from '../layouts/Base.astro';
 import PageTitle from '../components/PageTitle.astro';
 import Img from '../components/Img.astro';
 import { services, site } from '../data/site';
+import { getProjets } from '../lib/projets';
+
+// Only link a service to "see the projects" when that category tag is actually used by at
+// least one published project — same rule as the Projets page's own filter buttons, so we
+// never link to an empty, confusing result.
+const projets = await getProjets();
+const usedCats = new Set(projets.flatMap((p) => p.data.categories));
 ---
 <Base title="Services" description="Image de marque, réalisation, gamification, web, illustration et pixel art, imprimé : les services d'Anorak Studio.">
   <PageTitle title="Services" />
@@ -46,6 +53,11 @@ import { services, site } from '../data/site';
                 </ol>
                 <p class="dt__note">{s.designThinkingNote}</p>
               </div>
+            )}
+            {s.category && usedCats.has(s.category) && (
+              <p class="svc__tag">
+                <a href={`/projets/#${encodeURIComponent(s.category)}`}>Voir les projets « {s.category} » →</a>
+              </p>
             )}
           </div>
         </article>
@@ -106,6 +118,19 @@ import { services, site } from '../data/site';
   .svc__section { margin-top: 1.2rem; }
   .svc__section h3 { font: 700 1.05rem/1.3 var(--f-display); margin-bottom: .4em; }
   .svc__section p { max-width: 50ch; color: var(--c-muted); }
+
+  .svc__tag { margin-top: 1.4rem; }
+  .svc__tag a {
+    display: inline-block; font: 600 .92rem/1 var(--f-body); padding: .55em 1.1em;
+    border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-ink);
+    text-decoration: none; transition: border-color .2s, box-shadow .2s, color .2s;
+  }
+  .svc__tag a:hover { border-color: var(--c-neon); box-shadow: inset 0 0 0 1px var(--c-neon); }
+  .svcband--brand .svc__tag a {
+    border-color: color-mix(in srgb, var(--c-brand-ink) 35%, transparent);
+    color: var(--c-brand-ink);
+  }
+  .svcband--brand .svc__tag a:hover { border-color: var(--c-neon); color: var(--c-neon); }
 
   .ai-note { max-width: 900px; text-align: center; padding-block: clamp(56px, 9vw, 110px); }
   .ai-note p { color: var(--c-brand); font: 800 clamp(1.4rem, 3.2vw, 2.3rem)/1.35 var(--f-display); margin: 0; }

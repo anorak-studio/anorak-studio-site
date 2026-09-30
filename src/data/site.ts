@@ -129,10 +129,24 @@ const SERVICE_ORDER: string[] = [
   'imprime',
 ];
 
+// The Projets filter category each service corresponds to, when there is a direct one-to-one
+// match (see `categories` above) — used on the Services page to link "see the projects" under a
+// service, e.g. /projets/#Gamification. Left out for services with no matching filter tag
+// (Conseils stratégiques, Prises de vues par drone).
+const SERVICE_CATEGORY: Partial<Record<string, string>> = {
+  identite: 'Identité',
+  realisation: 'Réalisation',
+  gamification: 'Gamification',
+  web: 'Web',
+  illustration: 'Illustration',
+  imprime: 'Imprimé',
+};
+
 const serviceItems = servicesData.items as unknown as Record<string, ServiceItem & { image: string }>;
 
 export const services = SERVICE_ORDER.map((id) => ({
   id,
+  category: SERVICE_CATEGORY[id],
   ...serviceItems[id],
 }));
 
