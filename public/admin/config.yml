@@ -69,6 +69,7 @@ collections:
           - { label: "Texte du bouton", name: "label", widget: "string" }
           - { label: "URL", name: "href", widget: "string" }
       - { label: "Fait avec l'IA", name: "ai", widget: "boolean", default: false, required: false }
+      - { label: "À découvrir (page d'accueil)", name: "aDecouvrir", widget: "boolean", default: false, required: false, hint: "Réglage interne pour toi seulement, jamais affiché sur le site : coche pour faire apparaître ce projet dans la section « À découvrir » de la page d'accueil." }
       - { label: "Note boutique", name: "shop", widget: "string", required: false }
       - label: "À compléter (rappels internes)"
         name: "todo"

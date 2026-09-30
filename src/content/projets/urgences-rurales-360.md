@@ -18,6 +18,7 @@ gallery:
   - /images/projets/urgences-rurales-360-11.jpg
   - /images/projets/urgences-rurales-360-12.jpg
 videos: ["Fj1gfmXJtEQ"]
+aDecouvrir: true
 order: 1
 links:
   - { label: "Le spectacle", href: "https://www.medecineurgence.ca/ur360cirque" }

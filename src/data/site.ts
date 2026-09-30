@@ -164,16 +164,9 @@ export const boutique = {
   href: 'https://www.wooders.ca/',
 };
 
-// Homepage "Projets récents": a curated set of 6, not the full list.
-// ABKT and La Mue stay off this list on purpose (they're in Réalisation instead).
+// Homepage "À découvrir": whichever projects have the internal "À découvrir" tag checked in
+// the CMS (data.aDecouvrir — see getADecouvrir() in src/lib/projets.ts), not a fixed list of
+// ids to maintain here in code.
 export const recents = {
-  title: 'Projets récents',
-  projects: [
-    'urgences-rurales-360',
-    'the-unearthly-notes',
-    'art-robots',
-    'doomed-raiders',
-    'datagotchi',
-    'hub-innovation-medecine-rurale',
-  ],
+  title: 'À découvrir',
 };

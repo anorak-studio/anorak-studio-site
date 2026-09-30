@@ -11,6 +11,7 @@ gallery:
   - /images/projets/hub-banner.jpg
 videos: ["WEr9rolI8sY"]
 ai: true
+aDecouvrir: true
 order: 7
 links:
   - { label: "medecineurgence.ca", href: "https://www.medecineurgence.ca/" }

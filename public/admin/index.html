@@ -6,6 +6,60 @@
     <title>Contenu — Anorak Studio</title>
   </head>
   <body>
+    <!-- Diagnostic banner: shows any JS error, unhandled promise rejection, or failed GitHub API
+         call on-screen instead of leaving it silent in the browser console. This is temporary,
+         to figure out exactly what happens when Publish appears to do nothing — if it fires,
+         screenshot the red banner (or copy its text) and send it over so the real cause can be
+         fixed, then this can come back out. Must load BEFORE decap-cms.js so it can wrap fetch. -->
+    <script>
+      (function () {
+        function showBanner(msg) {
+          var el = document.getElementById('cms-error-banner');
+          if (!el) {
+            el = document.createElement('div');
+            el.id = 'cms-error-banner';
+            el.style.cssText =
+              'position:fixed;top:0;left:0;right:0;z-index:999999;background:#b00020;' +
+              'color:#fff;font:13px/1.5 monospace;padding:12px 16px;white-space:pre-wrap;' +
+              'max-height:45vh;overflow:auto;box-shadow:0 2px 8px rgba(0,0,0,.4);';
+            var hint = document.createElement('div');
+            hint.textContent = '⚠ Erreur détectée — copie ce message ou fais une capture d\'écran, puis envoie-le à Claude :';
+            hint.style.cssText = 'font-weight:bold;margin-bottom:8px;';
+            el.appendChild(hint);
+            document.body.appendChild(el);
+          }
+          var line = document.createElement('div');
+          line.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg;
+          line.style.marginBottom = '10px';
+          el.appendChild(line);
+        }
+        window.addEventListener('error', function (e) {
+          showBanner('Erreur JS : ' + (e.message || (e.error && e.error.message) || e.error) +
+            (e.filename ? ' (' + e.filename + ':' + e.lineno + ')' : ''));
+        });
+        window.addEventListener('unhandledrejection', function (e) {
+          var reason = e.reason;
+          var msg = reason && reason.message ? reason.message : String(reason);
+          showBanner('Promesse non gérée : ' + msg);
+        });
+        var origFetch = window.fetch;
+        window.fetch = function () {
+          var url = arguments[0] && arguments[0].url ? arguments[0].url : arguments[0];
+          return origFetch.apply(this, arguments).then(function (res) {
+            if (!res.ok && String(url).indexOf('api.github.com') !== -1) {
+              res.clone().text().then(function (body) {
+                showBanner('Échec appel GitHub (' + res.status + ' ' + res.statusText + ') sur ' + url + ' : ' + body.slice(0, 500));
+              }).catch(function () {});
+            }
+            return res;
+          }).catch(function (err) {
+            showBanner('Échec réseau sur ' + url + ' : ' + (err && err.message ? err.message : err));
+            throw err;
+          });
+        };
+      })();
+    </script>
+
     <!-- Decap CMS: a free, git-based admin panel. It edits the same markdown files
          in src/content/projets/ that the site reads — no separate database.
          Pinned to an exact version (not a floating "^3.0.0" range): with a floating

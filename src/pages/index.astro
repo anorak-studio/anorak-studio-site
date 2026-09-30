@@ -8,10 +8,10 @@ import Featured from '../components/Featured.astro';
 import Social from '../components/Social.astro';
 import logoStudio from '../assets/logos/anorak-studio.svg?raw';
 import { site, services, realisation, gamification, boutique, carousel, recents } from '../data/site';
-import { getProjets, pickProjets } from '../lib/projets';
+import { getProjets, pickProjets, getADecouvrir } from '../lib/projets';
 
 const projets = await getProjets();
-const recentProjets = await pickProjets(recents.projects);
+const recentProjets = await getADecouvrir();
 const films = await pickProjets(realisation.projects);
 const jeux = await pickProjets(gamification.projects);
 const taglineWords = site.tagline.split(' ');
@@ -37,15 +37,17 @@ const taglineWords = site.tagline.split(' ');
 
   {carousel.length > 0 && <Carousel slides={carousel} />}
 
-  <section class="section">
-    <div class="wrap">
-      <div class="head">
-        <h2>{recents.title}</h2>
-        <a class="link" href="/projets/">Tous les projets →</a>
+  {recentProjets.length > 0 && (
+    <section class="section">
+      <div class="wrap">
+        <div class="head">
+          <h2>{recents.title}</h2>
+          <a class="link" href="/projets/">Tous les projets →</a>
+        </div>
+        <ProjectGrid projets={recentProjets} />
       </div>
-      <ProjectGrid projets={recentProjets} />
-    </div>
-  </section>
+    </section>
+  )}
 
   <section class="statement">
     <div class="wrap">

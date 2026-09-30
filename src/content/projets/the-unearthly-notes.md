@@ -13,6 +13,7 @@ gallery:
 videos: ["pyPA46oIRZ0"]
 episodes: ["the-parrot", "the-plant", "the-writer"]
 editorial: true
+aDecouvrir: true
 order: 2
 todo: []
 ---

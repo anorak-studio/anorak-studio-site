@@ -16,6 +16,7 @@ gallery:
   - /images/projets/art-robots-9.jpg
   - /images/projets/art-robots-10.jpg
 videos: ["p8KJVNJACYs"]
+aDecouvrir: true
 order: 4
 todo: []
 ---

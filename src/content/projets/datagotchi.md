@@ -29,6 +29,7 @@ links:
     href: https://prof-datagotchi.com
 ai: true
 todo: []
+aDecouvrir: true
 order: 8
 ---
 

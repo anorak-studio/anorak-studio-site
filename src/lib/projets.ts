@@ -14,6 +14,14 @@ export async function pickProjets(ids: string[]) {
   return ids.map((id) => all.find((p) => p.id === id)).filter((p) => p !== undefined);
 }
 
+/** Projects tagged "À découvrir" in the CMS (the `aDecouvrir` field — internal bookkeeping,
+ * never shown to visitors), in the same order as getProjets(). Drives the homepage "À
+ * découvrir" section, so that curation happens entirely from the CMS instead of a fixed list
+ * of ids hardcoded in site.ts. */
+export async function getADecouvrir() {
+  return (await getProjets()).filter((p) => p.data.aDecouvrir);
+}
+
 /** The image for a project's big detail-page hero band: `cover` if it's landscape (or its
  * dimensions are unknown), otherwise the first landscape image in `gallery` when there is one
  * — a portrait poster stretched full-width and cropped to a wide band loses far more of the
@@ -27,7 +35,7 @@ export function heroImageFor(data: CollectionEntry<'projets'>['data']): string |
   return landscapeGalleryImg ?? data.cover;
 }
 
-/** The image for a masonry grid vignette (Projets récents, grille Projets) — the opposite
+/** The image for a masonry grid vignette (À découvrir, grille Projets) — the opposite
  * preference from `heroImageFor`: these tiles are tall/portrait cards, so a vertical photo
  * reads better as a vignette than a landscape one does. An explicit `thumb` set in the CMS
  * always wins (that's the field's whole purpose — picking the grid vignette by hand), else

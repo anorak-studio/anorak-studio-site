@@ -37,6 +37,7 @@ videos:
   - { id: "nnvYn06pqTo", ratio: "portrait" }
   - { id: "wtj_6cCgZkM", ratio: "portrait" }
   - { id: "Jas44EyeR8I", ratio: "portrait" }
+aDecouvrir: true
 order: 6
 links:
   - { label: "Site de Doomed Raiders", href: "https://doomedraiders.com/" }

@@ -21,7 +21,7 @@ const projets = defineCollection({
     status: z.string().optional(), // e.g. "Documentaire en production"
     categories: z.array(z.string()).default([]), // shown on the project page and used by the filters
     cover: z.string().optional(),
-    // Horizontal image for grid tiles (Réalisation, Projets récents, etc.) when `cover` is a
+    // Horizontal image for grid tiles (Réalisation, À découvrir, etc.) when `cover` is a
     // vertical poster that wouldn't crop well as a small tile. Falls back to `cover` if unset.
     thumb: z.string().optional(),
     gallery: z.array(z.string()).default([]),
@@ -59,6 +59,11 @@ const projets = defineCollection({
     // everything else keeps the standard template. See [id].astro.
     editorial: z.boolean().default(false),
     ai: z.boolean().default(false), // shows an "IA" tag (project made with AI tools)
+    // Internal CMS-only tag: never shown to visitors, never listed in `categories`. It just
+    // decides which projects appear in the homepage "À découvrir" section (see getADecouvrir()
+    // in src/lib/projets.ts), so that section can be curated from the CMS instead of a fixed
+    // id list hardcoded in site.ts.
+    aDecouvrir: z.boolean().default(false),
     shop: z.string().optional(), // note shown with a "Boutique" button
     todo: z.array(z.string()).default([]), // what's missing: shown as a reminder until empty
     order: z.number().default(100), // position in the grid (new projects 1-99, old ones 100+)
