@@ -12,9 +12,9 @@ gallery:
   - /images/projets/the-writer-1.jpg
   - /images/projets/the-writer-6.jpg
 statements:
-  - { after: 1, text: "The Parrot — Un héritage. Un très vieil oiseau. Des mots de plus en plus sinistres." }
-  - { after: 3, text: "The Plant — Un appartement transformé en laboratoire. Une plante qui n'aurait pas dû exister." }
-  - { after: 5, text: "The Writer — Une ville hantée par son passé. Un écrivain qui découvre ce qu'il n'aurait pas dû voir." }
+  - { after: 1, text: "The Parrot — Après avoir hérité d'une maison dans le Vieux-Québec, Lauren découvre avec stupeur un vieil oiseau parlant dont les paroles deviennent inquiétantes." }
+  - { after: 3, text: "The Plant — Les expériences d'un spécialiste des sols sur des plantes carnivores prennent une tournure inattendue lorsque sa voisine Adeline se retrouve mêlée à ce mystère grandissant." }
+  - { after: 5, text: "The Writer — Alors qu'il parcourt les vieilles rues de Québec, un écrivain en visite commence à soupçonner que la ville abrite de lugubres habitants." }
 videos: ["pyPA46oIRZ0"]
 episodes: ["the-parrot", "the-plant", "the-writer"]
 order: 2
