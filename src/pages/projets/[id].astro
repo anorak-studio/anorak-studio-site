@@ -103,9 +103,9 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
     )}
 
     {episodes.length > 0 && d.videos.length > 0 && (
-      // Series trailer, big, left; each episode's own trailer in a small carousel to the right —
-      // right after the cover and the project's presentation (the header above), before anything
-      // else on the page.
+      // Series trailer, big and alone, centered at the top; each episode's own trailer in a
+      // carousel below it — right after the cover and the project's presentation (the header
+      // above), before anything else on the page.
       <div class="series-trailer wrap">
         <div class="series-trailer__main">
           <p class="series-trailer__label">Bande-annonce de la série</p>
@@ -299,6 +299,10 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
     document.querySelectorAll<HTMLImageElement>('.media img').forEach((img) => img.addEventListener('load', layoutMedia));
     addEventListener('resize', layoutMedia);
     layoutMedia();
+    // A quote tile's height depends on the display font, which can finish loading after this
+    // first pass — re-measure once it's ready so its row-span isn't stale (that mismatch was
+    // the occasional big gap/overlap in the grid).
+    document.fonts?.ready?.then(layoutMedia);
   </script>
 
   <section class="section others">
@@ -347,22 +351,27 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
   }
   .media > :global(img) { width: auto !important; max-width: 100%; }
   /* A big one-liner dropped right into the photo grid as its own tile (see mediaItems above) —
-     gives the page rhythm without another paragraph of body text. Sized/positioned like a photo
-     so the masonry script (below) measures and slots it in exactly the same way. */
+     gives the page rhythm without another paragraph of body text. No boxed background: just the
+     brand green on the page's own off-white, with generous air above/below so it reads as a beat
+     between photos rather than another heavy block. Sized/positioned like a photo so the masonry
+     script (below) measures and slots it in exactly the same way. */
   .media__quote {
     margin: 0; width: 100%; max-width: 640px; box-sizing: border-box;
     display: flex; align-items: center; justify-content: center; text-align: center;
-    min-height: 220px; padding: clamp(28px, 4vw, 48px);
-    background: var(--c-brand); color: var(--c-brand-ink); border-radius: var(--radius);
-    font: 800 clamp(1.3rem, 2.6vw, 2rem)/1.25 var(--f-display); letter-spacing: -0.01em;
+    padding: clamp(56px, 9vw, 104px) clamp(20px, 3vw, 40px);
+    background: none; color: var(--c-brand);
+    font: 800 clamp(1.4rem, 2.8vw, 2.2rem)/1.35 var(--f-display); letter-spacing: -0.01em;
   }
   /* Masonry (see the script above): once JS has measured each image, rows become a fine 4px
      grid with each image spanning just what it needs, so a short image doesn't get held down
-     to a tall neighbour's height — several shorter images stack and condense upward instead. */
-  .media.is-masonry { grid-auto-rows: 4px; row-gap: 0; }
+     to a tall neighbour's height — several shorter images stack and condense upward instead.
+     `dense` refills any holes left when a quote tile is pinned to a column (below) with whatever
+     photo comes next, instead of leaving a gap sitting empty until the grid reaches that column
+     on its own — that gap was the "big jump" in the flow. */
+  .media.is-masonry { grid-auto-rows: 4px; row-gap: 0; grid-auto-flow: dense; }
   @media (min-width: 1440px) {
     /* Two columns from ~18" monitors up — smaller/laptop screens keep one big full-width photo. */
-    .media { grid-template-columns: repeat(2, 1fr); }
+    .media { grid-template-columns: repeat(2, 1fr); grid-auto-flow: dense; }
     .media > :global(img) { width: 100% !important; }
     .media__quote { max-width: none; }
     /* Alternates which column a quote tile lands in — set explicitly (rather than relying on
@@ -412,16 +421,21 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
     .vrow--wide .vrow__item { flex: 0 0 100%; height: auto; }
   }
 
-  /* Series trailer (big, left) + a small carousel of each episode's own trailer (right). Reuses
-     the .vrow-wrap/.vrow/.vrow-nav classes above — same generic scroll/arrow script — sized down
-     via .vrow--episodes so each card fills its narrow column instead of the full-width rows. */
+  /* Series trailer, big and alone at the top, centered — then a full-width carousel of each
+     episode's own trailer below it. Reuses the .vrow-wrap/.vrow/.vrow-nav classes above (same
+     generic scroll/arrow script), with .ep-card sized so a few episodes sit side by side. */
   .series-trailer {
-    display: grid; gap: clamp(20px, 3vw, 32px);
+    display: flex; flex-direction: column; align-items: center;
+    gap: clamp(24px, 4vw, 40px);
     padding-block: clamp(24px, 4vw, 48px);
   }
-  @media (min-width: 900px) {
-    .series-trailer { grid-template-columns: 1.7fr 1fr; align-items: start; }
+  .series-trailer__main {
+    width: 100%;
+    /* 1.5x the width a single trailer gets elsewhere on the page (.vrow--wide's standard
+       16:9 item, clamp(200px,34vw,440px) tall) — big enough to lead the page on its own. */
+    max-width: clamp(534px, 51vw, 1173px);
   }
+  .series-trailer__eps { width: 100%; }
   .series-trailer__label {
     font: 700 .8rem/1 var(--f-body); text-transform: uppercase; letter-spacing: .1em;
     color: var(--c-muted); margin: 0 0 .7rem;
@@ -430,9 +444,9 @@ const videoParams = 'modestbranding=1&rel=0&iv_load_policy=3&playsinline=1';
   .series-trailer__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   .series-trailer__eps .vrow--episodes { padding-inline: 0; }
   .vrow--episodes .ep-card { flex: 0 0 84%; scroll-snap-align: start; }
-  @media (min-width: 900px) {
-    /* One at a time, filling the whole narrow column — the arrows cycle through episodes. */
-    .vrow--episodes .ep-card { flex: 0 0 100%; }
+  @media (min-width: 640px) {
+    /* Several episodes side by side in the now full-width row, scrollable if there are more. */
+    .vrow--episodes .ep-card { flex: 0 0 320px; }
   }
   .ep-card { display: flex; flex-direction: column; gap: 8px; }
   .ep-card__frame { position: relative; aspect-ratio: 16 / 9; background: #000; border-radius: var(--radius); overflow: hidden; }

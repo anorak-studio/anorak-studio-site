@@ -23,9 +23,9 @@ order: 1
 links:
   - { label: "Le projet de recherche", href: "https://www.medecineurgence.ca/initiatives/ur360" }
 statements:
-  - { after: 3, text: "Recherche scientifique. Arts vivants. Participation citoyenne." }
-  - { after: 7, text: "Des cas réels, des témoignages, un spectacle de cirque." }
-  - { after: 10, text: "Hommage à celles et ceux qui soignent, loin des grands centres." }
+  - { after: 3, text: "Un narrateur excentrique. Trois artistes de cirque. Des urgences bien réelles." }
+  - { after: 7, text: "La réalité des urgences, racontée en piste." }
+  - { after: 10, text: "Loin des grands centres, une résilience qu'on célèbre." }
 ---
 
 Urgences Rurales 360 est un docu-spectacle de cirque qui réunit recherche scientifique, arts vivants et participation citoyenne. Un narrateur excentrique et trois artistes de cirque y racontent la réalité des urgences en région à travers des cas réels, des témoignages et des projections visuelles, en rendant hommage à la résilience du personnel soignant hors des grands centres.
