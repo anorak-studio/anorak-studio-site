@@ -23,6 +23,7 @@ gallery:
   - /images/projets/the-plant-18.jpg
 videos: ["ivheFQJSjYk"]
 duration: "13:55"
+synopsis: "Owen, un spécialiste des sols temporairement installé à Québec, a transformé son appartement loué dans le Vieux-Québec en véritable laboratoire pour mener des recherches approfondies sur les sols et les plantes carnivores. Fasciné par l'aspect particulièrement étrange de l'une de ses plantes, ses expériences vont bientôt prendre une tournure inattendue. Contre toute attente, sa voisine Adeline se retrouve elle aussi mêlée à ce mystère, ne faisant qu'épaissir l'énigme."
 order: 2.2
 links:
   - { label: "Voir la série sur Bell TV1", href: "https://tv1.bell.ca/fibetv1/shows/the-unearthly-notes" }

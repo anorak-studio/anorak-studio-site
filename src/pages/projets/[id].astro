@@ -190,7 +190,7 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
       </>
     )}
 
-    {mediaItems.length > 0 && (
+    {mediaItems.length > 0 && !(d.editorial && episodes.length > 0) && (
       <div class="media wrap">
         {mediaItems.map((item, i) =>
           item.kind === 'image' ? (
@@ -202,11 +202,43 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
       </div>
     )}
 
-    {episodes.length > 0 && (
-      // One section per episode, in listed order — a title-card main image, a couple of stills,
-      // its own short pitch and (once set) its runtime. Each episode picks its own images via
-      // `thumb` (falls back to `cover`) for the main one and the first two `gallery` entries for
-      // the stills, so this needs no extra frontmatter of its own.
+    {episodes.length > 0 && d.editorial && (
+      // The richer "complex project" episode layout (first built for The Unearthly Notes): each
+      // episode is its own full-bleed section — a title-card main image, a couple of ambiance
+      // stills, its own official synopsis and duration — alternating dark/light backgrounds down
+      // the page for rhythm, in the same graphic language as the status band up in the header
+      // (dark background, off-white text, pill tags). Deliberately reuses each episode's fuller
+      // `synopsis` (not its one-line `summary`, already spent elsewhere on this page) so nothing
+      // here repeats something already said higher up.
+      episodes.map((ep, i) => (
+        <section class={`epedit ${i % 2 === 0 ? 'epedit--dark' : 'epedit--light'} ${i % 2 === 0 ? 'epedit--imgleft' : 'epedit--imgright'}`}>
+          <div class="epedit__wrap wrap">
+            <div class="epedit__images">
+              <div class="epedit__main">
+                <Img src={ep.data.thumb ?? ep.data.cover ?? ep.data.gallery[0]} alt={ep.data.title} />
+              </div>
+              <div class="epedit__stills">
+                {ep.data.gallery.slice(0, 3).map((src) => <Img src={src} alt={ep.data.title} ratio="4 / 3" />)}
+              </div>
+            </div>
+            <div class="epedit__info">
+              <div class="epedit__tags">
+                <span class="epedit__tag">Épisode {i + 1}</span>
+                {ep.data.duration && <span class="epedit__tag">{ep.data.duration}</span>}
+              </div>
+              <h3 class="epedit__title"><a href={`/projets/${ep.id}/`}>{ep.data.title}</a></h3>
+              <p class="epedit__text">{ep.data.synopsis ?? ep.data.summary}</p>
+              <a class="epedit__link" href={`/projets/${ep.id}/`}>Voir la fiche complète →</a>
+            </div>
+          </div>
+        </section>
+      ))
+    )}
+
+    {episodes.length > 0 && !d.editorial && (
+      // The standard, more compact episode listing (a title-card main image, a couple of stills,
+      // its own short pitch and duration) for a project that doesn't opt into the richer
+      // `editorial` layout above.
       <div class="eplist wrap">
         {episodes.map((ep, i) => (
           <div class="epsec">
@@ -570,6 +602,46 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
   .epsec__title a:hover { color: var(--c-brand); }
   .epsec__text { margin: 0; color: var(--c-ink); font-size: 1rem; line-height: 1.5; }
   .epsec__duration { margin: .7rem 0 0; font-size: .85rem; color: var(--c-muted); }
+
+  /* The "editorial" episode layout (see the `d.editorial` map above): each episode is a full-bleed
+     section alternating dark/light backgrounds for rhythm, in the same graphic language as the
+     header's status band (dark bg, off-white text, bordered pill tags) — just repeated once per
+     episode instead of once for the whole project. Custom properties per variant keep the tags,
+     link/title accent and muted text legible on either background from one shared rule set. */
+  .epedit { position: relative; padding-block: clamp(56px, 8vw, 120px); }
+  .epedit--dark {
+    background: var(--c-dark); color: var(--c-on-dark);
+    --epedit-tag-border: color-mix(in srgb, var(--c-on-dark) 35%, transparent);
+    --epedit-accent: var(--c-neon);
+  }
+  .epedit--light {
+    background: #fff; color: var(--c-ink);
+    --epedit-tag-border: color-mix(in srgb, var(--c-ink) 22%, transparent);
+    --epedit-accent: var(--c-brand);
+  }
+  .epedit__wrap { display: grid; gap: clamp(28px, 4vw, 56px); grid-template-areas: "images" "info"; align-items: center; }
+  .epedit__images { grid-area: images; display: flex; flex-direction: column; gap: clamp(10px, 1.5vw, 16px); }
+  .epedit__info { grid-area: info; }
+  .epedit__main { border-radius: var(--radius); overflow: hidden; }
+  .epedit__main :global(img) { width: 100%; display: block; }
+  .epedit__stills { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(8px, 1.2vw, 14px); }
+  .epedit__stills :global(img) { border-radius: var(--radius); display: block; }
+  .epedit__info { max-width: 60ch; }
+  .epedit__tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 1rem; }
+  .epedit__tag { display: inline-block; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; padding: .35em .9em; border-radius: 999px; border: 1px solid var(--epedit-tag-border); }
+  .epedit__title { margin: 0 0 .7rem; font-size: clamp(1.6rem, 3.4vw, 2.4rem); }
+  .epedit__title a { color: inherit; text-decoration: none; }
+  .epedit__title a:hover { color: var(--epedit-accent); }
+  .epedit__text { margin: 0; font-size: 1.05rem; line-height: 1.6; }
+  .epedit__link { display: inline-block; margin-top: 1.2rem; font-weight: 600; text-decoration: none; color: var(--epedit-accent); border-bottom: 2px solid var(--epedit-accent); padding-bottom: 2px; }
+  .epedit__link:hover { opacity: .8; }
+  @media (min-width: 1000px) {
+    .epedit__wrap { grid-template-columns: 1.2fr 1fr; grid-template-areas: "images info"; }
+    /* Alternates which side the images sit on (set per-episode above), so three sections in a
+       row don't all look identical — the light/dark rhythm already varies them once; this varies
+       the composition a second, subtler way. */
+    .epedit--imgright .epedit__wrap { grid-template-columns: 1fr 1.2fr; grid-template-areas: "info images"; }
+  }
 
   .others { background: var(--c-grey); margin-top: clamp(32px, 5vw, 64px); }
   .others h2 { margin-bottom: 1.2em; }

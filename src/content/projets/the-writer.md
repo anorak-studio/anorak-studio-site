@@ -23,6 +23,7 @@ gallery:
 thumb: "/images/projets/the-writer-15.jpg"
 videos: ["EdsdRQN1OdE"]
 duration: "9:59"
+synopsis: "Errant dans les vieilles rues brumeuses de Québec, un écrivain devient fasciné par l'architecture et l'atmosphère de la ville. Alors qu'il s'enfonce davantage dans ses rues labyrinthiques, la ville devient de plus en plus étrange, et il commence à soupçonner qu'elle abrite de lugubres habitants."
 order: 2.3
 links:
   - { label: "Voir la série sur Bell TV1", href: "https://tv1.bell.ca/fibetv1/shows/the-unearthly-notes" }

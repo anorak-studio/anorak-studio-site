@@ -4,30 +4,20 @@ summary: "Trois histoires autonomes transforment Québec en porte d'entrée vers
 status: "Série anthologique, 3 épisodes (38:44), sur Bell TV1"
 categories: ["Réalisation", "Identité"]
 cover: "/images/projets/the-unearthly-notes-poster.jpg"
+# Not shown anywhere on the page (the editorial layout below replaces the usual photo grid) —
+# kept only so the header's fixed background picks a landscape shot rather than falling back to
+# the (portrait) poster above; see heroImageFor() in src/lib/projets.ts.
 gallery:
   - /images/projets/the-parrot-6.jpg
-  - /images/projets/the-parrot-11.jpg
   - /images/projets/the-plant-4.jpg
-  - /images/projets/the-plant-11.jpg
-  - /images/projets/the-writer-1.jpg
-  - /images/projets/the-writer-6.jpg
-statements:
-  - { after: 1, text: "The Parrot — Après avoir hérité d'une maison dans le Vieux-Québec, Lauren découvre avec stupeur un vieil oiseau parlant dont les paroles deviennent inquiétantes." }
-  - { after: 3, text: "The Plant — Les expériences d'un spécialiste des sols sur des plantes carnivores prennent une tournure inattendue lorsque sa voisine Adeline se retrouve mêlée à ce mystère grandissant." }
-  - { after: 5, text: "The Writer — Alors qu'il parcourt les vieilles rues de Québec, un écrivain en visite commence à soupçonner que la ville abrite de lugubres habitants." }
 videos: ["pyPA46oIRZ0"]
 episodes: ["the-parrot", "the-plant", "the-writer"]
+editorial: true
 order: 2
-links:
-  - { label: "Regarder sur Bell TV1", href: "https://tv1.bell.ca/fibetv1/shows/the-unearthly-notes" }
 todo: ["Sélection en festival pour The Writer"]
 ---
 
-**The Unearthly Notes** est une anthologie d'horreur cosmique en trois parties tournée à Québec. À travers trois histoires originales et autonomes, la série explore différentes manifestations de la peur de l'inconnu.
-
-Un écrivain erre dans la vieille ville, fasciné par son architecture et ses habitants lugubres. Une jeune femme hérite d'une maison habitée par un mystérieux perroquet parlant. Un spécialiste des sols transforme un appartement du Vieux-Québec en laboratoire, où ses expériences sur des plantes carnivores prennent une tournure inattendue.
-
-Mêlant fiction historique, mystère psychologique, science étrange et horreur cosmique, l'anthologie révèle Québec sous un angle inhabituel, brumeux et inquiétant. Série de trois épisodes en anglais, diffusée sur Bell TV1.
+**The Unearthly Notes** est une anthologie d'horreur cosmique en trois parties tournée à Québec. À travers trois histoires originales et autonomes, la série explore différentes manifestations de la peur de l'inconnu, entre fiction historique, mystère psychologique et science étrange. Série de trois épisodes en anglais, diffusée sur Bell TV1.
 
 **Mathieu Fortin : scénariste, réalisateur, monteur, producteur exécutif et image de marque de la série.**
 

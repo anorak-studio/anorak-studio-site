@@ -47,7 +47,17 @@ const projets = defineCollection({
     // Runtime shown next to an episode's own description (e.g. on a series' detail page).
     // Freeform text ("12 min") rather than a number, since it's just displayed, not computed with.
     duration: z.string().optional(),
+    // The fuller official synopsis paragraph — distinct from the short one-sentence `summary`
+    // used for cards/meta/shock-statements elsewhere — used by a parent series' editorial
+    // episode sections (see `editorial` below) so that page never repeats the same sentence twice.
+    synopsis: z.string().optional(),
     links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
+    // Opts a project with `episodes` into the richer, more editorial detail-page layout (built
+    // for The Unearthly Notes): each episode becomes its own full visual section — images, its
+    // own synopsis and duration — with alternating dark/light backgrounds, instead of the
+    // standard page's photo masonry + compact episode list. For big, content-heavy projects only;
+    // everything else keeps the standard template. See [id].astro.
+    editorial: z.boolean().default(false),
     ai: z.boolean().default(false), // shows an "IA" tag (project made with AI tools)
     shop: z.string().optional(), // note shown with a "Boutique" button
     todo: z.array(z.string()).default([]), // what's missing: shown as a reminder until empty
