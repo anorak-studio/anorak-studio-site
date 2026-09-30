@@ -4,6 +4,15 @@ import { glob } from 'astro/loaders';
 // One Markdown file per project in src/content/projets/.
 // Old projects keep their WordPress slug as file name (/v2/portfolio/<slug>/ -> /projets/<slug>/).
 // This is also the shape a CMS (Decap, Sanity, etc.) would edit later.
+// YouTube video IDs. Accepts a plain string (old shape, defaults to "landscape" — every project
+// that already has videos is a normal 16:9 trailer) or an object with an explicit `ratio`, used
+// to size and group the video on the project page (see [id].astro): a portrait (e.g. a Short)
+// shows next to other portrait videos in their own full-width carousel, separate from
+// landscape/square ones, and each video's box matches its own ratio.
+const videoItem = z
+  .union([z.string(), z.object({ id: z.string(), ratio: z.enum(['landscape', 'portrait', 'square']).default('landscape') })])
+  .transform((v) => (typeof v === 'string' ? { id: v, ratio: 'landscape' as const } : v));
+
 const projets = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/projets' }),
   schema: z.object({
@@ -26,24 +35,15 @@ const projets = defineCollection({
     // episode in listed order), and each episode gets its own presentation section (main image,
     // a couple of stills, its summary and duration) further down the page — see [id].astro.
     episodes: z.array(z.string()).default([]),
-    // YouTube video IDs. Accepts a plain string (old shape, defaults to "landscape" — every
-    // project that already has videos is a normal 16:9 trailer) or an object with an explicit
-    // `ratio`, used to size and group the video on the project page (see [id].astro): a portrait
-    // (e.g. a Short) shows next to other portrait videos in their own full-width carousel,
-    // separate from landscape/square ones, and each video's box matches its own ratio.
-    videos: z
-      .array(
-        z
-          .union([
-            z.string(),
-            z.object({ id: z.string(), ratio: z.enum(['landscape', 'portrait', 'square']).default('landscape') }),
-          ])
-          .transform((v) => (typeof v === 'string' ? { id: v, ratio: 'landscape' as const } : v)),
-      )
-      .default([]),
+    videos: z.array(videoItem).default([]),
     // Shows the trailer(s) right at the top of the page (before any photos) instead of the
     // usual spot below the gallery — for a project page that's meant to lead with the video.
     videoFirst: z.boolean().default(false),
+    // Extra named video carousels, rendered further down the page (after the main photos/videos,
+    // before "Autres réalisations") — for a project with more than one distinct video collection,
+    // e.g. Living Lab Charlevoix's own intro video (in `videos` above) vs. its "Les Grands
+    // Entretiens" interview series. Each gets its own heading and its own carousel. See [id].astro.
+    videoGroups: z.array(z.object({ title: z.string(), videos: z.array(videoItem).default([]) })).default([]),
     // Runtime shown next to an episode's own description (e.g. on a series' detail page).
     // Freeform text ("12 min") rather than a number, since it's just displayed, not computed with.
     duration: z.string().optional(),

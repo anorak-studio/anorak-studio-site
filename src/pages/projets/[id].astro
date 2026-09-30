@@ -295,6 +295,30 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
         )}
       </div>
     )}
+
+    {/* Extra named video carousels (e.g. Living Lab Charlevoix's "Les Grands Entretiens"),
+        each its own heading + its own independent carousel, separate from the videos above. */}
+    {d.videoGroups.map((group) => (
+      <div class="vgroup wrap">
+        <h2 class="vgroup__title">{group.title}</h2>
+        <div class={`vrow-wrap ${group.videos.length > 1 ? 'vrow-wrap--single' : ''}`}>
+          <div class={`vrow vrow--wide ${group.videos.length > 1 ? 'vrow--single' : ''}`} role="list" aria-label={group.title}>
+            {group.videos.map((v) => (
+              <div class={`vrow__item vrow__item--${v.ratio}`} role="listitem">
+                <YouTubeFacade id={v.id} title={`${group.title}, ${d.title}`} />
+              </div>
+            ))}
+          </div>
+          {group.videos.length > 1 && (
+            <>
+              <button class="vrow-nav vrow-nav--prev" type="button" aria-label="Vidéo précédente"><svg viewBox="0 0 1000 1000" aria-hidden="true"><path d={chevronL} /></svg></button>
+              <button class="vrow-nav vrow-nav--next" type="button" aria-label="Vidéo suivante"><svg viewBox="0 0 1000 1000" aria-hidden="true"><path d={chevronR} /></svg></button>
+              <div class="vrow-dots">{group.videos.map((v, i) => <button aria-label={`Vidéo ${i + 1}`} data-i={i} />)}</div>
+            </>
+          )}
+        </div>
+      </div>
+    ))}
   </article>
 
   <script>
@@ -474,6 +498,8 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
      mix with 16:9/square ones — each item's box matches its own video's ratio, never stretched
      or letterboxed. Query params on the iframe (see above) already keep YouTube's own UI to a
      minimum; there's nothing more layered on top here. */
+  .vgroup { padding-top: clamp(24px, 4vw, 48px); }
+  .vgroup__title { font-size: clamp(1.3rem, 2.4vw, 1.8rem); margin: 0 0 .6rem; }
   .vrow-wrap { position: relative; }
   .vrow {
     display: flex; gap: clamp(12px, 2vw, 24px);
