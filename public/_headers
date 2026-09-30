@@ -1,0 +1,6 @@
+# Cloudflare Pages: never cache the CMS admin panel (index.html, config.yml). Without this,
+# a browser tab left open across a code/config change keeps running the OLD JavaScript —
+# no server-side fix takes effect until a fresh load actually happens. This guarantees every
+# visit to /admin/ fetches the current files instead of a stale cached copy.
+/admin/*
+  Cache-Control: no-store
