@@ -1,10 +1,11 @@
 ---
-title: "Art Robots"
-summary: "Court métrage sur la création à l'ère de l'intelligence artificielle. Prix du meilleur court métrage canadien, FIFA 42."
-status: "Court métrage, 2023"
-categories: ["Réalisation"]
+title: Art Robots
+summary: Court métrage sur la création à l'ère de l'intelligence artificielle.
+  Prix du meilleur court métrage canadien, FIFA 42.
+status: Court métrage, 2023
+categories:
+  - Réalisation
 cover: /images/projets/art-robots-poster.jpg
-videoFirst: true
 gallery:
   - /images/projets/art-robots-2.jpg
   - /images/projets/art-robots-3.jpg
@@ -14,12 +15,13 @@ gallery:
   - /images/projets/art-robots-7.jpg
   - /images/projets/art-robots-8.jpg
   - /images/projets/art-robots-9.jpg
-  - /images/projets/art-robots-10.jpg
 videos:
-  - { id: "p8KJVNJACYs", ratio: "landscape" }
+  - id: p8KJVNJACYs
+    ratio: landscape
 aDecouvrir: true
-order: 4
 todo: []
+order: 4
+videoFirst: true
 ---
 
 Un court métrage de Mathieu Fortin qui questionne la place de l'intelligence artificielle dans la création artistique. Canada, 2023, 5 min, sans dialogue.
