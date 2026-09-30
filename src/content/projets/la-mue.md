@@ -1,13 +1,18 @@
 ---
 title: "La Mue"
-summary: "Un film de Mathieu Fortin. Sélection en compétition nationale au FIFA 43."
+summary: "Après s'être engagé à créer un court métrage, un réalisateur se questionne sur l'origine des idées et le cycle de vie des projets."
 status: "Court métrage, 2024"
-categories: ["Réalisation"]
+categories: ["Réalisation", "Identité"]
 cover: /images/site/carrousel-3.jpg
 gallery: []
 videos: ["4h0r-mGPlSY"]
+videoFirst: true
 order: 5
-todo: ["Synopsis", "Durée et crédits", "Bande-annonce"]
+todo: ["Durée du film", "Images du film"]
 ---
 
-Un film de Mathieu Fortin, produit par Anorak Studio et Kinomada (2024). Sélectionné en compétition nationale au 43e Festival International du Film sur l'Art (FIFA).
+Après s'être engagé à créer un court métrage, un réalisateur se questionne sur l'origine des idées et le cycle de vie des projets.
+
+**Réalisation, scénario et montage : Mathieu Fortin.** Produit par Anorak Studio (Mathieu Fortin) et Kinomada (Yannick Nolin). Caméra : Ph Debiès (intérieur), Mathieu Fortin (extérieur). Musique : NEROCHE; Roadside Oddities, *A Route Obscure*; Elixir, *Spirit Vine*; Roadside Oddities, *Separation Of Matter*; Tryptamine, *From The Elements*.
+
+Sélectionné en compétition nationale au 43e Festival International du Film sur l'Art (FIFA).
