@@ -19,6 +19,7 @@ gallery:
   - /images/projets/urgences-rurales-360-12.jpg
 videos:
   - { id: "Fj1gfmXJtEQ", ratio: "landscape" }
+videoFirst: true
 aDecouvrir: true
 order: 1
 links:
