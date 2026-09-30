@@ -668,7 +668,11 @@ const chevronR = 'M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 1
     .epedit--imgright .epedit__wrap { grid-template-columns: 1fr 1.2fr; grid-template-areas: "info images"; }
   }
 
-  .others { background: var(--c-grey); margin-top: clamp(32px, 5vw, 64px); }
+  /* No extra margin-top here: `.section` (global.css) already adds its own top padding, and
+     whatever comes right before this (the photo grid, a video row) already ends with its own
+     bottom padding too — stacking a third gap on top of both left a big unintended "hole"
+     between the end of a project and "Autres réalisations". */
+  .others { background: var(--c-grey); }
   .others h2 { margin-bottom: 1.2em; }
   .all { margin: 32px 0 0; }
 </style>
