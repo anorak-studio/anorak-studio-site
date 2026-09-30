@@ -80,7 +80,7 @@ export type Slide = {
 export const carousel: Slide[] = [
   { media: { type: 'image', src: '/images/site/carrousel-4.jpg' }, title: 'Urgences Rurales 360', text: 'Docu-cirque et transfert de connaissances', showText: true, href: '/projets/urgences-rurales-360/', cta: 'Voir le projet' },
   { media: { type: 'image', src: '/images/site/carrousel-2.jpg' }, title: 'Art Robots', text: 'Prix du meilleur court métrage canadien, FIFA 42', showText: true, href: '/projets/art-robots/', cta: 'Voir le projet' },
-  { media: { type: 'image', src: '/images/site/carrousel-3.jpg' }, title: 'La Mue', text: 'Compétition nationale, FIFA 43', showText: true, href: '/projets/la-mue/', cta: 'Voir le projet' },
+  { media: { type: 'image', src: '/images/projets/the-plant-9.jpg' }, title: 'The Plant', text: 'The Unearthly Notes, sélection officielle H.P. Lovecraft Film Festival', showText: true, href: '/projets/the-plant/', cta: 'Voir le projet' },
   { media: { type: 'image', src: '/images/site/carrousel-1.jpg' }, title: 'Doomed Raiders', text: 'Anorak Studio Games, annoncé pour 2027', showText: true, href: '/projets/doomed-raiders/', cta: 'Voir le projet' },
   { media: { type: 'image', src: '/images/site/carrousel-5.jpg' }, title: 'Prises de vues par drone', text: 'Un de nos services', showText: true, href: '/services/#drone', cta: 'Voir le service' },
 ];
