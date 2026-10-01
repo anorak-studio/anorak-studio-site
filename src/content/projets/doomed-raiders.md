@@ -18,15 +18,15 @@ cover: /images/projets/doomed-raiders-cover.jpg
 thumb: /images/projets/doomed-raiders-thumb.jpg
 gallery:
   - /images/projets/doomed-raiders-1.jpg
+  - /images/projets/doomed-raiders-16.jpg
   - /images/projets/doomed-raiders-4.jpg
-  - /images/projets/doomed-raiders-5.jpg
   - /images/projets/doomed-raiders-6.jpg
   - /images/projets/doomed-raiders-12.jpg
   - /images/projets/doomed-raiders-13.jpg
-  - /images/projets/doomed-raiders-14.jpg
   - /images/projets/doomed-raiders-15.jpg
-  - /images/projets/doomed-raiders-16.jpg
+  - /images/projets/doomed-raiders-14.jpg
   - /images/projets/doomed-raiders-17.jpg
+  - /images/projets/doomed-raiders-5.jpg
 videos:
   - id: vE-tIhJjqfg
     ratio: portrait
