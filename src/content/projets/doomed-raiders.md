@@ -39,8 +39,10 @@ videos:
   - { id: "Jas44EyeR8I", ratio: "portrait" }
 aDecouvrir: true
 order: 6
-links:
-  - { label: "Site de Doomed Raiders", href: "https://doomedraiders.com/" }
+# Site web de Doomed Raiders pas encore prêt — bouton retiré de la page du projet pour
+# l'instant. Pour le remettre : décommenter les 2 lignes ci-dessous.
+# links:
+#   - { label: "Site de Doomed Raiders", href: "https://doomedraiders.com/" }
 todo: []
 ---
 
