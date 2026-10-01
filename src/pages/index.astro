@@ -103,6 +103,12 @@ const taglineWords = site.tagline.split(' ');
     </div>
   </section>
 
+  <section class="gband">
+    <div class="wrap">
+      <p>{gamification.intro[1]}</p>
+    </div>
+  </section>
+
   {site.showBoutique && (
     <section class="shop">
       <div class="wrap shop__in">
@@ -197,6 +203,15 @@ const taglineWords = site.tagline.split(' ');
   .duo__head p { font-size: 1.12rem; }
   .ferns .eyebrow, .ferns .duo__head p { color: color-mix(in srgb, var(--c-on-dark) 75%, transparent); }
   .duo__more { margin: 2.4rem 0 0; }
+
+  /* Short green band: doubles as a breather/divider between the Gamification section and
+     Projets below (same role the Boutique band used to play when it sat here — this just
+     doesn't depend on the shop being on). */
+  .gband { background: var(--c-brand); color: var(--c-brand-ink); padding-block: clamp(40px, 6vw, 72px); }
+  .gband p {
+    max-width: 62ch; margin: 0 auto; text-align: center;
+    font: 700 clamp(1.15rem, 2.2vw, 1.5rem)/1.45 var(--f-display);
+  }
 
   .shop { background: var(--c-grey); padding-block: clamp(48px, 7vw, 80px); cursor: var(--cursor-heart); }
   .shop * { cursor: var(--cursor-heart); }
