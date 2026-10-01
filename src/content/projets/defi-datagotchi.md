@@ -13,15 +13,11 @@ thumb: /images/projets/datagotchi-1.gif
 gallery:
   - /images/projets/defi-datagotchi-2.jpg
   - /images/projets/defi-datagotchi-3.jpg
-  - /images/projets/defi-datagotchi-4.jpg
-  - /images/projets/defi-datagotchi-5.png
+  - /images/projets/cluster8-julie-en-b.gif
   - /images/projets/defi-datagotchi-6.jpg
-  - /images/projets/defi-datagotchi-7.png
   - /images/projets/defi-datagotchi-8.jpg
-  - /images/projets/defi-datagotchi-9.png
-  - /images/projets/defi-datagotchi-10.jpg
-  - /images/projets/defi-datagotchi-11.png
-  - /images/projets/defi-datagotchi-12.jpg
+  - /images/projets/cluster_rci_plotfr_withoutlogo_emily.gif
+  - /images/projets/_spritesantédatagotchi-demo1c-.gif
 videos: []
 links:
   - label: quebec.datagotchi.com
