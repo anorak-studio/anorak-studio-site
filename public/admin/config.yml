@@ -15,6 +15,15 @@ backend:
   # (voir functions/auth.js et functions/callback.js). Pas besoin de Netlify.
   base_url: https://anorak-studio-site.pages.dev
 
+# Flux de travail éditorial : un clic sur "Save" ne pousse plus directement le changement
+# en ligne. Il crée plutôt une branche + "pull request" à part (visible dans l'onglet
+# "Editorial workflow" en haut du CMS, colonnes Drafts / In review / Ready), que
+# Cloudflare Pages déploie automatiquement sur sa PROPRE adresse de prévisualisation —
+# un vrai "site de DEV" séparé, qui ne touche jamais anorakstudio.ca. Seul le bouton
+# "Publish" (visible une fois l'entrée en colonne "Ready") fusionne réellement le
+# changement dans `main`, ce qui déclenche le vrai déploiement sur anorakstudio.ca.
+publish_mode: editorial_workflow
+
 media_folder: "public/images/projets"
 public_folder: "/images/projets"
 
