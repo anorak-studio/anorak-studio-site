@@ -103,19 +103,21 @@ const taglineWords = site.tagline.split(' ');
     </div>
   </section>
 
-  <section class="shop">
-    <div class="wrap shop__in">
-      <div>
-        <span class="eyebrow">Boutique</span>
-        <h2>{boutique.title}</h2>
-        <p>{boutique.text}</p>
+  {site.showBoutique && (
+    <section class="shop">
+      <div class="wrap shop__in">
+        <div>
+          <span class="eyebrow">Boutique</span>
+          <h2>{boutique.title}</h2>
+          <p>{boutique.text}</p>
+        </div>
+        <div class="shop__cta">
+          <a class="btn" href="/boutique/">La boutique</a>
+          <a class="link" href={boutique.href} target="_blank" rel="noopener">wooders.ca →</a>
+        </div>
       </div>
-      <div class="shop__cta">
-        <a class="btn" href="/boutique/">La boutique</a>
-        <a class="link" href={boutique.href} target="_blank" rel="noopener">wooders.ca →</a>
-      </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   <section class="section">
     <div class="wrap">

@@ -4,10 +4,13 @@
 // here yet, see docs/boutique-plan.md for the fuller plan.
 import Base from '../layouts/Base.astro';
 import PageTitle from '../components/PageTitle.astro';
-import { boutique } from '../data/site';
+import { site, boutique } from '../data/site';
 import { getShopProducts, formatPrice } from '../lib/shopify';
 
-const products = await getShopProducts();
+// site.showBoutique is off for now (see src/data/site.ts) — skip the Shopify call
+// entirely and fall back to the old "Bientôt" placeholder below. Flip that flag back on
+// when we're ready to sell; nothing else here needs to change.
+const products = site.showBoutique ? await getShopProducts() : [];
 ---
 <Base title="Boutique" description={boutique.text}>
   <PageTitle title="Boutique" />

@@ -63,6 +63,13 @@ export const site = {
   formAccessKey: 'f3812c8e-8b9a-466e-b4a7-5091b2afb608',
   // Shows the "À compléter" reminders on projects. Set to false before launch.
   showTodo: true,
+  // Hides the webshop everywhere on the public site (nav link, homepage "Boutique" band,
+  // and the /boutique/ page itself falls back to its old "Bientôt" placeholder instead of
+  // calling Shopify) while we're not ready to sell yet. All the Shopify/Printify work
+  // (src/lib/shopify.ts, the real product grid in src/pages/boutique.astro, the Shopify
+  // store itself) stays exactly as built — this is the one switch to flip back to `true`
+  // once we want it live again.
+  showBoutique: false,
 };
 
 export const nav = [
@@ -73,7 +80,7 @@ export const nav = [
   { label: 'Gamification', href: '/gamification/' },
   { label: 'Boutique', href: '/boutique/' },
   { label: 'Contact', href: '/contact/' },
-];
+].filter((item) => site.showBoutique || item.label !== 'Boutique');
 
 // Filters on the Projets page, in this order. Each project lists its own in its file.
 // Home carousel: full width. Each slide: media, optional text over it, link.
