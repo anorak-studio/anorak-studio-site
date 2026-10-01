@@ -10,7 +10,7 @@ categories:
   - Web
   - Identité
 cover: /images/projets/defi-datagotchi-10.jpg
-thumb: /images/projets/defi-datagotchi-10.jpg
+thumb: /images/projets/defi-datagotchi-1.jpg
 gallery:
   - /images/projets/datagotchi-4.jpg
   - /images/projets/datagotchi-5.jpg
@@ -28,8 +28,8 @@ links:
   - label: Prof. Datagotchi
     href: https://prof-datagotchi.com
 ai: true
-todo: []
 aDecouvrir: true
+todo: []
 order: 8
 ---
 
