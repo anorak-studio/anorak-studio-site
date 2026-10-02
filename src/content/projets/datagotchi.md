@@ -9,16 +9,17 @@ categories:
   - Science
   - Web
   - Identité
-cover: /images/projets/defi-datagotchi-10.jpg
-thumb: /images/projets/screenshot-2026-10-01-at-8.17.35 pm.png
+cover: /images/projets/screenshot-2026-10-01-at-9.04.12 pm.png
+thumb: /images/projets/screenshot-2026-10-01-at-9.04.12 pm.png
 gallery:
   - /images/projets/datagotchi-4.jpg
   - /images/projets/screenshot-2026-10-01-at-8.17.35 pm.png
   - /images/projets/datagotchi-6.jpg
   - /images/projets/datagotchi-7.jpg
   - /images/projets/datagotchi-8.jpg
-  - /images/projets/datagotchi-9.jpg
+  - /images/projets/_spritesantédatagotchi-demo1c-.gif
   - /images/projets/datagotchi-10.jpg
+  - /images/projets/cluster_rci_plotfr_withoutlogo_emily.gif
 videos: []
 links:
   - label: datagotchi.com
