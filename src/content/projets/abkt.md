@@ -10,7 +10,7 @@ gallery:
 videos:
   - { id: "77Zuz2RxmQg", ratio: "landscape" }
 order: 3
-todo: ["Date de sortie prévue"]
+todo: []
 ---
 
 ABKT (*Arts-Based Knowledge Translation*, ou traduction des connaissances basée sur les arts) explore comment les approches artistiques peuvent communiquer les résultats de la recherche à ses publics cibles, et réduire l'écart entre les connaissances et l'action.
