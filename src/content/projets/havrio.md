@@ -16,7 +16,7 @@ gallery:
   - /images/projets/havrio-7.jpg
 videos:
   - ratio: landscape
-    id: https://youtu.be/pDfwFEWCyeM
+    id: pDfwFEWCyeM
 todo: []
 order: 12
 ---
