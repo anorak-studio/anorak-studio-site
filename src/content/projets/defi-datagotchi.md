@@ -9,10 +9,10 @@ categories:
   - Web
   - Illustration
 cover: /images/projets/defi-datagotchi-8.jpg
-thumb: /images/projets/datagotchi-1.gif
+thumb: /images/projets/screenshot-2026-10-01-at-7.31.32 pm.png
 gallery:
   - /images/projets/defi-datagotchi-2.jpg
-  - /images/projets/defi-datagotchi-3.jpg
+  - /images/projets/screenshot-2026-10-01-at-7.31.32 pm.png
   - /images/projets/cluster8-julie-en-b.gif
   - /images/projets/defi-datagotchi-6.jpg
   - /images/projets/defi-datagotchi-8.jpg
