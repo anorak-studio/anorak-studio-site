@@ -9,7 +9,7 @@ categories:
   - Web
   - Illustration
 cover: /images/projets/defi-datagotchi-8.jpg
-thumb: /images/projets/screenshot-2026-10-01-at-7.31.32 pm.png
+thumb: /images/projets/datagotchi-1.gif
 gallery:
   - /images/projets/defi-datagotchi-2.jpg
   - /images/projets/screenshot-2026-10-01-at-7.31.32 pm.png
