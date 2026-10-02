@@ -16,6 +16,8 @@ episodes: ["the-parrot", "the-plant", "the-writer"]
 editorial: true
 aDecouvrir: true
 order: 2
+links:
+  - { label: "Bell TV1", href: "https://tv1.bell.ca/fibetv1/shows/the-unearthly-notes" }
 todo: []
 ---
 
