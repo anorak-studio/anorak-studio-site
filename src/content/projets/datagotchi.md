@@ -10,7 +10,7 @@ categories:
   - Web
   - Identité
 cover: /images/projets/defi-datagotchi-10.jpg
-thumb: /images/projets/screenshot-2026-10-01-at-7.31.32 pm.png
+thumb: /images/projets/screenshot-2026-10-01-at-8.17.35 pm.png
 gallery:
   - /images/projets/datagotchi-4.jpg
   - /images/projets/screenshot-2026-10-01-at-8.17.35 pm.png
