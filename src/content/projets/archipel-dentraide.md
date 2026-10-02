@@ -1,23 +1,31 @@
 ---
-title: "L'Archipel d'Entraide"
-summary: "Refonte de l'image de marque de L'Archipel d'Entraide et de son magazine de rue La Quête, conception et développement du site web, à Québec."
-status: "Identité visuelle, illustration et site web"
-categories: ["Identité", "Illustration", "Web"]
-cover: "/images/projets/archipel-dentraide-1.jpg"
+title: L'Archipel d'Entraide
+summary: Refonte de l'image de marque de L'Archipel d'Entraide et de son
+  magazine de rue La Quête, conception et développement du site web, à Québec.
+status: Identité visuelle, illustration et site web
+categories:
+  - Identité
+  - Illustration
+  - Web
+cover: /images/projets/screenshot-2026-10-01-at-3.17.32 pm.png
+thumb: /images/projets/screenshot-2026-10-01-at-6.09.20 pm.png
 gallery:
   - /images/projets/archipel-dentraide-2.jpg
-  - /images/projets/archipel-dentraide-3.jpg
-  - /images/projets/archipel-dentraide-4.jpg
+  - /images/projets/screenshot-2026-10-01-at-3.16.31 pm.png
+  - /images/projets/screenshot-2026-10-01-at-6.09.20 pm.png
   - /images/projets/archipel-dentraide-5.jpg
   - /images/projets/archipel-dentraide-6.jpg
   - /images/projets/archipel-dentraide-7.jpg
   - /images/projets/archipel-dentraide-8.jpg
+  - /images/projets/screenshot-2026-10-01-at-6.09.20 pm.png
+  - /images/projets/screenshot-2026-10-01-at-3.10.01 pm.png
 videos: []
-ai: true
-order: 11
 links:
-  - { label: "larchipel-dentraide.org", href: "https://www.larchipel-dentraide.org/" }
+  - label: larchipel-dentraide.org
+    href: https://www.larchipel-dentraide.org/
+ai: true
 todo: []
+order: 11
 ---
 
 L'Archipel d'Entraide est un organisme communautaire de Québec qui accompagne les personnes touchées par la dépendance, l'itinérance et les enjeux de santé mentale, à travers plusieurs programmes : Accroche-Toit (aide au logement), Le Répit (halte-répit), Porte Clés (réinsertion résidentielle) et un suivi communautaire — ainsi que La Quête, son magazine de rue vendu par ses camelots comme outil de réinsertion sociale.
